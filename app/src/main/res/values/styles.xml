@@ -1,0 +1,49 @@
+<resources>
+
+    <!--액티비티-->
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+
+        <item name="colorPrimary">@color/color_primary</item>
+        <item name="colorPrimaryDark">@color/color_primary_dark</item>
+        <item name="colorAccent">@color/color_accent</item>
+
+        <item name="android:windowBackground">@drawable/background_splash</item>
+        <item name="android:windowTranslucentStatus">false</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+
+    </style>
+
+    <style name="TransparentTheme" parent="AppTheme">
+
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowAnimationStyle">@null</item>
+        <item name="android:backgroundDimEnabled">false</item>
+
+    </style>
+
+    <style name="SharedTheme" parent="TransparentTheme">
+
+        <item name="android:windowEnterTransition">@transition/slide</item>
+        <item name="android:windowExitTransition">@transition/slide</item>
+
+        <item name="android:windowContentTransitions">true</item>
+        <item name="android:windowSharedElementEnterTransition">@transition/change_bounds</item>
+        <item name="android:windowSharedElementExitTransition">@transition/change_bounds</item>
+
+    </style>
+
+    <!--뷰-->
+
+    <style name="CheckButton">
+
+        <item name="android:foreground">?android:attr/selectableItemBackground</item>
+        <item name="android:elevation">@dimen/focus_elevation</item>
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+
+    </style>
+
+</resources>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--머테리얼-->
+    <color name="color_primary">#fafafa</color>
+    <color name="color_primary_dark">#fafafa</color>
+    <color name="color_accent">#64e6b4</color>
+
+    <!--배경-->
+    <color name="background_color">#fafafa</color>
+    <color name="card_color">#ffffff</color>
+
+    <!--상태-->
+    <color name="highlight_color">#52cc9d</color>
+    <color name="positive_color">#81b3e6</color>
+    <color name="negative_color">#f48381</color>
+
+    <!--텍스트-->
+    <color name="text_bright_color">#ffffff</color>
+    <color name="text_semi_bright_color">#e6e6e6</color>
+    <color name="text_dark_color">#333333</color>
+    <color name="text_semi_dark_color">#4e4e4e</color>
+
+</resources>

@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:check_button="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!--타이틀-->
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/name_support"
+        android:textColor="@color/text_dark_color"
+        android:textSize="50sp"
+        android:alpha="0.1"
+        android:paddingTop="@dimen/activity_padding"
+        android:paddingStart="@dimen/inner_padding"/>
+
+    <!--내용-->
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="@dimen/activity_top_padding">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/alert_check_purchased"
+                android:textSize="@dimen/text_semi_content_size"
+                android:textColor="#ff0000"
+                android:gravity="center"
+                android:layout_marginStart="@dimen/activity_padding"
+                android:layout_marginEnd="@dimen/activity_padding"
+                android:layout_marginBottom="@dimen/activity_padding"/>
+
+            <LinearLayout
+                android:id="@+id/support_purchase_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/name_purchase"
+                    android:textSize="@dimen/text_semi_content_size"
+                    android:textColor="@color/text_dark_color"
+                    android:layout_marginStart="@dimen/activity_padding"/>
+
+                <GridLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:columnCount="2"
+                    android:paddingStart="@dimen/activity_padding"
+                    android:paddingTop="@dimen/inner_padding"
+                    android:paddingBottom="@dimen/activity_padding"
+                    android:clipToPadding="false">
+
+                    <nm.security.namooprotector.widget.CheckButton
+                        android:id="@+id/support_purchase_remove_ad_button"
+                        android:layout_width="@dimen/check_button_length"
+                        android:layout_height="@dimen/check_button_length"
+                        style="@style/CheckButton"
+                        check_button:checked="false"
+                        check_button:image="0"
+                        check_button:description="@string/error_name_not_found"
+                        check_button:title="@string/name_remove_ad"/>
+
+                </GridLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/support_donate_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/name_donate"
+                    android:textSize="@dimen/text_semi_content_size"
+                    android:textColor="@color/text_dark_color"
+                    android:layout_marginStart="@dimen/activity_padding"/>
+
+                <GridLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:columnCount="2"
+                    android:paddingStart="@dimen/activity_padding"
+                    android:paddingTop="@dimen/inner_padding"
+                    android:paddingBottom="@dimen/activity_padding"
+                    android:clipToPadding="false">
+
+                    <nm.security.namooprotector.widget.CheckButton
+                        android:id="@+id/support_donate_coke_button"
+                        android:layout_width="@dimen/check_button_length"
+                        android:layout_height="@dimen/check_button_length"
+                        style="@style/CheckButton"
+                        check_button:checked="false"
+                        check_button:image="0"
+                        check_button:description="@string/error_name_not_found"
+                        check_button:title="@string/name_coke"/>
+
+                    <nm.security.namooprotector.widget.CheckButton
+                        android:id="@+id/support_donate_meal_button"
+                        android:layout_width="@dimen/check_button_length"
+                        android:layout_height="@dimen/check_button_length"
+                        android:layout_marginStart="@dimen/space_padding"
+                        style="@style/CheckButton"
+                        check_button:checked="false"
+                        check_button:image="0"
+                        check_button:description="@string/error_name_not_found"
+                        check_button:title="@string/name_meal"/>
+
+                    <nm.security.namooprotector.widget.CheckButton
+                        android:id="@+id/support_donate_eco_bag_button"
+                        android:layout_width="@dimen/check_button_length"
+                        android:layout_height="@dimen/check_button_length"
+                        android:layout_marginTop="@dimen/space_padding"
+                        style="@style/CheckButton"
+                        check_button:checked="false"
+                        check_button:image="0"
+                        check_button:description="@string/error_name_not_found"
+                        check_button:title="@string/name_eco_bag"/>
+
+                    <nm.security.namooprotector.widget.CheckButton
+                        android:id="@+id/support_donate_collect_for_laptop_button"
+                        android:layout_width="@dimen/check_button_length"
+                        android:layout_height="@dimen/check_button_length"
+                        android:layout_marginStart="@dimen/space_padding"
+                        android:layout_marginTop="@dimen/space_padding"
+                        style="@style/CheckButton"
+                        check_button:checked="false"
+                        check_button:image="0"
+                        check_button:description="@string/error_name_not_found"
+                        check_button:title="@string/name_collect_for_laptop"/>
+
+                </GridLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

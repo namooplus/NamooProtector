@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!--타이틀-->
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/name_lock_apps"
+        android:textColor="@color/text_dark_color"
+        android:textSize="50sp"
+        android:alpha="0.1"
+        android:paddingTop="@dimen/activity_padding"
+        android:paddingStart="@dimen/inner_padding"/>
+
+    <!--내용-->
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:descendantFocusability="blocksDescendants">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="@dimen/activity_top_padding"
+            android:paddingBottom="@dimen/activity_bottom_padding">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/lock_apps_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:nestedScrollingEnabled="false"/>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <LinearLayout
+        android:id="@+id/lock_apps_loading_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/background_color"
+        android:gravity="center"
+        android:clickable="true"
+        android:focusable="true">
+
+        <ProgressBar
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            style="?android:attr/progressBarStyleLarge"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_padding"
+            android:text="@string/alert_loading_app"
+            android:textSize="@dimen/text_semi_content_size"
+            android:textColor="@color/text_semi_dark_color"/>
+
+    </LinearLayout>
+
+    <!--메뉴-->
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/lock_apps_unselect_all_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="@dimen/activity_padding"
+        app:srcCompat="@drawable/vector_clear"
+        android:tint="@color/text_bright_color"
+        app:elevation="@dimen/focus_elevation"
+        app:fabSize="normal"/>
+
+</RelativeLayout>

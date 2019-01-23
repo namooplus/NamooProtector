@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.ssomai.android.scalablelayout.ScalableLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:sl="http://schemas.android.com/apk/res-auto"
+    tools:ignore="MissingPrefix"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    sl:scale_base_width="1200"
+    sl:scale_base_height="600">
+
+    <ImageView
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        sl:scale_width="250"
+        sl:scale_height="250"
+        sl:scale_top="175"
+        sl:scale_left="475"
+        android:src="@drawable/background_circle_white_translucent"
+        android:elevation="@dimen/focus_elevation"/>
+
+    <ImageView
+        android:id="@+id/lockscreen_icon_indicator"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        sl:scale_width="150"
+        sl:scale_height="150"
+        sl:scale_top="225"
+        sl:scale_left="525"
+        tools:src="@mipmap/ic_launcher"
+        android:elevation="@dimen/focus_elevation"/>
+
+    <ImageView
+        android:id="@+id/lockscreen_fingerprint_indicator"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        sl:scale_width="100"
+        sl:scale_height="100"
+        sl:scale_top="325"
+        sl:scale_left="625"
+        android:src="@drawable/icon_fingerprint"
+        android:elevation="@dimen/focus_elevation"
+        android:visibility="invisible"
+        tools:visibility="visible"/>
+
+    <TextView
+        android:id="@+id/lockscreen_pin_indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        sl:scale_width="1200"
+        sl:scale_height="100"
+        sl:scale_top="450"
+        sl:scale_left="0"
+        tools:text="••••••"
+        sl:scale_textsize="80"
+        android:gravity="center"
+        android:textColor="@color/text_bright_color"/>
+
+</com.ssomai.android.scalablelayout.ScalableLayout>

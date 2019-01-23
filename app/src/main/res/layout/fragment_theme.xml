@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:check_button="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!--타이틀-->
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/name_theme"
+        android:textColor="@color/text_dark_color"
+        android:textSize="50sp"
+        android:alpha="0.1"
+        android:paddingTop="@dimen/activity_padding"
+        android:paddingStart="@dimen/inner_padding"/>
+
+    <!--내용-->
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="@dimen/activity_top_padding"
+            android:paddingBottom="@dimen/activity_bottom_padding">
+
+            <LinearLayout
+                android:id="@+id/theme_background_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/name_background"
+                    android:textSize="@dimen/text_semi_content_size"
+                    android:textColor="@color/text_dark_color"
+                    android:layout_marginStart="@dimen/activity_padding"/>
+
+                <GridLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:columnCount="2"
+                    android:paddingStart="@dimen/activity_padding"
+                    android:paddingTop="@dimen/inner_padding"
+                    android:paddingBottom="@dimen/activity_padding"
+                    android:clipToPadding="false">
+
+                    <nm.security.namooprotector.widget.CheckButton
+                        android:id="@+id/theme_background_base_button"
+                        android:layout_width="@dimen/check_button_length"
+                        android:layout_height="@dimen/check_button_length"
+                        style="@style/CheckButton"
+                        check_button:checked="false"
+                        check_button:image="@drawable/vector_circle"
+                        check_button:description=""
+                        check_button:title="@string/name_entire_background"/>
+
+                    <nm.security.namooprotector.widget.CheckButton
+                        android:id="@+id/theme_background_bottom_button"
+                        android:layout_width="@dimen/check_button_length"
+                        android:layout_height="@dimen/check_button_length"
+                        android:layout_marginStart="@dimen/space_padding"
+                        style="@style/CheckButton"
+                        check_button:checked="false"
+                        check_button:image="@drawable/vector_circle"
+                        check_button:description=""
+                        check_button:title="@string/name_bottom_background"/>
+
+                </GridLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/theme_text_color_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/name_text_color"
+                    android:textSize="@dimen/text_semi_content_size"
+                    android:textColor="@color/text_dark_color"
+                    android:layout_marginStart="@dimen/activity_padding"/>
+
+                <GridLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:columnCount="2"
+                    android:paddingStart="@dimen/activity_padding"
+                    android:paddingTop="@dimen/inner_padding"
+                    android:paddingBottom="@dimen/activity_padding"
+                    android:clipToPadding="false">
+
+                    <nm.security.namooprotector.widget.CheckButton
+                        android:id="@+id/theme_text_color_pin_indicator_button"
+                        android:layout_width="@dimen/check_button_length"
+                        android:layout_height="@dimen/check_button_length"
+                        style="@style/CheckButton"
+                        check_button:checked="false"
+                        check_button:image="@drawable/vector_circle"
+                        check_button:description=""
+                        check_button:title="@string/name_pin_indicator"/>
+
+                    <nm.security.namooprotector.widget.CheckButton
+                        android:id="@+id/theme_text_color_key_button"
+                        android:layout_width="@dimen/check_button_length"
+                        android:layout_height="@dimen/check_button_length"
+                        android:layout_marginStart="@dimen/space_padding"
+                        style="@style/CheckButton"
+                        check_button:checked="false"
+                        check_button:image="@drawable/vector_circle"
+                        check_button:description=""
+                        check_button:title="@string/name_key_or_pattern"/>
+
+                </GridLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/theme_visibility_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/name_hide_elements"
+                    android:textSize="@dimen/text_semi_content_size"
+                    android:textColor="@color/text_dark_color"
+                    android:layout_marginStart="@dimen/activity_padding"/>
+
+                <GridLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:columnCount="2"
+                    android:paddingStart="@dimen/activity_padding"
+                    android:paddingTop="@dimen/inner_padding"
+                    android:paddingBottom="@dimen/activity_padding"
+                    android:clipToPadding="false">
+
+                    <nm.security.namooprotector.widget.CheckButton
+                        android:id="@+id/theme_visibility_top_layout_button"
+                        android:layout_width="@dimen/check_button_length"
+                        android:layout_height="@dimen/check_button_length"
+                        style="@style/CheckButton"
+                        check_button:checked="false"
+                        check_button:image="@drawable/vector_clear"
+                        check_button:description=""
+                        check_button:title="@string/name_hide_top_layout"/>
+
+                </GridLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <!--메뉴-->
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/theme_more_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="@dimen/activity_padding"
+        app:srcCompat="@drawable/vector_more"
+        android:tint="@color/text_bright_color"
+        app:elevation="@dimen/focus_elevation"
+        app:fabSize="normal"/>
+
+</RelativeLayout>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--텍스트-->
+    <dimen name="text_title_size">20sp</dimen>
+    <dimen name="text_content_size">14sp</dimen>
+    <dimen name="text_semi_content_size">12sp</dimen>
+
+    <!--길이-->
+    <dimen name="check_button_length">120dp</dimen>
+
+    <!--패딩-->
+    <dimen name="activity_padding">30dp</dimen>
+    <dimen name="inner_padding">15dp</dimen>
+    <dimen name="space_padding">10dp</dimen>
+    <dimen name="activity_top_padding">115dp</dimen>
+    <dimen name="activity_bottom_padding">116dp</dimen>
+
+    <!--곡률-->
+    <dimen name="circle_radius">100dp</dimen>
+
+    <!--상승-->
+    <dimen name="focus_elevation">10dp</dimen>
+
+</resources>

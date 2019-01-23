@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_color"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true">
+
+    <!--타이틀-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/activity_padding"
+        android:paddingEnd="@dimen/activity_padding"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/name_change_pattern"
+            android:textColor="@color/text_dark_color"
+            android:textSize="@dimen/text_title_size"/>
+
+        <ImageButton
+            android:id="@+id/pattern_execute_button"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            app:srcCompat="@drawable/vector_check"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            android:tint="@color/text_dark_color"
+            android:padding="@dimen/space_padding"
+            android:visibility="invisible"
+            android:onClick="execute"/>
+
+    </LinearLayout>
+
+    <!--내용-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@color/card_color"
+            android:layout_marginStart="@dimen/activity_padding"
+            android:layout_marginEnd="@dimen/activity_padding"
+            android:layout_marginTop="@dimen/inner_padding"
+            android:layout_marginBottom="@dimen/activity_padding"
+            android:padding="20dp"
+            android:gravity="center"
+            android:elevation="@dimen/focus_elevation">
+
+            <TextView
+                android:id="@+id/pattern_state_text"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="@string/alert_pattern_new_draw"
+                android:textColor="@color/text_dark_color"
+                android:textSize="@dimen/text_content_size"
+                android:gravity="center"/>
+
+            <nm.security.namooprotector.widget.PatternView
+                xmlns:lockview="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/pattern_pattern_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="20dp"
+                lockview:regularColor="@color/text_dark_color"
+                lockview:errorColor="#ff5c5c"
+                lockview:successColor="#5494e2"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

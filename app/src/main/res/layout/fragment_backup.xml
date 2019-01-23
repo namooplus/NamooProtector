@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!--타이틀-->
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/name_backup"
+        android:textColor="@color/text_dark_color"
+        android:textSize="50sp"
+        android:alpha="0.1"
+        android:paddingTop="@dimen/activity_padding"
+        android:paddingStart="@dimen/inner_padding"/>
+
+    <!--내용-->
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:descendantFocusability="blocksDescendants">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="@dimen/activity_top_padding">
+
+            <LinearLayout
+                android:id="@+id/backup_backup_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/name_backup"
+                    android:textSize="@dimen/text_semi_content_size"
+                    android:textColor="@color/text_dark_color"
+                    android:layout_marginStart="@dimen/activity_padding"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="@color/card_color"
+                    android:layout_marginStart="@dimen/activity_padding"
+                    android:layout_marginEnd="@dimen/activity_padding"
+                    android:layout_marginTop="@dimen/inner_padding"
+                    android:layout_marginBottom="@dimen/activity_padding"
+                    android:padding="20dp"
+                    android:elevation="@dimen/focus_elevation">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <EditText
+                            android:id="@+id/backup_backup_label_input"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/name_backup_label"
+                            android:textSize="@dimen/text_content_size"
+                            android:textColor="@color/text_dark_color"
+                            android:textColorHint="@color/text_semi_dark_color"/>
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="@dimen/space_padding">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_weight="1">
+
+                            <CheckBox
+                                android:id="@+id/backup_backup_lock_apps_checker"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/name_backup_range_app"
+                                android:textSize="@dimen/text_semi_content_size"
+                                android:textColor="@color/text_dark_color"/>
+
+                            <CheckBox
+                                android:id="@+id/backup_backup_password_checker"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/name_backup_range_password"
+                                android:textSize="@dimen/text_semi_content_size"
+                                android:textColor="@color/text_dark_color"
+                                android:layout_marginTop="5dp"/>
+
+                            <CheckBox
+                                android:id="@+id/backup_backup_settings_checker"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/name_backup_range_settings"
+                                android:textSize="@dimen/text_semi_content_size"
+                                android:textColor="@color/text_dark_color"
+                                android:layout_marginTop="5dp"/>
+
+                        </LinearLayout>
+
+                        <ImageButton
+                            android:id="@+id/backup_backup_save_button"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:background="@drawable/background_circle_cyan"
+                            android:layout_gravity="bottom"
+                            app:srcCompat="@drawable/vector_check"
+                            android:tint="@color/text_bright_color"
+                            android:adjustViewBounds="true"
+                            android:scaleType="fitCenter"
+                            android:padding="10dp"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/backup_restore_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/name_restore"
+                    android:textSize="@dimen/text_semi_content_size"
+                    android:textColor="@color/text_dark_color"
+                    android:layout_marginStart="@dimen/activity_padding"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="@color/card_color"
+                    android:layout_marginStart="@dimen/activity_padding"
+                    android:layout_marginEnd="@dimen/activity_padding"
+                    android:layout_marginTop="@dimen/inner_padding"
+                    android:layout_marginBottom="@dimen/activity_padding"
+                    android:elevation="@dimen/focus_elevation">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/backup_restore_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:nestedScrollingEnabled="false"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <LinearLayout
+        android:id="@+id/backup_loading_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/background_color"
+        android:gravity="center"
+        android:clickable="true"
+        android:focusable="true"
+        android:visibility="invisible">
+
+        <ProgressBar
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            style="?android:attr/progressBarStyleLarge"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_padding"
+            android:text="@string/alert_wait"
+            android:textSize="@dimen/text_semi_content_size"
+            android:textColor="@color/text_semi_dark_color"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

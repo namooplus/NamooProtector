@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="CheckButton">
+
+        <attr name="checked" format="reference|boolean" />
+        <attr name="title" format="reference|string" />
+        <attr name="description" format="reference|string" />
+        <attr name="image" format="reference|integer" />
+
+    </declare-styleable>
+
+    <declare-styleable name="PatternView">
+
+        <attr name="regularColor" format="color"/>
+        <attr name="errorColor" format="color"/>
+        <attr name="successColor" format="color"/>
+
+    </declare-styleable>
+
+</resources>

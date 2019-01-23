@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/lockscreen_base_layout"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/lockscreen_top_layout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="4">
+
+        <include
+            layout="@layout/lockscreen_top_default"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/lockscreen_bottom_layout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="6">
+
+        <include
+            layout="@layout/lockscreen_bottom_default"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"/>
+
+        <LinearLayout
+            android:id="@+id/lockscreen_watcher_state_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="#AA000000"
+            android:gravity="center"
+            android:clickable="true"
+            android:focusable="true"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                app:srcCompat="@drawable/vector_watch"
+                android:tint="@color/text_bright_color"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_padding"
+                android:text="@string/alert_watch"
+                android:textSize="@dimen/text_title_size"
+                android:textColor="@color/text_bright_color"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lockscreen_cover_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="#AA000000"
+            android:gravity="center"
+            android:clickable="true"
+            android:focusable="true"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                app:srcCompat="@drawable/vector_theme"
+                android:tint="@color/text_bright_color"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_padding"
+                android:gravity="center"
+                android:text="@string/alert_uncover"
+                android:textSize="@dimen/text_content_size"
+                android:textColor="@color/text_bright_color"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</LinearLayout>

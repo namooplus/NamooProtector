@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/view_check_button_background"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:background="@color/card_color"
+    android:gravity="bottom"
+    android:orientation="vertical"
+    android:padding="@dimen/inner_padding">
+
+    <ImageView
+        android:id="@+id/view_check_button_image_view"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        tools:srcCompat="@drawable/icon_np"
+        tools:tint="@color/text_dark_color"/>
+
+    <TextView
+        android:id="@+id/view_check_button_description_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="부가설명"
+        android:textSize="@dimen/text_semi_content_size"
+        tools:textColor="@color/text_semi_dark_color"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/view_check_button_title_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/space_padding"
+        tools:text="제목"
+        android:textSize="@dimen/text_content_size"
+        tools:textColor="@color/text_dark_color"/>
+
+</LinearLayout>
