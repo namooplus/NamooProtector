@@ -2,6 +2,7 @@ package nm.security.namooprotector.util
 
 import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
+import android.util.TypedValue
 import nm.security.namooprotector.NamooProtector.Companion.context
 import nm.security.namooprotector.R
 
@@ -32,5 +33,9 @@ object ConvertUtil
     fun intColorToStringColor(color: Int): String
     {
         return String.format("#%08X", -0x1 and color)
+    }
+    fun dpToPx(dimen: Float): Int
+    {
+        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dimen, context.resources.displayMetrics).toInt()
     }
 }

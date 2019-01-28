@@ -150,9 +150,6 @@ class LockScreen: AppCompatActivity()
                 true
             }
         }
-
-        if (DataUtil.getBoolean("hideTopLayout", SETTING) && !isLockscreenForNP) //(나프 접근시 제외)
-            lockscreen_top_layout.visibility = View.GONE
     }
     private fun initPin()
     {

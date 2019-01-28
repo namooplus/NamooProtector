@@ -70,19 +70,27 @@ class ThemeFragment : Fragment()
         }
 
         //에디터
-        theme_background_base_button.setOnClickListener { generateColorPicker("baseLayoutColor", ThemeUtil.getColorInt("baseLayoutColor", "#ff52cc9d")) }
-        theme_background_bottom_button.setOnClickListener { generateColorPicker("bottomLayoutColor", ThemeUtil.getColorInt("bottomLayoutColor", "#20000000")) }
-        theme_text_color_pin_indicator_button.setOnClickListener { generateColorPicker("pinIndicatorColor", ThemeUtil.getColorInt("pinIndicatorColor", "#ffffffff")) }
-        theme_text_color_key_button.setOnClickListener { generateColorPicker("keyColor", ThemeUtil.getColorInt("keyColor", "#ffffffff")) }
-        theme_visibility_top_layout_button.setOnClickListener { changeState("hideTopLayout") }
+        theme_color_base_layout_button.setOnClickListener { generateColorPicker("baseLayoutColor", ThemeUtil.getColorInt("baseLayoutColor", "#ff52cc9d")) }
+        theme_color_bottom_layout_button.setOnClickListener { generateColorPicker("bottomLayoutColor", ThemeUtil.getColorInt("bottomLayoutColor", "#20000000")) }
+        theme_color_pin_indicator_button.setOnClickListener { generateColorPicker("pinIndicatorColor", ThemeUtil.getColorInt("pinIndicatorColor", "#ffffffff")) }
+        theme_color_key_button.setOnClickListener { generateColorPicker("keyColor", ThemeUtil.getColorInt("keyColor", "#ffffffff")) }
+        theme_size_key_button.setOnClickListener { view -> generateSizePicker(view, "keySize") }
+        theme_hide_element_top_layout_button.setOnClickListener { changeState("hideTopLayout") }
     }
     private fun initState()
     {
-        theme_background_base_button.setTint(ThemeUtil.getColorString("baseLayoutColor", "#ff52cc9d"))
-        theme_background_bottom_button.setTint(ThemeUtil.getColorString("bottomLayoutColor", "#20000000"))
-        theme_text_color_pin_indicator_button.setTint(ThemeUtil.getColorString("pinIndicatorColor", "#ffffffff"))
-        theme_text_color_key_button.setTint(ThemeUtil.getColorString("keyColor", "#ffffffff"))
-        theme_visibility_top_layout_button.setChecked(DataUtil.getBoolean("hideTopLayout", DataUtil.SETTING))
+        theme_color_base_layout_button.setTint(ThemeUtil.getColorString("baseLayoutColor", "#ff52cc9d"))
+        theme_color_bottom_layout_button.setTint(ThemeUtil.getColorString("bottomLayoutColor", "#20000000"))
+        theme_color_pin_indicator_button.setTint(ThemeUtil.getColorString("pinIndicatorColor", "#ffffffff"))
+        theme_color_key_button.setTint(ThemeUtil.getColorString("keyColor", "#ffffffff"))
+        theme_size_key_button.setDescription(when (DataUtil.getString("keySize", DataUtil.THEME, "normal"))
+        {
+            "big" -> getString(R.string.name_size_big)
+            "normal" -> getString(R.string.name_size_normal)
+            "small" -> getString(R.string.name_size_small)
+            else -> getString(R.string.error_name_not_found)
+        })
+        theme_hide_element_top_layout_button.setChecked(DataUtil.getBoolean("hideTopLayout", DataUtil.THEME))
     }
 
     //메소드
@@ -96,9 +104,30 @@ class ThemeFragment : Fragment()
         }
         colorPicker.show()
     }
+    private fun generateSizePicker(view: View, name: String)
+    {
+        val popup = PopupMenu(context!!, view)
+        popup.menu.add(getString(R.string.name_size_big))
+        popup.menu.add(getString(R.string.name_size_normal))
+        popup.menu.add(getString(R.string.name_size_small))
+        popup.setOnMenuItemClickListener {
+            DataUtil.put(name, DataUtil.THEME, when (it.title.toString())
+            {
+                getString(R.string.name_size_big) -> "big"
+                getString(R.string.name_size_normal) -> "normal"
+                getString(R.string.name_size_small) -> "small"
+                else -> "normal"
+            })
+
+            initState()
+
+            true
+        }
+        popup.show()
+    }
     private fun changeState(name: String)
     {
-        DataUtil.put(name, DataUtil.SETTING, !DataUtil.getBoolean(name, DataUtil.SETTING))
+        DataUtil.put(name, DataUtil.THEME, !DataUtil.getBoolean(name, DataUtil.THEME))
 
         initState()
     }

@@ -15,6 +15,7 @@
         android:layout_weight="4">
 
         <include
+            android:id="@+id/lockscreen_top_include"
             layout="@layout/lockscreen_top_default"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -29,6 +30,7 @@
         android:layout_weight="6">
 
         <include
+            android:id="@+id/lockscreen_bottom_include"
             layout="@layout/lockscreen_bottom_default"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

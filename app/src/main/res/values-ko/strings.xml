@@ -169,14 +169,17 @@
     <string name="name_backup_range_settings">설정</string>
 
     <string name="name_theme">테마</string>
-    <string name="name_background">배경</string>
-    <string name="name_entire_background">전체 배경</string>
-    <string name="name_bottom_background">하단 배경</string>
+    <string name="name_color">색상</string>
+    <string name="name_base_layout">바탕 레이아웃</string>
+    <string name="name_bottom_layout">하단 레이아웃</string>
     <string name="name_pin_indicator">PIN 뷰어</string>
     <string name="name_key_or_pattern">키/패턴</string>
-    <string name="name_hide_elements">요소 숨기기</string>
-    <string name="name_hide_top_layout">상단 레이아웃 숨기기</string>
-    <string name="name_text_color">텍스트 색상</string>
+    <string name="name_size">크기</string>
+    <string name="name_size_big">크게</string>
+    <string name="name_size_normal">보통</string>
+    <string name="name_size_small">작게</string>
+    <string name="name_hide_element">요소 숨기기</string>
+    <string name="name_top_layout">상단 레이아웃</string>
     <string name="name_preview">미리보기</string>
     <string name="name_reset">초기화</string>
 

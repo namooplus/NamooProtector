@@ -9,8 +9,8 @@ android {
         applicationId "nm.security.namooprotector"
         minSdkVersion 23
         targetSdkVersion 28
-        versionCode 60
-        versionName "3.0"
+        versionCode 61
+        versionName "3.1"
         vectorDrawables.useSupportLibrary = true
     }
     buildTypes {

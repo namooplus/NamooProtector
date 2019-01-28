@@ -116,7 +116,7 @@
 
     <!--etc-->
 
-    <string name="etc_motto">한 학생 개발자의 힘든 앱 개발기</string>
+    <string name="etc_motto">Developed by a korean student</string>
     <string name="etc_rate">Would you rate 5 stars? &gt;&lt;</string>
 
     <!--name-->
@@ -169,14 +169,17 @@
     <string name="name_backup_range_settings">Settings</string>
 
     <string name="name_theme">Theme</string>
-    <string name="name_background">Background</string>
-    <string name="name_entire_background">Entire Background</string>
-    <string name="name_bottom_background">Bottom Background</string>
+    <string name="name_color">Color</string>
+    <string name="name_base_layout">Base Layout</string>
+    <string name="name_bottom_layout">Bottom Layout</string>
     <string name="name_pin_indicator">Pin Indicator</string>
     <string name="name_key_or_pattern">Keys/Pattern</string>
-    <string name="name_hide_elements">Hide Elements</string>
-    <string name="name_hide_top_layout">Hide top layout</string>
-    <string name="name_text_color">Text Color</string>
+    <string name="name_size">Size</string>
+    <string name="name_size_big">Big</string>
+    <string name="name_size_normal">Normal</string>
+    <string name="name_size_small">Small</string>
+    <string name="name_hide_element">Hide Elements</string>
+    <string name="name_top_layout">Top Layout</string>
     <string name="name_preview">Preview</string>
     <string name="name_reset">Reset</string>
 

@@ -33,7 +33,7 @@
             android:paddingBottom="@dimen/activity_bottom_padding">
 
             <LinearLayout
-                android:id="@+id/theme_background_layout"
+                android:id="@+id/theme_color_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
@@ -41,7 +41,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/name_background"
+                    android:text="@string/name_color"
                     android:textSize="@dimen/text_semi_content_size"
                     android:textColor="@color/text_dark_color"
                     android:layout_marginStart="@dimen/activity_padding"/>
@@ -56,17 +56,17 @@
                     android:clipToPadding="false">
 
                     <nm.security.namooprotector.widget.CheckButton
-                        android:id="@+id/theme_background_base_button"
+                        android:id="@+id/theme_color_base_layout_button"
                         android:layout_width="@dimen/check_button_length"
                         android:layout_height="@dimen/check_button_length"
                         style="@style/CheckButton"
                         check_button:checked="false"
                         check_button:image="@drawable/vector_circle"
                         check_button:description=""
-                        check_button:title="@string/name_entire_background"/>
+                        check_button:title="@string/name_base_layout"/>
 
                     <nm.security.namooprotector.widget.CheckButton
-                        android:id="@+id/theme_background_bottom_button"
+                        android:id="@+id/theme_color_bottom_layout_button"
                         android:layout_width="@dimen/check_button_length"
                         android:layout_height="@dimen/check_button_length"
                         android:layout_marginStart="@dimen/space_padding"
@@ -74,39 +74,13 @@
                         check_button:checked="false"
                         check_button:image="@drawable/vector_circle"
                         check_button:description=""
-                        check_button:title="@string/name_bottom_background"/>
-
-                </GridLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/theme_text_color_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/name_text_color"
-                    android:textSize="@dimen/text_semi_content_size"
-                    android:textColor="@color/text_dark_color"
-                    android:layout_marginStart="@dimen/activity_padding"/>
-
-                <GridLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:columnCount="2"
-                    android:paddingStart="@dimen/activity_padding"
-                    android:paddingTop="@dimen/inner_padding"
-                    android:paddingBottom="@dimen/activity_padding"
-                    android:clipToPadding="false">
+                        check_button:title="@string/name_bottom_layout"/>
 
                     <nm.security.namooprotector.widget.CheckButton
-                        android:id="@+id/theme_text_color_pin_indicator_button"
+                        android:id="@+id/theme_color_pin_indicator_button"
                         android:layout_width="@dimen/check_button_length"
                         android:layout_height="@dimen/check_button_length"
+                        android:layout_marginTop="@dimen/space_padding"
                         style="@style/CheckButton"
                         check_button:checked="false"
                         check_button:image="@drawable/vector_circle"
@@ -114,9 +88,10 @@
                         check_button:title="@string/name_pin_indicator"/>
 
                     <nm.security.namooprotector.widget.CheckButton
-                        android:id="@+id/theme_text_color_key_button"
+                        android:id="@+id/theme_color_key_button"
                         android:layout_width="@dimen/check_button_length"
                         android:layout_height="@dimen/check_button_length"
+                        android:layout_marginTop="@dimen/space_padding"
                         android:layout_marginStart="@dimen/space_padding"
                         style="@style/CheckButton"
                         check_button:checked="false"
@@ -129,7 +104,44 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/theme_visibility_layout"
+                    android:id="@+id/theme_size_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/name_size"
+                        android:textSize="@dimen/text_semi_content_size"
+                        android:textColor="@color/text_dark_color"
+                        android:layout_marginStart="@dimen/activity_padding"/>
+
+                <GridLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:columnCount="2"
+                        android:paddingStart="@dimen/activity_padding"
+                        android:paddingTop="@dimen/inner_padding"
+                        android:paddingBottom="@dimen/activity_padding"
+                        android:clipToPadding="false">
+
+                    <nm.security.namooprotector.widget.CheckButton
+                            android:id="@+id/theme_size_key_button"
+                            android:layout_width="@dimen/check_button_length"
+                            android:layout_height="@dimen/check_button_length"
+                            style="@style/CheckButton"
+                            check_button:checked="false"
+                            check_button:image="0"
+                            check_button:description="@string/name_size_normal"
+                            check_button:title="@string/name_key_or_pattern"/>
+
+                </GridLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/theme_hide_element_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
@@ -137,7 +149,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/name_hide_elements"
+                    android:text="@string/name_hide_element"
                     android:textSize="@dimen/text_semi_content_size"
                     android:textColor="@color/text_dark_color"
                     android:layout_marginStart="@dimen/activity_padding"/>
@@ -152,14 +164,14 @@
                     android:clipToPadding="false">
 
                     <nm.security.namooprotector.widget.CheckButton
-                        android:id="@+id/theme_visibility_top_layout_button"
+                        android:id="@+id/theme_hide_element_top_layout_button"
                         android:layout_width="@dimen/check_button_length"
                         android:layout_height="@dimen/check_button_length"
                         style="@style/CheckButton"
                         check_button:checked="false"
                         check_button:image="@drawable/vector_clear"
                         check_button:description=""
-                        check_button:title="@string/name_hide_top_layout"/>
+                        check_button:title="@string/name_top_layout"/>
 
                 </GridLayout>
 
