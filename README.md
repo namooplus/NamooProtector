@@ -52,6 +52,15 @@ Namoo Protector is an application which protect apps by locking and unlocking th
 - BIND_DEVICE_ADMIN : (Device administrator) It is used when you activate an option to prevent NP uninstalled.
 - CAMERA : It is used to turn the flash on and off for the feature 'Watch failure'
 
+## License
+The following libraries are used in this project.
+- [TedPermission](https://github.com/ParkSangGwon/TedPermission)
+- [ScalableLayout For Android](https://github.com/ssomai/ScalableLayout)
+- [Android Material Color Picker Dialog](https://github.com/Pes8/android-material-color-picker-dialog)
+- [EasyCrypt](https://github.com/pvasa/EasyCrypt)
+- [GoldFinger](https://github.com/infinum/Android-Goldfinger)
+- [LicenseDialog](https://psdev.de/LicensesDialog/)
+
 ## Reporting bug and suggesting new ideas
 - http://namooplus.tistory.com/6 (Korean)
 
@@ -110,6 +119,15 @@ Namoo Protector is an application which protect apps by locking and unlocking th
 - PACKAGE_USAGE_STATS : 현재 실행되고 있는 앱을 검색하기 위해 사용됩니다.
 - BIND_DEVICE_ADMIN : (기기관리자) 나무프로텍터 삭제 방지 옵션을 활성화 할 경우 사용됩니다.
 - CAMERA : 감시자 모드 중 플래시 밝히기 기능에 사용됩니다.
+
+## 라이센스
+아래의 라이브러리가 이 프로젝트에 사용되었습니다.
+- [TedPermission](https://github.com/ParkSangGwon/TedPermission)
+- [ScalableLayout For Android](https://github.com/ssomai/ScalableLayout)
+- [Android Material Color Picker Dialog](https://github.com/Pes8/android-material-color-picker-dialog)
+- [EasyCrypt](https://github.com/pvasa/EasyCrypt)
+- [GoldFinger](https://github.com/infinum/Android-Goldfinger)
+- [LicenseDialog](https://psdev.de/LicensesDialog/)
 
 ## 버그 신고 및 건의
 - http://namooplus.tistory.com/6
