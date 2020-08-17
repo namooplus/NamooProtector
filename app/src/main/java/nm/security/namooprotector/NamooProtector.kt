@@ -18,10 +18,10 @@ class NamooProtector : Application()
             get() = instance!!.applicationContext
     }
 
-    override fun onCreate()
-    {
-        super.onCreate()
-
-        MobileAds.initialize(this, BuildConfig.ProjectAdKey)
-    }
+//    override fun onCreate()
+//    {
+//        super.onCreate()
+//
+////        MobileAds.initialize(this, BuildConfig.ProjectAdKey)
+//    }
 }

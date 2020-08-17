@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!--내용-->
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:descendantFocusability="blocksDescendants">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="175dp"
+            android:paddingBottom="145dp"
+            android:clipToPadding="false">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/apps_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:nestedScrollingEnabled="false" />
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- 검색 -->
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/apps_search_container"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginStart="@dimen/activity_padding"
+        android:layout_marginEnd="@dimen/activity_padding"
+        android:layout_marginTop="@dimen/activity_top_padding"
+        app:cardCornerRadius="0dp"
+        app:cardElevation="@dimen/card_elevation"
+        app:cardBackgroundColor="@color/card_color"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/apps_search_input"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingStart="@dimen/inner_padding"
+                android:paddingEnd="@dimen/inner_padding"
+                android:background="@android:color/transparent"
+                android:hint="앱을 검색합니다"
+                android:textColor="@color/text_dark_color"
+                android:textColorHint="@color/text_semi_dark_color"
+                android:textSize="@dimen/text_content_size"/>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <!--메뉴-->
+
+    <nm.security.namooprotector.widget.FloatingButton
+        android:id="@+id/apps_toggle_button"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_marginBottom="@dimen/activity_bottom_padding"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        app:floating_text="모두 선택/선택 해제"
+        android:visibility="gone"/>
+
+    <!--로딩-->
+
+    <LinearLayout
+        android:id="@+id/apps_loading_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/background_color"
+        android:gravity="center"
+        android:clickable="true"
+        android:focusable="true"
+        android:visibility="visible">
+
+        <ProgressBar
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            style="?android:attr/progressBarStyleLarge"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_padding"
+            android:text="@string/alert_loading_app"
+            android:textSize="@dimen/text_semi_content_size"
+            android:textColor="@color/text_semi_dark_color"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

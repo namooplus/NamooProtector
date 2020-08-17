@@ -1,22 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:check_button="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <!--타이틀-->
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/name_wizard"
-        android:textColor="@color/text_dark_color"
-        android:textSize="50sp"
-        android:alpha="0.1"
-        android:paddingTop="@dimen/activity_padding"
-        android:paddingStart="@dimen/inner_padding"/>
+    android:layout_height="match_parent"
+    android:animateLayoutChanges="true">
 
     <!--내용-->
 
@@ -28,20 +17,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingTop="@dimen/activity_top_padding">
+            android:paddingTop="@dimen/activity_top_padding"
+            android:paddingBottom="110dp"
+            android:clipToPadding="false"
+            android:animateLayoutChanges="true">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/alert_wizard_description"
-                android:textSize="@dimen/text_content_size"
-                android:textColor="@color/text_dark_color"
-                android:layout_marginStart="@dimen/activity_padding"
-                android:layout_marginEnd="@dimen/activity_padding"
-                android:layout_marginBottom="@dimen/activity_padding"/>
+            <!--필수 설정 요소-->
 
             <LinearLayout
-                android:id="@+id/wizard_lock_type_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
@@ -49,78 +32,51 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/name_lock_type"
-                    android:textSize="@dimen/text_semi_content_size"
-                    android:textColor="@color/text_dark_color"
-                    android:layout_marginStart="@dimen/activity_padding"/>
+                    android:layout_marginStart="@dimen/activity_padding"
+                    android:text="나무프로텍터를 시작하기 전 아래 과정이 필요해요"
+                    android:textSize="@dimen/text_content_size"
+                    android:textColor="@color/text_dark_color"/>
 
                 <GridLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:columnCount="2"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
                     android:paddingStart="@dimen/activity_padding"
+                    android:paddingEnd="@dimen/activity_padding"
                     android:paddingTop="@dimen/inner_padding"
                     android:paddingBottom="@dimen/activity_padding"
+                    android:columnCount="2"
+                    android:rowCount="2"
                     android:clipToPadding="false">
 
                     <nm.security.namooprotector.widget.CheckButton
-                        android:id="@+id/wizard_lock_type_pin_button"
+                        android:id="@+id/wizard_essential_password_button"
                         android:layout_width="@dimen/check_button_length"
                         android:layout_height="@dimen/check_button_length"
-                        style="@style/CheckButton"
-                        check_button:checked="false"
-                        check_button:image="@drawable/vector_pin"
-                        check_button:description=""
-                        check_button:title="@string/name_pin"/>
+                        app:check_icon="@drawable/vector_pin"
+                        app:check_title="비밀번호 설정"
+                        app:check_description=""
+                        app:check_checked="false"/>
 
                     <nm.security.namooprotector.widget.CheckButton
-                        android:id="@+id/wizard_lock_type_pattern_button"
+                        android:id="@+id/wizard_essential_usage_stats_permission_button"
                         android:layout_width="@dimen/check_button_length"
                         android:layout_height="@dimen/check_button_length"
                         android:layout_marginStart="@dimen/space_padding"
-                        style="@style/CheckButton"
-                        check_button:checked="false"
-                        check_button:image="@drawable/vector_pattern"
-                        check_button:description=""
-                        check_button:title="@string/name_pattern"/>
-
-                </GridLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/wizard_permission_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/name_permission"
-                    android:textSize="@dimen/text_semi_content_size"
-                    android:textColor="@color/text_dark_color"
-                    android:layout_marginStart="@dimen/activity_padding"/>
-
-                <GridLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:columnCount="2"
-                    android:paddingStart="@dimen/activity_padding"
-                    android:paddingTop="@dimen/inner_padding"
-                    android:paddingBottom="@dimen/activity_padding"
-                    android:clipToPadding="false">
+                        app:check_icon="@drawable/vector_search"
+                        app:check_title="앱 사용정보 접근 허용"
+                        app:check_description=""
+                        app:check_checked="false"/>
 
                     <nm.security.namooprotector.widget.CheckButton
-                        android:id="@+id/wizard_permission_usage_stats_permission_button"
+                        android:id="@+id/wizard_essential_overlay_permission_button"
                         android:layout_width="@dimen/check_button_length"
                         android:layout_height="@dimen/check_button_length"
-                        style="@style/CheckButton"
-                        check_button:checked="false"
-                        check_button:image="@drawable/vector_search"
-                        check_button:description=""
-                        check_button:title="@string/name_usage_stats_permission"
-                        android:onClick="usageStatsPermission"/>
+                        android:layout_marginTop="@dimen/space_padding"
+                        app:check_icon="@drawable/vector_theme"
+                        app:check_title="오버레이 권한 허용"
+                        app:check_description=""
+                        app:check_checked="false"/>
 
                 </GridLayout>
 
@@ -129,5 +85,18 @@
         </LinearLayout>
 
     </ScrollView>
+
+    <!--메뉴-->
+
+    <nm.security.namooprotector.widget.FloatingButton
+        android:id="@+id/wizard_start_button"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_margin="@dimen/activity_padding"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        app:floating_text="나무프로텍터 시작하기"
+        android:visibility="gone"
+        android:onClick="start"/>
 
 </RelativeLayout>

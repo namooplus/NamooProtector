@@ -4,13 +4,19 @@
 
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
 
+        <!--머테리얼-->
         <item name="colorPrimary">@color/color_primary</item>
         <item name="colorPrimaryDark">@color/color_primary_dark</item>
         <item name="colorAccent">@color/color_accent</item>
 
+        <!--배경-->
         <item name="android:windowBackground">@drawable/background_splash</item>
+
+        <!--투명바-->
         <item name="android:windowTranslucentStatus">false</item>
+        <item name="android:windowTranslucentNavigation">true</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
 
     </style>
 
@@ -32,17 +38,6 @@
         <item name="android:windowContentTransitions">true</item>
         <item name="android:windowSharedElementEnterTransition">@transition/change_bounds</item>
         <item name="android:windowSharedElementExitTransition">@transition/change_bounds</item>
-
-    </style>
-
-    <!--뷰-->
-
-    <style name="CheckButton">
-
-        <item name="android:foreground">?android:attr/selectableItemBackground</item>
-        <item name="android:elevation">@dimen/focus_elevation</item>
-        <item name="android:clickable">true</item>
-        <item name="android:focusable">true</item>
 
     </style>
 

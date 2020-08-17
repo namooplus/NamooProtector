@@ -12,7 +12,7 @@ class UpdateReceiver : BroadcastReceiver()
 {
     override fun onReceive(context: Context, intent: Intent)
     {
-        if (CheckUtil.isPasswordSet && CheckUtil.isUsageStatsPermissionGranted)
+        if (CheckUtil.isNPValid && CheckUtil.isServiceRunning)
             ServiceUtil.runService(true)
     }
 }

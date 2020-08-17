@@ -4,6 +4,6 @@
     <slide
         android:interpolator="@android:interpolator/fast_out_slow_in"
         android:duration="450"
-        android:slideEdge="bottom"/>
+        android:slideEdge="right"/>
 
 </transitionSet>

@@ -6,6 +6,9 @@
     <color name="color_primary_dark">#fafafa</color>
     <color name="color_accent">#64e6b4</color>
 
+    <!--아이콘-->
+    <color name="ic_launcher_background">#46AE8B</color>
+
     <!--배경-->
     <color name="background_color">#fafafa</color>
     <color name="card_color">#ffffff</color>

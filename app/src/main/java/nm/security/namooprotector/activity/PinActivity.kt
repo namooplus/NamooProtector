@@ -3,41 +3,32 @@ package nm.security.namooprotector.activity
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import android.text.Editable
+import android.text.TextUtils
 import android.text.TextWatcher
 import android.view.View
 import kotlinx.android.synthetic.main.activity_pin.*
 import nm.security.namooprotector.R
-import nm.security.namooprotector.util.DataUtil
-import nm.security.namooprotector.util.DataUtil.LOCK
-import nm.security.namooprotector.util.PasswordUtil
+import nm.security.namooprotector.util.ActivityUtil
+import nm.security.namooprotector.util.SettingsUtil
 
 class PinActivity: AppCompatActivity()
 {
     //라이프사이클
     override fun onCreate(savedInstanceState: Bundle?)
     {
-        overridePendingTransition(R.anim.activity_scale_plus_to_zero, R.anim.activity_scale_zero_to_minus)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pin)
 
-        initFlag()
-        initListener()
-    }
-    override fun finish()
-    {
-        super.finish()
+        ActivityUtil.initFlag(this, true)
+        ActivityUtil.initPreviousTitle(this)
 
-        overridePendingTransition(R.anim.activity_scale_minus_to_zero, R.anim.activity_scale_zero_to_plus)
+        initListener()
     }
 
     //설정
-    private fun initFlag()
-    {
-        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-    }
     private fun initListener()
     {
-        pin_input_first.addTextChangedListener(object : TextWatcher
+        pin_input_1.addTextChangedListener(object : TextWatcher
         {
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int)
             {
@@ -52,8 +43,7 @@ class PinActivity: AppCompatActivity()
 
             }
         })
-
-        pin_input_second.addTextChangedListener(object : TextWatcher
+        pin_input_2.addTextChangedListener(object : TextWatcher
         {
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int)
             {
@@ -71,21 +61,33 @@ class PinActivity: AppCompatActivity()
     }
 
     //클릭 이벤트
-    fun execute(view: View)
+    fun ok(view: View)
     {
-        DataUtil.put("type", LOCK, "pin")
-        DataUtil.put("pin", LOCK, pin_input_first.text.toString())
+        SettingsUtil.lockType = "pin"
+        SettingsUtil.pin = pin_input_1.text.toString()
 
-        finish()
+        finishAfterTransition()
     }
 
     //메소드
-    fun checkValid()
+    private fun checkValid()
     {
-        if (PasswordUtil.isValidForPin(pin_input_first.text.toString()) && pin_input_first.text.toString() == pin_input_second.text.toString())
-            pin_execute_button.visibility = View.VISIBLE
+        val inputPin1 = pin_input_1.text.toString()
+        val inputPin2 = pin_input_2.text.toString()
 
+        if (inputPin1.isValid() && inputPin1 == inputPin2)
+        {
+            pin_ok_button.isEnabled = true
+            pin_ok_button.visibility = View.VISIBLE
+        }
         else
-            pin_execute_button.visibility = View.INVISIBLE
+        {
+            pin_ok_button.isEnabled = false
+            pin_ok_button.visibility = View.GONE
+        }
+    }
+    private fun String.isValid(): Boolean
+    {
+        return this.length in 4..12 && TextUtils.isDigitsOnly(this)
     }
 }

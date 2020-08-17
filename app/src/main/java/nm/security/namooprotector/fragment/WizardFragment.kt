@@ -1,17 +1,23 @@
 package nm.security.namooprotector.fragment
 
+import android.app.AlertDialog
+import android.content.ActivityNotFoundException
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
-import androidx.fragment.app.Fragment
-import android.view.ViewGroup
 import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
+import android.widget.Toast
+import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.fragment_wizard.*
 import nm.security.namooprotector.R
+import nm.security.namooprotector.activity.MainActivity
 import nm.security.namooprotector.activity.PatternActivity
 import nm.security.namooprotector.activity.PinActivity
-import nm.security.namooprotector.util.*
+import nm.security.namooprotector.util.ActivityUtil
+import nm.security.namooprotector.util.CheckUtil
 
 class WizardFragment : Fragment()
 {
@@ -31,39 +37,67 @@ class WizardFragment : Fragment()
         initState()
     }
 
-    //설정
+    //클릭 이벤트
     private fun initClick()
     {
-        //잠금방식 설정
-        wizard_lock_type_pin_button.setOnClickListener { startActivity(Intent(activity, PinActivity::class.java)) }
-        wizard_lock_type_pattern_button.setOnClickListener { startActivity(Intent(activity, PatternActivity::class.java)) }
-
-        //권한 설정
-        wizard_permission_usage_stats_permission_button.setOnClickListener { startActivity(Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS)) }
-    }
-    private fun initState()
-    {
-        //잠금방식 설정
-        when (PasswordUtil.type)
-        {
-            "pin" ->
+        wizard_essential_password_button.setOnClickListener {
+            with(AlertDialog.Builder(context))
             {
-                wizard_lock_type_pin_button.setChecked(true)
-                wizard_lock_type_pattern_button.setChecked(false)
+                setTitle("잠금 방식 선택")
+                setItems(arrayOf("PIN", "패턴")){ _, index: Int ->
+                    when (index)
+                    {
+                        0 -> ActivityUtil.startActivityWithAnimation(activity!!, PinActivity::class.java)
+                        1 -> ActivityUtil.startActivityWithAnimation(activity!!, PatternActivity::class.java)
+                    }
+                }
+                show()
             }
-            "pattern" ->
+        }
+        wizard_essential_usage_stats_permission_button.setOnClickListener {
+            try
             {
-                wizard_lock_type_pin_button.setChecked(false)
-                wizard_lock_type_pattern_button.setChecked(true)
+                startActivity(Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS, Uri.parse("package:" + activity!!.packageName)))
             }
-            else ->
+            catch (e: ActivityNotFoundException)
             {
-                wizard_lock_type_pin_button.setChecked(false)
-                wizard_lock_type_pattern_button.setChecked(false)
+                Toast.makeText(context, "나무프로텍터를 찾아 앱 사용정보 권한을 활성화해주세요.", Toast.LENGTH_LONG).show()
+                startActivity(Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS))
+            }
+        }
+        wizard_essential_overlay_permission_button.setOnClickListener {
+            try
+            {
+                startActivity(Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,  Uri.parse("package:" + activity!!.packageName)))
+            }
+            catch (e: ActivityNotFoundException)
+            {
+                Toast.makeText(context, "나무프로텍터를 찾아 오버레이 권한을 활성화해주세요.", Toast.LENGTH_LONG).show()
+                startActivity(Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION))
             }
         }
 
-        //권한 설정
-        wizard_permission_usage_stats_permission_button.setChecked(CheckUtil.isUsageStatsPermissionGranted)
+        wizard_start_button.setOnClickListener {
+            (activity as MainActivity).home(view!!)
+        }
+    }
+
+    //메소드
+    private fun initState()
+    {
+        wizard_essential_password_button.isChecked = CheckUtil.isPasswordSet
+        wizard_essential_usage_stats_permission_button.isChecked = CheckUtil.isUsageStatsPermissionGranted
+        wizard_essential_overlay_permission_button.isChecked = CheckUtil.isOverlayPermissionGranted
+
+        if (CheckUtil.isNPValid)
+        {
+            wizard_start_button.isEnabled = true
+            wizard_start_button.visibility = View.VISIBLE
+        }
+        else
+        {
+            wizard_start_button.isEnabled = false
+            wizard_start_button.visibility = View.GONE
+        }
     }
 }

@@ -2,35 +2,31 @@ package nm.security.namooprotector.activity
 
 import android.animation.ObjectAnimator
 import android.content.Context
-import android.view.View
-import nm.security.namooprotector.util.*
 import android.content.Intent
 import android.hardware.camera2.CameraAccessException
 import android.hardware.camera2.CameraManager
+import android.media.AudioAttributes
 import android.os.*
-import androidx.appcompat.app.AppCompatActivity
+import android.view.View
 import android.widget.Button
 import android.widget.Toast
-import kotlinx.android.synthetic.main.lockscreen.*
-import kotlinx.android.synthetic.main.lockscreen_bottom_default.*
-import kotlinx.android.synthetic.main.lockscreen_top_default.*
-import nm.security.namooprotector.widget.PatternView
+import androidx.appcompat.app.AppCompatActivity
 import co.infinum.goldfinger.Goldfinger
-import nm.security.namooprotector.service.ProtectorState
-import nm.security.namooprotector.util.ThemeUtil
-import nm.security.namooprotector.util.DataUtil.SETTING
-import android.content.BroadcastReceiver
-import androidx.localbroadcastmanager.content.LocalBroadcastManager
-import android.content.IntentFilter
+import co.infinum.goldfinger.Goldfinger.PromptParams
+import com.andrognito.patternlockview.PatternLockView
+import com.andrognito.patternlockview.listener.PatternLockViewListener
+import kotlinx.android.synthetic.main.lockscreen.*
 import nm.security.namooprotector.R
+import nm.security.namooprotector.service.ProtectorServiceHelper
+import nm.security.namooprotector.util.*
+import nm.security.namooprotector.util.AnimationUtil.alpha
+import java.lang.Exception
 
 class LockScreen: AppCompatActivity()
 {
     private val fingerprintManager by lazy { Goldfinger.Builder(this).build() }
-    private var cameraManager: CameraManager? = null
     private val vibrateManager by lazy { getSystemService(Context.VIBRATOR_SERVICE) as Vibrator }
-
-    private val broadcastManager by lazy { LocalBroadcastManager.getInstance(this) }
+    private var cameraManager: CameraManager? = null
 
     private var inputPin = ""
     private var failCount = 0
@@ -40,10 +36,9 @@ class LockScreen: AppCompatActivity()
     {
         overridePendingTransition(0, 0)
         super.onCreate(savedInstanceState)
-        setContentView(nm.security.namooprotector.R.layout.lockscreen)
+        setContentView(R.layout.lockscreen)
 
-        initFlag()
-        initReceiver()
+        ActivityUtil.initFlag(this, false)
     }
     override fun onNewIntent(intent: Intent?)
     {
@@ -54,75 +49,58 @@ class LockScreen: AppCompatActivity()
     {
         super.onResume()
 
-        ProtectorState.currentState = ProtectorState.LOCKED
-
         failCount = 0
 
         initUI()
+        initClick()
         initTheme()
-    }
-    override fun onBackPressed()
-    {
-        val intent = Intent(Intent.ACTION_MAIN)
-        intent.addCategory(Intent.CATEGORY_HOME)
-        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-        startActivity(intent)
     }
     override fun onStop()
     {
         //지문인식
         fingerprintManager.cancel()
 
-        if (cameraManager != null)
-            flash(false)
+        //틀림 감지
+        if (cameraManager != null) flash(false)
 
         super.onStop()
+    }
+    override fun onBackPressed()
+    {
+        val home = Intent(Intent.ACTION_MAIN)
+        home.addCategory(Intent.CATEGORY_HOME)
+        home.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        startActivity(home)
     }
     override fun finish()
     {
         super.finish()
         overridePendingTransition(0, 0)
     }
-    override fun onDestroy()
-    {
-        broadcastManager.unregisterReceiver(receiver)
-
-        super.onDestroy()
-    }
 
     //설정
-    private fun initFlag()
-    {
-        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-    }
-    private fun initReceiver()
-    {
-        val intentFilter = IntentFilter()
-        intentFilter.addAction("CLOSE")
-
-        broadcastManager.registerReceiver(receiver, intentFilter)
-    }
-
     private fun initUI()
     {
         //기본 정보
-        lockscreen_icon_indicator.setImageDrawable(ConvertUtil.packageNameToAppIcon(intent.getStringExtra("packageName")))
+        lockscreen_icon_indicator.setImageDrawable(ConvertUtil.packageNameToAppIcon(intent.getStringExtra("packageName") ?: packageName))
 
         //잠금 방식
-        when (PasswordUtil.type)
+        when (SettingsUtil.lockType)
         {
             "pin" ->
             {
-                lockscreen_pin_layout.visibility = View.VISIBLE
-                lockscreen_pattern_layout.visibility = View.GONE
+                lockscreen_pin_indicator.visibility = View.VISIBLE
+                lockscreen_key_container.visibility = View.VISIBLE
+                lockscreen_pattern_container.visibility = View.GONE
 
                 initPin()
                 initFingerprint()
             }
             "pattern" ->
             {
-                lockscreen_pin_layout.visibility = View.GONE
-                lockscreen_pattern_layout.visibility = View.VISIBLE
+                lockscreen_pin_indicator.visibility = View.GONE
+                lockscreen_key_container.visibility = View.GONE
+                lockscreen_pattern_container.visibility = View.VISIBLE
 
                 initPattern()
                 initFingerprint()
@@ -131,18 +109,15 @@ class LockScreen: AppCompatActivity()
             {
                 Toast.makeText(this, getString(R.string.error_lockscreen_no_password), Toast.LENGTH_SHORT).show()
 
-                val intent = Intent(Intent.ACTION_MAIN)
-                intent.addCategory(Intent.CATEGORY_HOME)
-                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-                startActivity(intent)
+                finish()
             }
         }
 
         //세부 설정
-        if (DataUtil.getBoolean("darkLockscreen", SETTING))
+        if (SettingsUtil.darkLockscreen)
             window.attributes.screenBrightness = 0.05f
 
-        if (DataUtil.getBoolean("cover", SETTING) && !isLockscreenForNP) //(나프 접근시 제외)
+        if (SettingsUtil.cover)
         {
             lockscreen_cover_layout.visibility = View.VISIBLE
             lockscreen_cover_layout.setOnLongClickListener {
@@ -153,99 +128,108 @@ class LockScreen: AppCompatActivity()
     }
     private fun initPin()
     {
-        if (DataUtil.getBoolean("hideClick", SETTING))
+        if (SettingsUtil.hideClick)
         {
-            lockscreen_pin_one.setBackgroundColor(0x00ffffff)
-            lockscreen_pin_two.setBackgroundColor(0x00ffffff)
-            lockscreen_pin_three.setBackgroundColor(0x00ffffff)
-            lockscreen_pin_four.setBackgroundColor(0x00ffffff)
-            lockscreen_pin_five.setBackgroundColor(0x00ffffff)
-            lockscreen_pin_six.setBackgroundColor(0x00ffffff)
-            lockscreen_pin_seven.setBackgroundColor(0x00ffffff)
-            lockscreen_pin_eight.setBackgroundColor(0x00ffffff)
-            lockscreen_pin_nine.setBackgroundColor(0x00ffffff)
-            lockscreen_pin_check.setBackgroundColor(0x00ffffff)
-            lockscreen_pin_zero.setBackgroundColor(0x00ffffff)
-            lockscreen_pin_clear.setBackgroundColor(0x00ffffff)
+            lockscreen_key_1.setBackgroundColor(0x00ffffff)
+            lockscreen_key_2.setBackgroundColor(0x00ffffff)
+            lockscreen_key_3.setBackgroundColor(0x00ffffff)
+            lockscreen_key_4.setBackgroundColor(0x00ffffff)
+            lockscreen_key_5.setBackgroundColor(0x00ffffff)
+            lockscreen_key_6.setBackgroundColor(0x00ffffff)
+            lockscreen_key_7.setBackgroundColor(0x00ffffff)
+            lockscreen_key_8.setBackgroundColor(0x00ffffff)
+            lockscreen_key_9.setBackgroundColor(0x00ffffff)
+            lockscreen_key_ok.setBackgroundColor(0x00ffffff)
+            lockscreen_key_0.setBackgroundColor(0x00ffffff)
+            lockscreen_key_clear.setBackgroundColor(0x00ffffff)
         }
 
-        if (DataUtil.getBoolean("rearrangeKey", SETTING))
+        if (SettingsUtil.rearrangeKey)
         {
             val keys = mutableListOf("1", "2", "3", "4", "5", "6", "7", "8", "9", "0")
             keys.shuffle()
 
-            lockscreen_pin_one.text = keys[0]
-            lockscreen_pin_two.text = keys[1]
-            lockscreen_pin_three.text = keys[2]
-            lockscreen_pin_four.text = keys[3]
-            lockscreen_pin_five.text = keys[4]
-            lockscreen_pin_six.text = keys[5]
-            lockscreen_pin_seven.text = keys[6]
-            lockscreen_pin_eight.text = keys[7]
-            lockscreen_pin_nine.text = keys[8]
-            lockscreen_pin_zero.text = keys[9]
+            lockscreen_key_1.text = keys[0]
+            lockscreen_key_2.text = keys[1]
+            lockscreen_key_3.text = keys[2]
+            lockscreen_key_4.text = keys[3]
+            lockscreen_key_5.text = keys[4]
+            lockscreen_key_6.text = keys[5]
+            lockscreen_key_7.text = keys[6]
+            lockscreen_key_8.text = keys[7]
+            lockscreen_key_9.text = keys[8]
+            lockscreen_key_0.text = keys[9]
         }
 
-        if (DataUtil.getBoolean("lightKey", SETTING))
+        if (SettingsUtil.lightKey)
         {
-            AnimationUtil.alpha(lockscreen_pin_one, 0.1f, AnimationUtil.DEFAULT_DURATION, 0)
-            AnimationUtil.alpha(lockscreen_pin_two, 0.1f, AnimationUtil.DEFAULT_DURATION, 0)
-            AnimationUtil.alpha(lockscreen_pin_three, 0.1f, AnimationUtil.DEFAULT_DURATION, 0)
-            AnimationUtil.alpha(lockscreen_pin_four, 0.1f, AnimationUtil.DEFAULT_DURATION, 0)
-            AnimationUtil.alpha(lockscreen_pin_five, 0.1f, AnimationUtil.DEFAULT_DURATION, 0)
-            AnimationUtil.alpha(lockscreen_pin_six, 0.1f, AnimationUtil.DEFAULT_DURATION, 0)
-            AnimationUtil.alpha(lockscreen_pin_seven, 0.1f, AnimationUtil.DEFAULT_DURATION, 0)
-            AnimationUtil.alpha(lockscreen_pin_eight, 0.1f, AnimationUtil.DEFAULT_DURATION, 0)
-            AnimationUtil.alpha(lockscreen_pin_nine, 0.1f, AnimationUtil.DEFAULT_DURATION, 0)
-            AnimationUtil.alpha(lockscreen_pin_check, 0.1f, AnimationUtil.DEFAULT_DURATION, 0)
-            AnimationUtil.alpha(lockscreen_pin_zero, 0.1f, AnimationUtil.DEFAULT_DURATION, 0)
-            AnimationUtil.alpha(lockscreen_pin_clear, 0.1f, AnimationUtil.DEFAULT_DURATION, 0)
+            lockscreen_key_1.alpha(0.1f, AnimationUtil.DEFAULT_DURATION)
+            lockscreen_key_2.alpha(0.1f, AnimationUtil.DEFAULT_DURATION)
+            lockscreen_key_3.alpha(0.1f, AnimationUtil.DEFAULT_DURATION)
+            lockscreen_key_4.alpha(0.1f, AnimationUtil.DEFAULT_DURATION)
+            lockscreen_key_5.alpha(0.1f, AnimationUtil.DEFAULT_DURATION)
+            lockscreen_key_6.alpha(0.1f, AnimationUtil.DEFAULT_DURATION)
+            lockscreen_key_7.alpha(0.1f, AnimationUtil.DEFAULT_DURATION)
+            lockscreen_key_8.alpha(0.1f, AnimationUtil.DEFAULT_DURATION)
+            lockscreen_key_9.alpha(0.1f, AnimationUtil.DEFAULT_DURATION)
+            lockscreen_key_ok.alpha(0.1f, AnimationUtil.DEFAULT_DURATION)
+            lockscreen_key_0.alpha(0.1f, AnimationUtil.DEFAULT_DURATION)
+            lockscreen_key_clear.alpha(0.1f, AnimationUtil.DEFAULT_DURATION)
         }
     }
     private fun initPattern()
     {
-        lockscreen_pattern_view.isTactileFeedbackEnabled = DataUtil.getBoolean("drawHaptic", SETTING)
-        lockscreen_pattern_view.isInStealthMode = DataUtil.getBoolean("hideDraw", SETTING)
-        lockscreen_pattern_view.setOnPatternListener(object : PatternView.OnPatternListener()
+        lockscreen_pattern_view.isTactileFeedbackEnabled = SettingsUtil.drawHaptic
+        lockscreen_pattern_view.isInStealthMode = SettingsUtil.hideDraw
+        lockscreen_pattern_view.addPatternLockListener(object: PatternLockViewListener
         {
-            override fun onPatternStart()
+            override fun onStarted()
             {
 
             }
-            override fun onPatternCleared()
+            override fun onCleared()
             {
 
             }
-            override fun onPatternCellAdded(pattern: List<PatternView.Cell>, SimplePattern: String)
+            override fun onProgress(progressPattern: MutableList<PatternLockView.Dot>?)
             {
 
             }
-            override fun onPatternDetected(pattern: List<PatternView.Cell>, result: String)
+            override fun onComplete(pattern: MutableList<PatternLockView.Dot>?)
             {
-                if (PasswordUtil.pattern == result)
-                    successUnlock()
+                val result = ConvertUtil.patternToString(lockscreen_pattern_view, pattern)
 
-                else if (result.length > 1)
-                    failUnlock()
+                if (SettingsUtil.pattern == result) successUnlock()
+                else if (result.length > 1) failUnlock()
             }
         })
 
-        if (DataUtil.getBoolean("lightDot", SETTING))
-            AnimationUtil.alpha(lockscreen_pattern_view, 0.1f, AnimationUtil.DEFAULT_DURATION, 0)
+        if (SettingsUtil.lightDot)
+            lockscreen_pattern_view.alpha(0.1f, AnimationUtil.DEFAULT_DURATION)
     }
     private fun initFingerprint()
     {
-        if (FingerprintUtil.isFingerprintActivated && FingerprintUtil.isSupportFingerprint(fingerprintManager) == FingerprintUtil.AVAILABLE)
+        if (SettingsUtil.fingerprint && CheckUtil.isFingerprintAvailable(fingerprintManager))
         {
             lockscreen_fingerprint_indicator.visibility = View.VISIBLE
 
-            fingerprintManager.authenticate(object : Goldfinger.Callback()
-            {
-                override fun onSuccess(value: String)
+            val params: PromptParams = PromptParams.Builder(this)
+                .title("나무프로텍터")
+                .subtitle(ConvertUtil.packageNameToAppName(intent.getStringExtra("packageName") ?: packageName))
+                .description("지문인식으로 앱 잠금을 해제합니다.")
+                .negativeButtonText("취소")
+                .build()
+
+            fingerprintManager.authenticate(params, object: Goldfinger.Callback {
+                override fun onResult(result: Goldfinger.Result)
                 {
-                    successUnlock()
+                    when (result.type())
+                    {
+                        Goldfinger.Type.SUCCESS -> successUnlock()
+                        Goldfinger.Type.ERROR -> failUnlock()
+                    }
                 }
-                override fun onError(error: co.infinum.goldfinger.Error)
+                override fun onError(e: Exception)
                 {
                     failUnlock()
                 }
@@ -258,9 +242,16 @@ class LockScreen: AppCompatActivity()
     {
         ThemeUtil.apply(this)
     }
+    private fun initClick()
+    {
+        arrayOf(lockscreen_key_1, lockscreen_key_2, lockscreen_key_3, lockscreen_key_4, lockscreen_key_5, lockscreen_key_6,
+            lockscreen_key_7, lockscreen_key_8, lockscreen_key_9, lockscreen_key_ok, lockscreen_key_0, lockscreen_key_clear).forEach {
+            it.setOnClickListener { view -> keyClick(view) }
+        }
+    }
 
-    //클릭이벤트
-    fun key(view: View)
+    //메소드
+    private fun keyClick(view: View)
     {
         vibrate()
 
@@ -268,7 +259,7 @@ class LockScreen: AppCompatActivity()
         {
             "V" ->
             {
-                if (PasswordUtil.pin == inputPin)
+                if (SettingsUtil.pin == inputPin)
                     successUnlock()
 
                 else if (inputPin.length > 1)
@@ -284,31 +275,33 @@ class LockScreen: AppCompatActivity()
                 lockscreen_pin_indicator.append("•")
                 inputPin += view.text.toString()
 
-                if (DataUtil.getBoolean("quickUnlock", SETTING) && PasswordUtil.pin == inputPin)
+                if (SettingsUtil.quickUnlock && SettingsUtil.pin == inputPin)
                     successUnlock()
             }
         }
     }
-
-    //메소드
-    private val isLockscreenForNP
-        get() = intent.getStringExtra("packageName") == packageName
-
     private fun vibrate()
     {
-        if (DataUtil.getBoolean("clickHaptic", SETTING))
+        if (SettingsUtil.clickHaptic)
         {
             if (Build.VERSION.SDK_INT >= 26)
-                vibrateManager.vibrate(VibrationEffect.createOneShot(20, VibrationEffect.DEFAULT_AMPLITUDE))
+            {
+                val effect = VibrationEffect.createOneShot(20, VibrationEffect.DEFAULT_AMPLITUDE)
+                val audioAttributes = AudioAttributes.Builder()
+                    .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                    .setUsage(AudioAttributes.USAGE_ALARM)
+                    .build()
 
-            else
-                vibrateManager.vibrate(20)
+                vibrateManager.vibrate(effect, audioAttributes)
+            }
+            else vibrateManager.vibrate(20)
         }
     }
+
     private fun successUnlock()
     {
-        ProtectorState.currentState = ProtectorState.UNLOCKED
-
+        //잠금 해제
+        ProtectorServiceHelper.addAuthorizedApp(intent.getStringExtra("packageName") ?: packageName, SettingsUtil.lockDelay.toLong())
         finish()
     }
     private fun failUnlock()
@@ -326,11 +319,12 @@ class LockScreen: AppCompatActivity()
         //틀림 감지
         watchFail()
     }
+
     private fun watchFail()
     {
         failCount++
 
-        if (DataUtil.getBoolean("watchFail", DataUtil.SETTING) && failCount >= 5)
+        if (SettingsUtil.watchFail && failCount >= 5)
         {
             failCount = 0
 
@@ -340,12 +334,10 @@ class LockScreen: AppCompatActivity()
     }
     private fun flash(on: Boolean)
     {
-        if (!CheckUtil.isSupportFlash)
-        {
-            Toast.makeText(this, getString(R.string.error_flash_not_supported), Toast.LENGTH_LONG).show()
+        if (!CheckUtil.isFlashSupported)
             return
-        }
 
+        //필요시 등록
         if (cameraManager == null)
             cameraManager = getSystemService(Context.CAMERA_SERVICE) as CameraManager
 
@@ -359,18 +351,8 @@ class LockScreen: AppCompatActivity()
         }
         finally
         {
-            if (on) lockscreen_watcher_state_layout.visibility = View.VISIBLE
-            else lockscreen_watcher_state_layout.visibility = View.GONE
-        }
-    }
-
-    //리시버
-    var receiver: BroadcastReceiver = object : BroadcastReceiver()
-    {
-        override fun onReceive(context: Context, intent: Intent)
-        {
-            if (intent.action == "CLOSE")
-                finish()
+            if (on) lockscreen_watcher_layout.visibility = View.VISIBLE
+            else lockscreen_watcher_layout.visibility = View.GONE
         }
     }
 }

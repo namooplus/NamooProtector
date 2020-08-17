@@ -3,18 +3,17 @@
 
     <declare-styleable name="CheckButton">
 
-        <attr name="checked" format="reference|boolean" />
-        <attr name="title" format="reference|string" />
-        <attr name="description" format="reference|string" />
-        <attr name="image" format="reference|integer" />
+        <attr name="check_checked" format="reference|boolean" />
+        <attr name="check_icon" format="reference|integer" />
+        <attr name="check_title" format="reference|string" />
+        <attr name="check_description" format="reference|string" />
+        <attr name="check_tint_mode" format="reference|boolean" />
 
     </declare-styleable>
 
-    <declare-styleable name="PatternView">
+    <declare-styleable name="FloatingButton">
 
-        <attr name="regularColor" format="color"/>
-        <attr name="errorColor" format="color"/>
-        <attr name="successColor" format="color"/>
+        <attr name="floating_text" format="reference|string" />
 
     </declare-styleable>
 

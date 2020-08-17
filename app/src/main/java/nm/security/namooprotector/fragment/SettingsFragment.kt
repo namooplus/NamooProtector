@@ -12,17 +12,25 @@ import androidx.fragment.app.Fragment
 import android.view.ViewGroup
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.PopupMenu
 import android.widget.Toast
+import co.infinum.goldfinger.Goldfinger
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
 import kotlinx.android.synthetic.main.fragment_settings.*
 import nm.security.namooprotector.R
-import nm.security.namooprotector.util.DataUtil
+import nm.security.namooprotector.activity.*
+import nm.security.namooprotector.service.ProtectorServiceHelper
+import nm.security.namooprotector.util.ActivityUtil
+import nm.security.namooprotector.util.CheckUtil
+import nm.security.namooprotector.util.SettingsUtil
+import kotlin.reflect.KMutableProperty0
 
 class SettingsFragment : Fragment()
 {
+    private val fingerprintManager by lazy { Goldfinger.Builder(context!!).build() }
     private val policyManager by lazy { context!!.getSystemService(Context.DEVICE_POLICY_SERVICE) as DevicePolicyManager }
-    private val deviceAdmin by lazy { ComponentName(context, SettingsFragment.DeviceAdminHelper:: class.java) }
+    private val deviceAdmin by lazy { ComponentName(context!!, DeviceAdminHelper::class.java) }
 
     //라이프사이클
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
@@ -43,125 +51,136 @@ class SettingsFragment : Fragment()
     //설정
     private fun initClick()
     {
+        //잠금 방식
+        settings_lock_type_pin.setOnClickListener { ActivityUtil.startActivityWithAnimation(activity!!, PinActivity::class.java) }
+        settings_lock_type_pattern.setOnClickListener { ActivityUtil.startActivityWithAnimation(activity!!, PatternActivity::class.java) }
+        settings_lock_type_fingerprint.setOnClickListener { toggleStateFingerprint() }
+
+        //PIN 추가 설정
+        settings_pin_additional_settings_click_haptic_button.setOnClickListener { toggleState(SettingsUtil::clickHaptic) }
+        settings_pin_additional_settings_hide_click_button.setOnClickListener { toggleState(SettingsUtil::hideClick) }
+        settings_pin_additional_settings_quick_unlock_button.setOnClickListener { toggleState(SettingsUtil::quickUnlock) }
+        settings_pin_additional_settings_rearrange_key_button.setOnClickListener { toggleState(SettingsUtil::rearrangeKey) }
+        settings_pin_additional_settings_light_key_button.setOnClickListener { toggleState(SettingsUtil::lightKey) }
+
+        //패턴 추가 설정
+        settings_pattern_additional_settings_draw_haptic_button.setOnClickListener { toggleState(SettingsUtil::drawHaptic) }
+        settings_pattern_additional_settings_hide_draw_button.setOnClickListener { toggleState(SettingsUtil::hideDraw) }
+        settings_pattern_additional_settings_light_dot_button.setOnClickListener { toggleState(SettingsUtil::lightDot) }
+
         //보안
-        settings_security_prevent_uninstall_button.setOnClickListener { changeAdministratorPermission() }
-        settings_security_dark_lockscreen_button.setOnClickListener { changeState("darkLockscreen") }
-        settings_security_watch_fail_button.setOnClickListener {
-            if (DataUtil.getBoolean("watchFail", DataUtil.SETTING))
-            {
-                DataUtil.put("watchFail", DataUtil.SETTING, false)
-                initState()
-            }
-            else
-            {
-                TedPermission
-                    .with(context)
-                    .setPermissionListener(object: PermissionListener
-                    {
-                        override fun onPermissionGranted()
-                        {
-                            DataUtil.put("watchFail", DataUtil.SETTING, true)
-                            initState()
+        settings_security_prevent_uninstall_button.setOnClickListener { toggleStatePreventUninstall() }
+        settings_security_dark_lockscreen_button.setOnClickListener { toggleState(SettingsUtil::darkLockscreen) }
+        settings_security_watch_fail_button.setOnClickListener { toggleStateWatchFail() }
+        settings_security_cover_button.setOnClickListener { toggleState(SettingsUtil::cover) }
 
-                            Toast.makeText(activity, getString(R.string.alert_readme), Toast.LENGTH_SHORT).show()
-                        }
-                        override fun onPermissionDenied(deniedPermissions: MutableList<String>?)
-                        {
-                            Toast.makeText(context, getString(R.string.error_permission_denied), Toast.LENGTH_SHORT).show()
-                        }
-                    })
-                    .setRationaleTitle(getString(R.string.permission_camera_title))
-                    .setRationaleMessage(getString(R.string.permission_camera_message))
-                    .setDeniedMessage(getString(R.string.permission_denied_message))
-                    .setPermissions(Manifest.permission.CAMERA)
-                    .check()
-            }
-        }
-        settings_security_cover_button.setOnClickListener {
-            if (DataUtil.getBoolean("cover", DataUtil.SETTING))
-                DataUtil.put("cover", DataUtil.SETTING, false)
-
-            else
-            {
-                DataUtil.put("cover", DataUtil.SETTING, true)
-
-                Toast.makeText(activity, getString(R.string.alert_readme), Toast.LENGTH_SHORT).show()
-            }
-
-            initState()
-        }
-
-        //알림
-        settings_notification_protection_notification_button.setOnClickListener { changeState("protectionNotification") }
-
-        //도움말
-        settings_help_watch_fail_button.setOnClickListener {
-            val dialog = AlertDialog.Builder(context)
-
-            with(dialog)
-            {
-                setTitle(getString(R.string.alert_watch_fail_help_title))
-                setMessage(getString(R.string.alert_watch_fail_help_message))
-                setCancelable(false)
-                setPositiveButton(getString(R.string.alert_watch_fail_help_positive), null)
-                show()
-            }
-        }
-        settings_help_cover_button.setOnClickListener {
-            val dialog = AlertDialog.Builder(context)
-
-            with(dialog)
-            {
-                setTitle(getString(R.string.alert_cover_help_title))
-                setMessage(getString(R.string.alert_cover_help_message))
-                setCancelable(false)
-                setPositiveButton(getString(R.string.alert_cover_help_positive), null)
-                show()
-            }
-        }
+        //편의 기능
+        settings_convenience_protection_notification_button.setOnClickListener { toggleState(SettingsUtil::protectionNotification) }
+        settings_convenience_lock_delay_button.setOnClickListener { toggleStateLockDelay(it) }
     }
     private fun initState()
     {
+        //잠금 방식
+        when (SettingsUtil.lockType)
+        {
+            "pin" ->
+            {
+                settings_lock_type_pin.isChecked = true
+                settings_lock_type_pattern.isChecked = false
+
+                settings_pin_additional_settings_container.visibility = View.VISIBLE
+                settings_pattern_additional_settings_container.visibility = View.GONE
+            }
+            "pattern" ->
+            {
+                settings_lock_type_pin.isChecked = false
+                settings_lock_type_pattern.isChecked = true
+
+                settings_pin_additional_settings_container.visibility = View.GONE
+                settings_pattern_additional_settings_container.visibility = View.VISIBLE
+            }
+        }
+        settings_lock_type_fingerprint.isChecked = SettingsUtil.fingerprint
+
+        //PIN 추가 설정
+        settings_pin_additional_settings_click_haptic_button.isChecked = SettingsUtil.clickHaptic
+        settings_pin_additional_settings_hide_click_button.isChecked = SettingsUtil.hideClick
+        settings_pin_additional_settings_quick_unlock_button.isChecked = SettingsUtil.quickUnlock
+        settings_pin_additional_settings_rearrange_key_button.isChecked = SettingsUtil.rearrangeKey
+        settings_pin_additional_settings_light_key_button.isChecked = SettingsUtil.lightKey
+
+        //패턴 추가 설정
+        settings_pattern_additional_settings_draw_haptic_button.isChecked = SettingsUtil.drawHaptic
+        settings_pattern_additional_settings_hide_draw_button.isChecked = SettingsUtil.hideDraw
+        settings_pattern_additional_settings_light_dot_button.isChecked = SettingsUtil.lightDot
+
         //보안
-        settings_security_prevent_uninstall_button.setChecked(policyManager.isAdminActive(deviceAdmin))
-        settings_security_dark_lockscreen_button.setChecked(DataUtil.getBoolean("darkLockscreen", DataUtil.SETTING))
-        settings_security_watch_fail_button.setChecked(DataUtil.getBoolean("watchFail", DataUtil.SETTING))
-        settings_security_cover_button.setChecked(DataUtil.getBoolean("cover", DataUtil.SETTING))
+        settings_security_prevent_uninstall_button.isChecked = policyManager.isAdminActive(deviceAdmin)
+        settings_security_dark_lockscreen_button.isChecked = SettingsUtil.darkLockscreen
+        settings_security_watch_fail_button.isChecked = SettingsUtil.watchFail
+        settings_security_cover_button.isChecked = SettingsUtil.cover
 
         //알림
-        settings_notification_protection_notification_button.setChecked(DataUtil.getBoolean("protectionNotification", DataUtil.SETTING))
+        settings_convenience_protection_notification_button.isChecked = SettingsUtil.protectionNotification
+        if (SettingsUtil.lockDelay == 0)
+        {
+            settings_convenience_lock_delay_button.isChecked = false
+            settings_convenience_lock_delay_button.setDescription("없음")
+        }
+        else
+        {
+            settings_convenience_lock_delay_button.isChecked = true
+            settings_convenience_lock_delay_button.setDescription(SettingsUtil.lockDelay.toString() + "초")
+        }
     }
 
     //메소드
-    private fun changeState(name: String)
+    private fun toggleState(property: KMutableProperty0<Boolean>)
     {
-        DataUtil.put(name, DataUtil.SETTING, !DataUtil.getBoolean(name, DataUtil.SETTING))
-
+        property.set(!property.get())
         initState()
     }
-    private fun changeAdministratorPermission()
+    private fun toggleStateFingerprint()
     {
-        if (policyManager.isAdminActive(deviceAdmin))
+        if (SettingsUtil.fingerprint) //비활성화
         {
-            val dialog = AlertDialog.Builder(context)
-
-            with(dialog)
+            SettingsUtil.fingerprint = false
+            initState()
+        }
+        else //활성화
+        {
+            when
+            {
+                !fingerprintManager.hasFingerprintHardware() -> Toast.makeText(context, getString(R.string.error_fingerprint_no_hardware), Toast.LENGTH_LONG).show()
+                !fingerprintManager.hasEnrolledFingerprint() -> Toast.makeText(context, getString(R.string.error_fingerprint_not_enrolled), Toast.LENGTH_LONG).show()
+                SettingsUtil.lockType == null -> Toast.makeText(context, getString(R.string.error_fingerprint_no_password), Toast.LENGTH_LONG).show()
+                else ->
+                {
+                    SettingsUtil.fingerprint = true
+                    initState()
+                }
+            }
+        }
+    }
+    private fun toggleStatePreventUninstall()
+    {
+        if (policyManager.isAdminActive(deviceAdmin)) //비활성화
+        {
+            with(AlertDialog.Builder(context))
             {
                 setMessage(getString(R.string.alert_release_admin_message))
                 setPositiveButton(getString(R.string.alert_release_admin_positive))
                 { _, _ ->
                     policyManager.removeActiveAdmin(deviceAdmin)
-                    settings_security_prevent_uninstall_button.setChecked(false)
+                    settings_security_prevent_uninstall_button.isChecked = false
                 }
                 setNegativeButton(getString(R.string.common_cancel), null)
                 show()
             }
         }
-        else
+        else //활성화
         {
-            val dialog = AlertDialog.Builder(context)
-
-            with(dialog)
+            with(AlertDialog.Builder(context))
             {
                 setTitle(getString(R.string.permission_device_admin_title))
                 setMessage(getString(R.string.permission_device_admin_message))
@@ -175,6 +194,48 @@ class SettingsFragment : Fragment()
                 setNegativeButton(getString(R.string.common_cancel), null)
                 show()
             }
+        }
+    }
+    private fun toggleStateWatchFail()
+    {
+        if (SettingsUtil.watchFail) //비활성화
+        {
+            SettingsUtil.watchFail = false
+            initState()
+        }
+        else //활성화
+        {
+            if (CheckUtil.isFlashSupported)
+            {
+                SettingsUtil.watchFail = true
+                initState()
+            }
+            else Toast.makeText(activity, "플래시를 지원하지 않는 기기입니다!", Toast.LENGTH_SHORT).show()
+        }
+    }
+    private fun toggleStateLockDelay(view: View)
+    {
+        with(PopupMenu(context!!, view))
+        {
+            menu.add("없음")
+            menu.add("5초")
+            menu.add("10초")
+            menu.add("30초")
+            menu.add("60초")
+
+            setOnMenuItemClickListener {
+                when (it.title.toString())
+                {
+                    "없음" -> SettingsUtil.lockDelay = 0
+                    else -> SettingsUtil.lockDelay = it.title.toString().replace("초", "").toInt()
+                }
+
+                initState()
+                ProtectorServiceHelper.resetAuthorizedApps()
+
+                true
+            }
+            show()
         }
     }
 

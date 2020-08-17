@@ -1,193 +1,390 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:check_button="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!--타이틀-->
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/name_settings"
-        android:textColor="@color/text_dark_color"
-        android:textSize="50sp"
-        android:alpha="0.1"
-        android:paddingTop="@dimen/activity_padding"
-        android:paddingStart="@dimen/inner_padding"/>
-
-    <!--내용-->
-
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/activity_top_padding"
+        android:paddingBottom="@dimen/activity_bottom_padding"
+        android:clipToPadding="false">
+
+        <!--잠금 방식-->
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingTop="@dimen/activity_top_padding">
+            android:orientation="vertical">
 
-            <LinearLayout
-                android:id="@+id/settings_security_layout"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/activity_padding"
+                android:text="잠금 방식"
+                android:textSize="@dimen/text_content_size"
+                android:textColor="@color/text_dark_color"/>
+
+            <HorizontalScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:scrollbars="none">
 
-                <TextView
+                <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/name_security"
-                    android:textSize="@dimen/text_semi_content_size"
-                    android:textColor="@color/text_dark_color"
-                    android:layout_marginStart="@dimen/activity_padding"/>
-
-                <GridLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:columnCount="2"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
                     android:paddingStart="@dimen/activity_padding"
+                    android:paddingEnd="@dimen/activity_padding"
                     android:paddingTop="@dimen/inner_padding"
                     android:paddingBottom="@dimen/activity_padding"
+                    android:clipToPadding="false">
+
+                    <nm.security.namooprotector.widget.CheckButton
+                        android:id="@+id/settings_lock_type_pin"
+                        android:layout_width="@dimen/check_button_length"
+                        android:layout_height="@dimen/check_button_length"
+                        app:check_icon="@drawable/vector_pin"
+                        app:check_title="PIN"
+                        app:check_description=""
+                        app:check_checked="false"/>
+
+                    <nm.security.namooprotector.widget.CheckButton
+                        android:id="@+id/settings_lock_type_pattern"
+                        android:layout_width="@dimen/check_button_length"
+                        android:layout_height="@dimen/check_button_length"
+                        android:layout_marginStart="@dimen/space_padding"
+                        app:check_icon="@drawable/vector_pattern"
+                        app:check_title="패턴"
+                        app:check_description=""
+                        app:check_checked="false"/>
+
+                    <nm.security.namooprotector.widget.CheckButton
+                        android:id="@+id/settings_lock_type_fingerprint"
+                        android:layout_width="@dimen/check_button_length"
+                        android:layout_height="@dimen/check_button_length"
+                        android:layout_marginStart="@dimen/space_padding"
+                        app:check_icon="@drawable/vector_fingerprint"
+                        app:check_title="지문인식"
+                        app:check_description=""
+                        app:check_checked="false"/>
+
+                </LinearLayout>
+
+            </HorizontalScrollView>
+
+        </LinearLayout>
+
+        <!--PIN 추가 설정-->
+
+        <LinearLayout
+            android:id="@+id/settings_pin_additional_settings_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/activity_padding"
+                android:text="PIN 추가 설정"
+                android:textSize="@dimen/text_content_size"
+                android:textColor="@color/text_dark_color"/>
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="none">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:paddingStart="@dimen/activity_padding"
+                    android:paddingEnd="@dimen/activity_padding"
+                    android:paddingTop="@dimen/inner_padding"
+                    android:paddingBottom="@dimen/activity_padding"
+                    android:clipToPadding="false">
+
+                    <nm.security.namooprotector.widget.CheckButton
+                        android:id="@+id/settings_pin_additional_settings_click_haptic_button"
+                        android:layout_width="@dimen/check_button_length"
+                        android:layout_height="@dimen/check_button_length"
+                        app:check_icon="@drawable/vector_haptic"
+                        app:check_title="클릭 시 진동"
+                        app:check_description=""
+                        app:check_checked="false"/>
+
+                    <nm.security.namooprotector.widget.CheckButton
+                        android:id="@+id/settings_pin_additional_settings_hide_click_button"
+                        android:layout_width="@dimen/check_button_length"
+                        android:layout_height="@dimen/check_button_length"
+                        android:layout_marginStart="@dimen/space_padding"
+                        app:check_icon="@drawable/vector_touch"
+                        app:check_title="클릭 숨기기"
+                        app:check_description=""
+                        app:check_checked="false"/>
+
+                    <nm.security.namooprotector.widget.CheckButton
+                        android:id="@+id/settings_pin_additional_settings_quick_unlock_button"
+                        android:layout_width="@dimen/check_button_length"
+                        android:layout_height="@dimen/check_button_length"
+                        android:layout_marginStart="@dimen/space_padding"
+                        app:check_icon="@drawable/vector_unlock"
+                        app:check_title="빠른 해제"
+                        app:check_description=""
+                        app:check_checked="false"/>
+
+                    <nm.security.namooprotector.widget.CheckButton
+                        android:id="@+id/settings_pin_additional_settings_rearrange_key_button"
+                        android:layout_width="@dimen/check_button_length"
+                        android:layout_height="@dimen/check_button_length"
+                        android:layout_marginStart="@dimen/space_padding"
+                        app:check_icon="@drawable/vector_random"
+                        app:check_title="키 재배열"
+                        app:check_description=""
+                        app:check_checked="false"/>
+
+                    <nm.security.namooprotector.widget.CheckButton
+                        android:id="@+id/settings_pin_additional_settings_light_key_button"
+                        android:layout_width="@dimen/check_button_length"
+                        android:layout_height="@dimen/check_button_length"
+                        android:layout_marginStart="@dimen/space_padding"
+                        app:check_icon="@drawable/vector_light"
+                        app:check_title="연한 키"
+                        app:check_description=""
+                        app:check_checked="false"/>
+
+                </LinearLayout>
+
+            </HorizontalScrollView>
+
+        </LinearLayout>
+
+        <!--패턴 추가 설정-->
+
+        <LinearLayout
+            android:id="@+id/settings_pattern_additional_settings_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/activity_padding"
+                android:text="패턴 추가 설정"
+                android:textSize="@dimen/text_content_size"
+                android:textColor="@color/text_dark_color"/>
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="none">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:paddingStart="@dimen/activity_padding"
+                    android:paddingEnd="@dimen/activity_padding"
+                    android:paddingTop="@dimen/inner_padding"
+                    android:paddingBottom="@dimen/activity_padding"
+                    android:clipToPadding="false">
+
+                    <nm.security.namooprotector.widget.CheckButton
+                        android:id="@+id/settings_pattern_additional_settings_draw_haptic_button"
+                        android:layout_width="@dimen/check_button_length"
+                        android:layout_height="@dimen/check_button_length"
+                        app:check_icon="@drawable/vector_haptic"
+                        app:check_title="그릴 시 진동"
+                        app:check_description=""
+                        app:check_checked="false"/>
+
+                    <nm.security.namooprotector.widget.CheckButton
+                        android:id="@+id/settings_pattern_additional_settings_hide_draw_button"
+                        android:layout_width="@dimen/check_button_length"
+                        android:layout_height="@dimen/check_button_length"
+                        android:layout_marginStart="@dimen/space_padding"
+                        app:check_icon="@drawable/vector_draw"
+                        app:check_title="그리기 숨기기"
+                        app:check_description=""
+                        app:check_checked="false"/>
+
+                    <nm.security.namooprotector.widget.CheckButton
+                        android:id="@+id/settings_pattern_additional_settings_light_dot_button"
+                        android:layout_width="@dimen/check_button_length"
+                        android:layout_height="@dimen/check_button_length"
+                        android:layout_marginStart="@dimen/space_padding"
+                        app:check_icon="@drawable/vector_light"
+                        app:check_title="연한 점"
+                        app:check_description=""
+                        app:check_checked="false"/>
+
+                </LinearLayout>
+
+            </HorizontalScrollView>
+
+        </LinearLayout>
+
+        <!--보안 설정-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/activity_padding"
+                android:text="보안"
+                android:textSize="@dimen/text_content_size"
+                android:textColor="@color/text_dark_color"/>
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="none">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:paddingStart="@dimen/activity_padding"
+                    android:paddingEnd="@dimen/activity_padding"
+                    android:paddingTop="@dimen/inner_padding"
+                    android:paddingBottom="@dimen/inner_padding"
                     android:clipToPadding="false">
 
                     <nm.security.namooprotector.widget.CheckButton
                         android:id="@+id/settings_security_prevent_uninstall_button"
                         android:layout_width="@dimen/check_button_length"
                         android:layout_height="@dimen/check_button_length"
-                        style="@style/CheckButton"
-                        check_button:checked="false"
-                        check_button:image="@drawable/vector_prevent_uninstall"
-                        check_button:description=""
-                        check_button:title="@string/name_prevent_uninstall"/>
+                        app:check_icon="@drawable/vector_prevent_uninstall"
+                        app:check_title="나무프로텍터 삭제 방지"
+                        app:check_description=""
+                        app:check_checked="false"/>
 
                     <nm.security.namooprotector.widget.CheckButton
                         android:id="@+id/settings_security_dark_lockscreen_button"
                         android:layout_width="@dimen/check_button_length"
                         android:layout_height="@dimen/check_button_length"
                         android:layout_marginStart="@dimen/space_padding"
-                        style="@style/CheckButton"
-                        check_button:checked="false"
-                        check_button:image="@drawable/vector_dark"
-                        check_button:description=""
-                        check_button:title="@string/name_dark_lockscreen"/>
+                        app:check_icon="@drawable/vector_dark"
+                        app:check_title="어두운 잠금화면"
+                        app:check_description=""
+                        app:check_checked="false"/>
 
                     <nm.security.namooprotector.widget.CheckButton
                         android:id="@+id/settings_security_watch_fail_button"
                         android:layout_width="@dimen/check_button_length"
                         android:layout_height="@dimen/check_button_length"
-                        android:layout_marginTop="@dimen/space_padding"
-                        style="@style/CheckButton"
-                        check_button:checked="false"
-                        check_button:image="@drawable/vector_watch"
-                        check_button:description=""
-                        check_button:title="@string/name_watch_failure"/>
+                        android:layout_marginStart="@dimen/space_padding"
+                        app:check_icon="@drawable/vector_watch"
+                        app:check_title="틀림 감지"
+                        app:check_description=""
+                        app:check_checked="false"/>
 
                     <nm.security.namooprotector.widget.CheckButton
                         android:id="@+id/settings_security_cover_button"
                         android:layout_width="@dimen/check_button_length"
                         android:layout_height="@dimen/check_button_length"
-                        android:layout_marginTop="@dimen/space_padding"
                         android:layout_marginStart="@dimen/space_padding"
-                        style="@style/CheckButton"
-                        check_button:checked="false"
-                        check_button:image="@drawable/vector_theme"
-                        check_button:description=""
-                        check_button:title="@string/name_cover"/>
+                        app:check_icon="@drawable/vector_theme"
+                        app:check_title="커버"
+                        app:check_description=""
+                        app:check_checked="false"/>
 
-                </GridLayout>
+                </LinearLayout>
 
-            </LinearLayout>
+            </HorizontalScrollView>
 
-            <LinearLayout
-                android:id="@+id/settings_notification_layout"
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/name_notification"
-                    android:textSize="@dimen/text_semi_content_size"
-                    android:textColor="@color/text_dark_color"
-                    android:layout_marginStart="@dimen/activity_padding"/>
-
-                <GridLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:columnCount="2"
-                    android:paddingStart="@dimen/activity_padding"
-                    android:paddingTop="@dimen/inner_padding"
-                    android:paddingBottom="@dimen/activity_padding"
-                    android:clipToPadding="false">
-
-                    <nm.security.namooprotector.widget.CheckButton
-                        android:id="@+id/settings_notification_protection_notification_button"
-                        android:layout_width="@dimen/check_button_length"
-                        android:layout_height="@dimen/check_button_length"
-                        style="@style/CheckButton"
-                        check_button:checked="false"
-                        check_button:image="@drawable/icon_protection_notification"
-                        check_button:description=""
-                        check_button:title="@string/name_protection_notification"/>
-
-                </GridLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/settings_help_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/name_help"
-                    android:textSize="@dimen/text_semi_content_size"
-                    android:textColor="@color/text_dark_color"
-                    android:layout_marginStart="@dimen/activity_padding"/>
-
-                <GridLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:columnCount="2"
-                    android:paddingStart="@dimen/activity_padding"
-                    android:paddingTop="@dimen/inner_padding"
-                    android:paddingBottom="@dimen/activity_padding"
-                    android:clipToPadding="false">
-
-                    <nm.security.namooprotector.widget.CheckButton
-                        android:id="@+id/settings_help_watch_fail_button"
-                        android:layout_width="@dimen/check_button_length"
-                        android:layout_height="@dimen/check_button_length"
-                        style="@style/CheckButton"
-                        check_button:checked="false"
-                        check_button:image="@drawable/vector_help"
-                        check_button:description=""
-                        check_button:title="@string/name_help_for_watch_failure"/>
-
-                    <nm.security.namooprotector.widget.CheckButton
-                        android:id="@+id/settings_help_cover_button"
-                        android:layout_width="@dimen/check_button_length"
-                        android:layout_height="@dimen/check_button_length"
-                        android:layout_marginStart="@dimen/space_padding"
-                        style="@style/CheckButton"
-                        check_button:checked="false"
-                        check_button:image="@drawable/vector_help"
-                        check_button:description=""
-                        check_button:title="@string/name_help_for_cover"/>
-
-                </GridLayout>
-
-            </LinearLayout>
+                android:layout_marginStart="@dimen/activity_padding"
+                android:layout_marginEnd="@dimen/activity_padding"
+                android:layout_marginBottom="@dimen/activity_padding"
+                android:padding="@dimen/inner_padding"
+                android:background="#40000000"
+                android:text="틀림감지란?\n비밀번호를 5회 이상을 틀릴 시 플래시가 4초 동안 켜집니다.\n\n커버란?\n잠금화면 시작 시 커버가 덮여져 앱을 이중으로 보호합니다. 커버를 풀기 위해선 커버를 길게 눌러주세요."
+                android:textSize="@dimen/text_semi_content_size"
+                android:textColor="@color/text_bright_color"/>
 
         </LinearLayout>
 
-    </ScrollView>
+        <!--편의 기능-->
 
-</RelativeLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/activity_padding"
+                android:text="편의 기능"
+                android:textSize="@dimen/text_content_size"
+                android:textColor="@color/text_dark_color"/>
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="none">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:paddingStart="@dimen/activity_padding"
+                    android:paddingEnd="@dimen/activity_padding"
+                    android:paddingTop="@dimen/inner_padding"
+                    android:paddingBottom="@dimen/inner_padding"
+                    android:clipToPadding="false">
+
+                    <nm.security.namooprotector.widget.CheckButton
+                        android:id="@+id/settings_convenience_protection_notification_button"
+                        android:layout_width="@dimen/check_button_length"
+                        android:layout_height="@dimen/check_button_length"
+                        app:check_icon="@drawable/vector_add"
+                        app:check_title="앱 설치 시 보호 알림"
+                        app:check_description=""
+                        app:check_checked="false"/>
+
+                    <nm.security.namooprotector.widget.CheckButton
+                        android:id="@+id/settings_convenience_lock_delay_button"
+                        android:layout_width="@dimen/check_button_length"
+                        android:layout_height="@dimen/check_button_length"
+                        android:layout_marginStart="@dimen/space_padding"
+                        app:check_icon="@drawable/vector_delay"
+                        app:check_title="잠금 딜레이"
+                        app:check_description="없음"
+                        app:check_checked="false"/>
+
+                </LinearLayout>
+
+            </HorizontalScrollView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/activity_padding"
+                android:layout_marginEnd="@dimen/activity_padding"
+                android:layout_marginBottom="@dimen/activity_padding"
+                android:padding="@dimen/inner_padding"
+                android:background="#40000000"
+                android:text="잠금 딜레이란?\n잠금을 해제한 앱에 대해서 앱을 나갔다 들어오더라도 특정 시간동안 잠금 해제된 상태를 유지합니다."
+                android:textSize="@dimen/text_semi_content_size"
+                android:textColor="@color/text_bright_color"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>

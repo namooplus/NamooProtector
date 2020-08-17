@@ -11,28 +11,28 @@
     android:padding="@dimen/inner_padding">
 
     <ImageView
-        android:id="@+id/view_check_button_image_view"
+        android:id="@+id/view_check_button_icon"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        tools:srcCompat="@drawable/icon_np"
+        tools:srcCompat="@drawable/ic_launcher"
         tools:tint="@color/text_dark_color"/>
 
     <TextView
-        android:id="@+id/view_check_button_description_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:text="부가설명"
-        android:textSize="@dimen/text_semi_content_size"
-        tools:textColor="@color/text_semi_dark_color"
-        android:visibility="gone"/>
-
-    <TextView
-        android:id="@+id/view_check_button_title_view"
+        android:id="@+id/view_check_button_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/space_padding"
         tools:text="제목"
         android:textSize="@dimen/text_content_size"
         tools:textColor="@color/text_dark_color"/>
+
+    <TextView
+        android:id="@+id/view_check_button_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/micro_padding"
+        tools:text="설명"
+        android:textSize="@dimen/text_semi_content_size"
+        tools:textColor="@color/text_semi_dark_color"/>
 
 </LinearLayout>

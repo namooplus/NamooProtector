@@ -9,21 +9,23 @@ import android.os.Build
 import android.app.usage.UsageEvents
 import android.app.usage.UsageStatsManager
 import android.content.Context
+import android.os.Handler
+import android.os.Looper
 import androidx.core.app.NotificationCompat
-import androidx.localbroadcastmanager.content.LocalBroadcastManager
-import android.util.Log
+import androidx.core.content.ContextCompat
+import kotlinx.coroutines.*
 import nm.security.namooprotector.R
 import nm.security.namooprotector.activity.LockScreen
+import nm.security.namooprotector.util.CheckUtil
 import nm.security.namooprotector.util.DataUtil
-import nm.security.namooprotector.util.DataUtil.APPS
+import nm.security.namooprotector.util.SettingsUtil
 
 class ProtectorService : Service()
 {
     private val usageStatsManager by lazy { getSystemService(Context.USAGE_STATS_SERVICE) as UsageStatsManager }
 
-    private var thread: Thread? = null
-
-    private var running = false
+    private var searchTask: Thread? = null
+    private var search = false
 
     //라이프사이클
     override fun onBind(arg0: Intent): IBinder?
@@ -32,98 +34,128 @@ class ProtectorService : Service()
     }
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int
     {
-        setForeground()
-        startSearching()
+        initForeground(true)
+        initProtector()
 
-        return Service.START_STICKY
+        return START_STICKY
     }
     override fun onDestroy()
     {
-        running = false
-        stopForeground(true)
+        CheckUtil.isServiceRunning = false
+
+        initForeground(false)
 
         super.onDestroy()
     }
 
-    //메소드
-    private fun setForeground()
+    //설정
+    private fun initForeground(on: Boolean)
     {
-        val notification = NotificationCompat.Builder(this, "namooprotector")
-                .setSmallIcon(nm.security.namooprotector.R.drawable.icon_np_text)
+        if (on)
+        {
+            //포그라운드 설정
+            val notification = NotificationCompat.Builder(this, "namooprotector")
+                .setSmallIcon(R.drawable.icon_np)
                 .setContentTitle(getString(R.string.notification_service_title))
                 .setContentText(getString(R.string.notification_service_message))
+                .setColor(ContextCompat.getColor(this, R.color.color_accent))
                 .setOngoing(true)
                 .setPriority(NotificationCompat.PRIORITY_MIN)
 
-        if (Build.VERSION.SDK_INT >= 26)
-        {
-            val channel = NotificationChannel("namooprotector", getString(R.string.notification_service_title), NotificationManager.IMPORTANCE_MIN)
-            channel.description = getString(R.string.notification_service_description)
-
-            (getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager).createNotificationChannel(channel)
-        }
-        startForeground(1, notification.build())
-    }
-    private fun startSearching()
-    {
-        running = true
-
-        if (thread == null) //중복쓰레드 방지
-        {
-            thread = Thread(Runnable
+            if (Build.VERSION.SDK_INT >= 26)
             {
-                while (running)
-                {
-                    val (openedApp, openedClass) = getCurrentApp()
+                val channel = NotificationChannel("namooprotector", getString(R.string.notification_service_title), NotificationManager.IMPORTANCE_MIN)
+                channel.description = getString(R.string.notification_service_description)
 
-                    if (openedApp == "" || openedClass == "nm.security.namooprotector.activity.LockScreen") //잠금화면 상태 또는 잘못된 접근
-                        continue
+                (getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager).createNotificationChannel(channel)
+            }
+            startForeground(1, notification.build())
 
-                    if (DataUtil.getBoolean(openedApp, APPS) || openedApp == packageName) //잠금 앱
-                    {
-                        when (ProtectorState.currentState)
-                        {
-                            //잠금해제된 경우
-                            ProtectorState.UNLOCKED -> if (openedApp != ProtectorState.currentApp) lock(openedApp)
+            //검색 시작
+            search = true
+        }
+        else
+        {
+            //검색 종료
+            search = false
 
-                            //잠금화면 상태에서 다시 같은 앱이 실행되거나 다른 잠금 앱이 실행된 경우
-                            ProtectorState.LOCKED -> lock(openedApp)
-                        }
-                    }
-                    else //미 잠금 앱
-                    {
-                        if (openedApp != ProtectorState.currentApp) unlock()
-                    }
-
-                    if (openedApp != ProtectorState.currentApp) ProtectorState.currentApp = openedApp
-                }
-            })
-            thread!!.start()
+            //포그라운드 해제
+            stopForeground(true)
         }
     }
-    private fun getCurrentApp(): Pair<String, String>
+    private fun initProtector()
     {
-        val currentTime = System.currentTimeMillis()
+        //중복 방지
+        if (searchTask != null)
+            return
 
-        val usageEvent = usageStatsManager.queryEvents(currentTime - 1000 * 5, currentTime)
-        val event = UsageEvents.Event()
+        //앱 변화 감지
+        onAppChanged {
+            //나무프로텍터 잠금 방지
+            if (it == packageName) return@onAppChanged
 
-        while (usageEvent.hasNextEvent())
-            usageEvent.getNextEvent(event)
+            //잠금
+            if (DataUtil.getBoolean(it, DataUtil.APPS) && !ProtectorServiceHelper.isAuthorized(it)) lock(it)
+            //갱신
+            else if (ProtectorServiceHelper.isAuthorized(it)) ProtectorServiceHelper.addAuthorizedApp(it, SettingsUtil.lockDelay.toLong())
 
-        return if (event.eventType == UsageEvents.Event.MOVE_TO_FOREGROUND) Pair(event.packageName, event.className) else Pair("", "")
+            //임시 잠금해제 인증앱 초기화
+            ProtectorServiceHelper.cleanTemporaryAuthorizedApps()
+        }
     }
-    private fun lock(appToLock: String)
-    {
-        val intent = Intent(this, LockScreen::class.java)
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-        intent.putExtra("packageName", appToLock)
-        startActivity(intent)
-    }
-    private fun unlock()
-    {
-        ProtectorState.currentState = ProtectorState.UNLOCKED
 
-        LocalBroadcastManager.getInstance(this).sendBroadcast(Intent("CLOSE"))
+    //메소드
+    private fun onAppChanged(invoker: ((packageName: String) -> Unit))
+    {
+        //검색
+        var previousEventApp = ""
+        var recentEventApp = ""
+        var recentEventTime: Long = 0
+
+        searchTask = Thread(Runnable {
+            while (search)
+            {
+                //현재 포그라운드 앱 검색
+                val currentTime = System.currentTimeMillis()
+                val usageEvents = usageStatsManager.queryEvents(currentTime - 5 * 1000, currentTime)
+
+                val scannedEvent = UsageEvents.Event()
+
+                while (usageEvents.hasNextEvent())
+                {
+                    usageEvents.getNextEvent(scannedEvent)
+
+                    val scannedEventType = scannedEvent.eventType
+                    val scannedEventApp = scannedEvent.packageName
+                    val scannedEventTime = scannedEvent.timeStamp
+
+                    if (scannedEventType == UsageEvents.Event.ACTIVITY_RESUMED && scannedEventTime > recentEventTime)
+                    {
+                        recentEventApp = scannedEventApp
+                        recentEventTime = scannedEventTime
+                    }
+                }
+
+                //잠금 해제 인증앱 업데이트
+                ProtectorServiceHelper.updateAuthorizedApps()
+
+                //앱 변화 감지
+                if (previousEventApp != recentEventApp)
+                {
+                    Handler(Looper.getMainLooper()).post(Runnable { invoker.invoke(recentEventApp) })
+
+                    previousEventApp = recentEventApp
+                }
+            }
+        })
+        searchTask!!.start()
+    }
+
+    private fun lock(packageName: String)
+    {
+        val lockScreen = Intent(this, LockScreen::class.java)
+        lockScreen.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        lockScreen.putExtra("packageName", packageName)
+        startActivity(lockScreen)
     }
 }

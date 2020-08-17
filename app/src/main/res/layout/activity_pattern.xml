@@ -1,88 +1,147 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_color"
     android:orientation="vertical"
-    android:fitsSystemWindows="true">
-
-    <!--타이틀-->
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:orientation="horizontal"
-        android:paddingStart="@dimen/activity_padding"
-        android:paddingEnd="@dimen/activity_padding"
-        android:gravity="center">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/name_change_pattern"
-            android:textColor="@color/text_dark_color"
-            android:textSize="@dimen/text_title_size"/>
-
-        <ImageButton
-            android:id="@+id/pattern_execute_button"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:background="?android:attr/selectableItemBackgroundBorderless"
-            app:srcCompat="@drawable/vector_check"
-            android:adjustViewBounds="true"
-            android:scaleType="fitCenter"
-            android:tint="@color/text_dark_color"
-            android:padding="@dimen/space_padding"
-            android:visibility="invisible"
-            android:onClick="execute"/>
-
-    </LinearLayout>
+    android:background="@color/background_color"
+    android:fitsSystemWindows="true"
+    android:animateLayoutChanges="true"
+    tools:context=".activity.PatternActivity">
 
     <!--내용-->
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingTop="@dimen/activity_top_padding"
+        android:paddingBottom="110dp"
+        android:clipToPadding="false"
+        android:gravity="center_horizontal">
 
-        <LinearLayout
+        <!--설정-->
+
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:background="@color/card_color"
             android:layout_marginStart="@dimen/activity_padding"
             android:layout_marginEnd="@dimen/activity_padding"
-            android:layout_marginTop="@dimen/inner_padding"
-            android:layout_marginBottom="@dimen/activity_padding"
-            android:padding="20dp"
-            android:gravity="center"
-            android:elevation="@dimen/focus_elevation">
+            app:cardCornerRadius="0dp"
+            app:cardElevation="@dimen/card_elevation"
+            app:cardBackgroundColor="@color/card_color">
 
-            <TextView
-                android:id="@+id/pattern_state_text"
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:text="@string/alert_pattern_new_draw"
-                android:textColor="@color/text_dark_color"
-                android:textSize="@dimen/text_content_size"
-                android:gravity="center"/>
-
-            <nm.security.namooprotector.widget.PatternView
-                xmlns:lockview="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/pattern_pattern_view"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="20dp"
-                lockview:regularColor="@color/text_dark_color"
-                lockview:errorColor="#ff5c5c"
-                lockview:successColor="#5494e2"/>
+                android:orientation="vertical"
+                android:padding="@dimen/activity_padding"
+                android:gravity="center_horizontal">
 
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/pattern_state_indicator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="새 패턴을 그려주세요."
+                    android:textSize="@dimen/text_content_size"
+                    android:textColor="@color/text_semi_dark_color" />
+
+                <com.andrognito.patternlockview.PatternLockView
+                    android:id="@+id/pattern_pattern_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_padding"
+                    app:aspectRatioEnabled="true"
+                    app:aspectRatio="width_bias"
+                    app:normalStateColor="@color/text_dark_color"
+                    app:correctStateColor="@color/text_dark_color"
+                    app:wrongStateColor="@color/text_dark_color"/>
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
 
     </LinearLayout>
 
-</LinearLayout>
+    <!--메뉴-->
+
+    <nm.security.namooprotector.widget.FloatingButton
+        android:id="@+id/pattern_ok_button"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_margin="@dimen/activity_padding"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        app:floating_text="다음"
+        android:visibility="gone"
+        android:onClick="ok"/>
+
+    <!--타이틀-->
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="110dp"
+        android:paddingStart="@dimen/activity_padding"
+        android:paddingEnd="@dimen/activity_padding"
+        android:background="@drawable/background_border_top"
+        android:clickable="true"
+        android:focusable="true"
+        android:clipToPadding="false"
+        android:clipChildren="false"
+        android:layoutAnimation="@anim/views_translate">
+
+        <TextView
+            android:id="@+id/app_indicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@id/title_indicator"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/title_indicator"
+            app:layout_constraintVertical_chainStyle="packed"
+            android:text="Namoo Protector"
+            android:textSize="@dimen/text_content_size"
+            android:textColor="@color/text_semi_dark_color"
+            android:transitionName="appIndicator"/>
+
+        <TextView
+            android:id="@+id/previous_title_indicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toStartOf="@id/route_indicator"
+            app:layout_constraintTop_toTopOf="@id/title_indicator"
+            app:layout_constraintBottom_toBottomOf="@id/title_indicator"
+            android:layout_marginEnd="@dimen/space_padding"
+            tools:text="Settings"
+            android:textSize="@dimen/text_title_size"
+            android:textStyle="bold"
+            android:textColor="@color/text_dark_color"
+            android:transitionName="titleIndicator"/>
+
+        <ImageView
+            android:id="@+id/route_indicator"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/title_indicator"
+            app:layout_constraintBottom_toBottomOf="@id/title_indicator"
+            app:srcCompat="@drawable/vector_next"/>
+
+        <TextView
+            android:id="@+id/title_indicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/route_indicator"
+            app:layout_constraintTop_toBottomOf="@id/app_indicator"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginStart="@dimen/space_padding"
+            android:text="Create Pattern"
+            android:textSize="@dimen/text_title_size"
+            android:textStyle="bold"
+            android:textColor="@color/text_dark_color"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</RelativeLayout>

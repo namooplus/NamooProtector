@@ -2,7 +2,7 @@
 <resources>
 
     <!--텍스트-->
-    <dimen name="text_title_size">20sp</dimen>
+    <dimen name="text_title_size">25sp</dimen>
     <dimen name="text_content_size">14sp</dimen>
     <dimen name="text_semi_content_size">12sp</dimen>
 
@@ -13,13 +13,16 @@
     <dimen name="activity_padding">30dp</dimen>
     <dimen name="inner_padding">15dp</dimen>
     <dimen name="space_padding">10dp</dimen>
-    <dimen name="activity_top_padding">115dp</dimen>
-    <dimen name="activity_bottom_padding">116dp</dimen>
+    <dimen name="micro_padding">5dp</dimen>
+    <dimen name="activity_top_padding">110dp</dimen>
+    <dimen name="activity_bottom_padding">80dp</dimen>
 
     <!--곡률-->
+    <dimen name="card_radius">7dp</dimen>
     <dimen name="circle_radius">100dp</dimen>
 
     <!--상승-->
-    <dimen name="focus_elevation">10dp</dimen>
+    <dimen name="card_elevation">10dp</dimen>
+    <dimen name="focus_elevation">15dp</dimen>
 
 </resources>

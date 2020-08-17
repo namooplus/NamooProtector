@@ -7,17 +7,11 @@
 
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
     <uses-permission android:name="android.permission.PACKAGE_USAGE_STATS" tools:ignore="ProtectedPermissions"/>
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.USE_BIOMETRIC"/>
     <uses-permission android:name="android.permission.VIBRATE"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-permission android:name="android.permission.FLASHLIGHT"/>
-    <uses-permission android:name="android.permission.USE_FINGERPRINT"/>
-
-    <uses-feature android:name="android.hardware.camera" />
-    <uses-feature android:name="android.hardware.camera.flash" />
 
     <application
             android:name=".NamooProtector"
@@ -50,18 +44,34 @@
 
         </activity>
 
-        <activity android:name=".activity.PinActivity"/>
-
-        <activity android:name=".activity.PatternActivity"/>
+        <activity
+            android:name=".activity.DeveloperActivity"
+            android:theme="@style/SharedTheme"/>
 
         <activity
-            android:name=".activity.ThemePreviewActivity"
-            android:theme="@style/TransparentTheme"/>
+            android:name=".activity.SupportActivity"
+            android:theme="@style/SharedTheme"/>
 
         <activity
-            android:name=".activity.AppAddActivity"
+            android:name=".activity.PinActivity"
+            android:theme="@style/SharedTheme"/>
+
+        <activity
+            android:name=".activity.PatternActivity"
+            android:theme="@style/SharedTheme"/>
+
+        <activity
+            android:name=".activity.AddAppActivity"
             android:theme="@style/TransparentTheme"
             android:excludeFromRecents="true"/>
+
+        <activity
+            android:name=".activity.BackupActivity"
+            android:theme="@style/SharedTheme"/>
+
+        <activity
+            android:name=".activity.RestoreActivity"
+            android:theme="@style/SharedTheme"/>
 
         <!--서비스-->
 
@@ -93,7 +103,6 @@
             <intent-filter>
 
                 <action android:name="android.intent.action.PACKAGE_ADDED"/>
-
                 <data android:scheme="package"/>
 
             </intent-filter>
@@ -131,7 +140,7 @@
 
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="@string/project_ad_key"/>
+            android:value="ca-app-pub-8836936338107765~2258517133"/>
 
     </application>
 

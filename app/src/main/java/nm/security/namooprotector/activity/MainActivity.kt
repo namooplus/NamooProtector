@@ -1,260 +1,125 @@
 package nm.security.namooprotector.activity
 
-import android.Manifest
+import android.app.ActivityOptions
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import com.gun0912.tedpermission.PermissionListener
-import com.gun0912.tedpermission.TedPermission
 import nm.security.namooprotector.util.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.activity_main.*
 import nm.security.namooprotector.fragment.*
 import nm.security.namooprotector.R
 import com.google.android.gms.ads.*
 import nm.security.namooprotector.BuildConfig
+import nm.security.namooprotector.util.AnimationUtil.alpha
+import nm.security.namooprotector.util.AnimationUtil.scale
 
 class MainActivity: AppCompatActivity()
 {
-    //광고
-    private var interstitialAd: InterstitialAd? = null
-
-    private var tabClick = 0
-
-    private var previousTab = 1
-    private var currentTab = 1
-
     //라이프사이클
     override fun onCreate(savedInstanceState: Bundle?)
     {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        initFlag()
-        initVariables()
+        ActivityUtil.initFlag(this, true)
+
         initFragment()
     }
     override fun onResume()
     {
         super.onResume()
 
-        init()
-        initAd()
-
-        main_ad_view.resume()
-    }
-    override fun onPause()
-    {
-        main_ad_view.pause()
-
-        super.onPause()
-    }
-    override fun onDestroy()
-    {
-        main_ad_view.destroy()
-        (main_ad_view.parent as ViewGroup).removeView(main_ad_view)
-
-        super.onDestroy()
+        initState()
     }
 
     //설정
-    private fun initFlag()
-    {
-        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-    }
-    private fun initVariables()
-    {
-        tabClick = 0
-
-        previousTab = 1
-        currentTab = 1
-    }
     private fun initFragment()
     {
         supportFragmentManager
             .beginTransaction()
-            .add(R.id.main_content, LockAppsFragment())
+            .add(R.id.main_content, HomeFragment())
             .commit()
 
-        changeAlpha(1f, main_menu_lock_apps)
-        changeAlpha(0.5f, main_menu_lock_settings, main_menu_settings, main_menu_backup, main_menu_theme, main_menu_support, main_menu_about)
+        changeTab("Home", main_tab_home, main_tab_apps, main_tab_settings, main_tab_theme)
+    }
+    private fun initState()
+    {
+        if (!CheckUtil.isNPValid)
+        {
+            main_tab_container.visibility = View.GONE
+
+            changeFragment(WizardFragment())
+            title_indicator.text = "Initial Settings"
+        }
     }
 
     fun init()
     {
-        if (CheckUtil.isPasswordSet && CheckUtil.isUsageStatsPermissionGranted) //일반적인 상태
-        {
-            ServiceUtil.runService(true)
-
-            main_menu.visibility = View.VISIBLE
-            main_line.visibility = View.VISIBLE
-
-            if (currentTab == 0)
-                changeFragment(previousTab)
-        }
-        else //초기설정 필요
-        {
-            ServiceUtil.runService(false)
-
-            main_menu.visibility = View.GONE
-            main_line.visibility = View.GONE
-
-            changeFragment(0)
-        }
-    }
-    fun initAd()
-    {
-        if (DataUtil.getBoolean("removeAds", DataUtil.NP)) //광고 제거
-        {
-            main_ad_view.visibility = View.GONE
-            interstitialAd = null
-        }
-        else
-        {
-            //배너광고
-            if (!main_ad_view.isShown) //재로드 방지
-            {
-                main_ad_view.visibility = View.VISIBLE
-                main_ad_view.adListener = object: AdListener()
-                {
-                    override fun onAdFailedToLoad(errorCode: Int)
-                    {
-                        main_ad_view.visibility = View.GONE
-                    }
-                }
-                main_ad_view.loadAd(AdRequest.Builder().build())
-            }
-
-            //전면광고
-            if (interstitialAd == null) //재로드 방지
-            {
-                interstitialAd = InterstitialAd(this)
-                interstitialAd!!.adUnitId = BuildConfig.InterstitialAdKey
-                interstitialAd!!.adListener = object: AdListener()
-                {
-                    override fun onAdClosed()
-                    {
-                        if (interstitialAd != null) interstitialAd!!.loadAd(AdRequest.Builder().build())
-                    }
-                }
-                interstitialAd!!.loadAd(AdRequest.Builder().build())
-            }
-        }
+//        if (CheckUtil.isPasswordSet && CheckUtil.isUsageStatsPermissionGranted) //일반적인 상태
+//        {
+//            ServiceUtil.runService(true)
+//
+//            main_menu.visibility = View.VISIBLE
+//            main_line.visibility = View.VISIBLE
+//
+//            if (currentTab == 0)
+//                changeFragment(previousTab)
+//        }
+//        else //초기설정 필요
+//        {
+//            ServiceUtil.runService(false)
+//
+//            main_menu.visibility = View.GONE
+//            main_line.visibility = View.GONE
+//
+//            changeFragment(0)
+//        }
     }
 
     //클릭 이벤트
-    fun lockApps(view: View)
+    fun home(view: View)
     {
-        changeFragment(1)
-
-        changeAlpha(1f, main_menu_lock_apps)
-        changeAlpha(0.5f, main_menu_lock_settings, main_menu_settings, main_menu_backup, main_menu_theme, main_menu_support, main_menu_about)
+        changeFragment(HomeFragment())
+        changeTab("Home", main_tab_home, main_tab_apps, main_tab_settings, main_tab_theme)
     }
-    fun lockSettings(view: View)
+    fun apps(view: View)
     {
-        changeFragment(2)
-
-        changeAlpha(1f, main_menu_lock_settings)
-        changeAlpha(0.5f, main_menu_lock_apps, main_menu_settings, main_menu_backup, main_menu_theme, main_menu_support, main_menu_about)
+        changeFragment(AppsFragment())
+        changeTab("Apps", main_tab_apps, main_tab_home, main_tab_settings, main_tab_theme)
     }
     fun settings(view: View)
     {
-        changeFragment(3)
-
-        changeAlpha(1f, main_menu_settings)
-        changeAlpha(0.5f, main_menu_lock_apps, main_menu_lock_settings, main_menu_backup, main_menu_theme, main_menu_support, main_menu_about)
-    }
-    fun backup(view: View)
-    {
-        TedPermission
-            .with(this)
-            .setPermissionListener(object: PermissionListener
-            {
-                override fun onPermissionGranted()
-                {
-                    changeFragment(4)
-
-                    changeAlpha(1f, main_menu_backup)
-                    changeAlpha(0.5f, main_menu_lock_apps, main_menu_lock_settings, main_menu_settings, main_menu_theme, main_menu_support, main_menu_about)
-                }
-                override fun onPermissionDenied(deniedPermissions: MutableList<String>?)
-                {
-                    Toast.makeText(this@MainActivity, getString(R.string.error_permission_denied), Toast.LENGTH_SHORT).show()
-                }
-            })
-            .setRationaleTitle(getString(R.string.permission_storage_title))
-            .setRationaleMessage(getString(R.string.permission_storage_message))
-            .setDeniedMessage(getString(R.string.permission_denied_message))
-            .setPermissions(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-            .check()
+        changeFragment(SettingsFragment())
+        changeTab("Settings", main_tab_settings, main_tab_home, main_tab_apps, main_tab_theme)
     }
     fun theme(view: View)
     {
-        changeFragment(5)
-
-        changeAlpha(1f, main_menu_theme)
-        changeAlpha(0.5f, main_menu_lock_apps, main_menu_lock_settings, main_menu_settings, main_menu_backup, main_menu_support, main_menu_about)
-    }
-    fun support(view: View)
-    {
-        if (!CheckUtil.isNetworkAvailable)
-            Toast.makeText(this, getString(R.string.error_network_disconnected), Toast.LENGTH_SHORT).show()
-
-        else
-        {
-            changeFragment(6)
-
-            changeAlpha(1f, main_menu_support)
-            changeAlpha(0.5f, main_menu_lock_apps, main_menu_lock_settings, main_menu_settings, main_menu_backup, main_menu_theme, main_menu_about)
-        }
-    }
-    fun about(view: View)
-    {
-        changeFragment(7)
-
-        changeAlpha(1f, main_menu_about)
-        changeAlpha(0.5f, main_menu_lock_apps, main_menu_lock_settings, main_menu_settings, main_menu_backup, main_menu_theme, main_menu_support)
+        changeFragment(ThemeFragment())
+        changeTab("Theme", main_tab_theme, main_tab_home, main_tab_apps, main_tab_settings)
     }
 
     //메소드
-    private fun changeFragment(tabNumber: Int)
+    private fun changeFragment(fragment: Fragment)
     {
-        //중복 방지
-        if (tabNumber == currentTab)
-            return
-
-        //재지정
-        previousTab = currentTab
-        currentTab = tabNumber
-
-        //변경
         supportFragmentManager
             .beginTransaction()
-            .replace(nm.security.namooprotector.R.id.main_content, when(tabNumber)
-            {
-                1 -> LockAppsFragment()
-                2 -> LockSettingsFragment()
-                3 -> SettingsFragment()
-                4 -> BackupFragment()
-                5 -> ThemeFragment()
-                6 -> SupportFragment()
-                7 -> AboutFragment()
-                else -> WizardFragment()
-            })
+            .replace(R.id.main_content, fragment)
             .commit()
-
-        //광고 표시
-        tabClick++
-
-        if (tabClick >= 4 && interstitialAd != null && interstitialAd!!.isLoaded)
-        {
-            tabClick = 0
-            interstitialAd!!.show()
-        }
     }
-    private fun changeAlpha(alpha: Float, vararg views: View)
+    private fun changeTab(title: String, selectedView: View, vararg unselectedViews: View)
     {
-        views.forEach { it.alpha = alpha }
+        //타이틀 변경
+        title_indicator.text = title
+
+        //탭 보이기
+        main_tab_container.visibility = View.VISIBLE
+
+        //탭 선택
+        selectedView.alpha(1f, AnimationUtil.DEFAULT_DURATION).scale(1.1f, AnimationUtil.DEFAULT_DURATION)
+
+        //탭 선택 해제
+        unselectedViews.forEach { it.alpha(0.5f, AnimationUtil.DEFAULT_DURATION).scale(0.9f, AnimationUtil.DEFAULT_DURATION) }
     }
 }

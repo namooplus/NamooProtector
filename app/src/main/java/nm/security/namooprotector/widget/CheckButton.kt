@@ -4,21 +4,28 @@ import android.content.Context
 import android.content.res.ColorStateList
 import android.content.res.TypedArray
 import android.graphics.Color
-import androidx.core.content.ContextCompat
-import android.widget.TextView
-import android.view.LayoutInflater
+import android.graphics.drawable.ColorDrawable
+import android.graphics.drawable.Drawable
 import android.util.AttributeSet
+import android.util.TypedValue
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.TextView
+import android.widget.Toast
+import androidx.core.content.ContextCompat
 import nm.security.namooprotector.R
 
 class CheckButton : LinearLayout
 {
-    var background: LinearLayout? = null
-    var imageView: ImageView? = null
-    var descriptionView: TextView? = null
-    var titleView: TextView? = null
+    private var backgroundView: LinearLayout? = null
+    private var iconView: ImageView? = null
+    private var titleView: TextView? = null
+    private var descriptionView: TextView? = null
+
+    private var checked = false
+    private var tintMode = true
 
     constructor(context: Context) : super(context)
     {
@@ -41,12 +48,20 @@ class CheckButton : LinearLayout
         val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         inflater.inflate(R.layout.view_check_button, this)
 
-        background = findViewById(R.id.view_check_button_background)
-        imageView = findViewById(R.id.view_check_button_image_view)
-        descriptionView = findViewById(R.id.view_check_button_description_view)
-        titleView = findViewById(R.id.view_check_button_title_view)
+        backgroundView = findViewById(R.id.view_check_button_background)
+        iconView = findViewById(R.id.view_check_button_icon)
+        titleView = findViewById(R.id.view_check_button_title)
+        descriptionView = findViewById(R.id.view_check_button_description)
+
+        //기본 속성
+        val value = TypedValue()
+        context.theme.resolveAttribute(android.R.attr.selectableItemBackground, value, true)
 
         setBackgroundColor(Color.parseColor("#ffffff"))
+        foreground = ContextCompat.getDrawable(context, value.resourceId)
+        elevation = 10f
+        isClickable = true
+        isFocusable = true
     }
 
     private fun getAttrs(attrs: AttributeSet)
@@ -61,80 +76,128 @@ class CheckButton : LinearLayout
     }
     private fun updateView(typedArray: TypedArray)
     {
+        //tint mode
+        tintMode = typedArray.getBoolean(R.styleable.CheckButton_check_tint_mode, true)
+
         //checked
-        if (typedArray.getBoolean(R.styleable.CheckButton_checked, false))
+        checked = typedArray.getBoolean(R.styleable.CheckButton_check_checked, false)
+
+        if (checked)
         {
-            background!!.setBackgroundColor(ContextCompat.getColor(context, R.color.highlight_color))
-            imageView!!.imageTintList = ColorStateList.valueOf(ContextCompat.getColor(context, R.color.text_bright_color))
-            descriptionView!!.setTextColor(ContextCompat.getColor(context, R.color.text_bright_color))
+            backgroundView!!.setBackgroundColor(ContextCompat.getColor(context, R.color.highlight_color))
+            iconView!!.imageTintList = if (tintMode) ColorStateList.valueOf(ContextCompat.getColor(context, R.color.text_bright_color)) else null
             titleView!!.setTextColor(ContextCompat.getColor(context, R.color.text_bright_color))
+            descriptionView!!.setTextColor(ContextCompat.getColor(context, R.color.text_bright_color))
         }
         else
         {
-            background!!.setBackgroundColor(ContextCompat.getColor(context, R.color.card_color))
-            imageView!!.imageTintList = ColorStateList.valueOf(ContextCompat.getColor(context, R.color.text_dark_color))
-            descriptionView!!.setTextColor(ContextCompat.getColor(context, R.color.text_dark_color))
+            backgroundView!!.setBackgroundColor(ContextCompat.getColor(context, R.color.card_color))
+            iconView!!.imageTintList = if (tintMode) ColorStateList.valueOf(ContextCompat.getColor(context, R.color.text_dark_color)) else null
             titleView!!.setTextColor(ContextCompat.getColor(context, R.color.text_dark_color))
+            descriptionView!!.setTextColor(ContextCompat.getColor(context, R.color.text_dark_color))
         }
 
-        //image
-        if (typedArray.getResourceId(R.styleable.CheckButton_image, 0) == 0)
-            imageView!!.visibility = View.GONE
+        //icon
+        if (typedArray.getResourceId(R.styleable.CheckButton_check_icon, 0) == 0)
+            iconView!!.visibility = View.GONE
 
         else
         {
-            imageView!!.visibility = View.VISIBLE
-            imageView!!.setImageResource(typedArray.getResourceId(R.styleable.CheckButton_image, R.drawable.icon_np_text))
+            iconView!!.visibility = View.VISIBLE
+            iconView!!.setImageResource(typedArray.getResourceId(R.styleable.CheckButton_check_icon, R.drawable.ic_launcher))
+        }
+
+        //title
+        if (typedArray.getString(R.styleable.CheckButton_check_title) == "")
+            titleView!!.visibility = View.GONE
+
+        else
+        {
+            titleView!!.visibility = View.VISIBLE
+            titleView!!.text = typedArray.getString(R.styleable.CheckButton_check_title)
         }
 
         //description
-        if (typedArray.getString(R.styleable.CheckButton_description) == "")
+        if (typedArray.getString(R.styleable.CheckButton_check_description) == "")
             descriptionView!!.visibility = View.GONE
 
         else
         {
             descriptionView!!.visibility = View.VISIBLE
-            descriptionView!!.text = typedArray.getString(R.styleable.CheckButton_description)
+            descriptionView!!.text = typedArray.getString(R.styleable.CheckButton_check_description)
         }
-
-        //title
-        titleView!!.text = typedArray.getString(R.styleable.CheckButton_title)
 
         typedArray.recycle()
     }
 
     //메소드
-    fun setChecked(checked: Boolean)
-    {
-        if (checked)
+    var isChecked: Boolean
+        set(value)
         {
-            background!!.setBackgroundColor(ContextCompat.getColor(context, R.color.highlight_color))
-            imageView!!.imageTintList = ColorStateList.valueOf(ContextCompat.getColor(context, R.color.text_bright_color))
-            descriptionView!!.setTextColor(ContextCompat.getColor(context, R.color.text_bright_color))
-            titleView!!.setTextColor(ContextCompat.getColor(context, R.color.text_bright_color))
+            if (value)
+            {
+                checked = true
+
+                backgroundView!!.setBackgroundColor(ContextCompat.getColor(context, R.color.highlight_color))
+                iconView!!.imageTintList = if (tintMode) ColorStateList.valueOf(ContextCompat.getColor(context, R.color.text_bright_color)) else null
+                titleView!!.setTextColor(ContextCompat.getColor(context, R.color.text_bright_color))
+                descriptionView!!.setTextColor(ContextCompat.getColor(context, R.color.text_bright_color))
+            }
+            else
+            {
+                checked = false
+
+                backgroundView!!.setBackgroundColor(ContextCompat.getColor(context, R.color.card_color))
+                iconView!!.imageTintList = if (tintMode) ColorStateList.valueOf(ContextCompat.getColor(context, R.color.text_dark_color)) else null
+                titleView!!.setTextColor(ContextCompat.getColor(context, R.color.text_dark_color))
+                descriptionView!!.setTextColor(ContextCompat.getColor(context, R.color.text_dark_color))
+            }
         }
-        else
-        {
-            background!!.setBackgroundColor(ContextCompat.getColor(context, R.color.card_color))
-            imageView!!.imageTintList = ColorStateList.valueOf(ContextCompat.getColor(context, R.color.text_dark_color))
-            descriptionView!!.setTextColor(ContextCompat.getColor(context, R.color.text_dark_color))
-            titleView!!.setTextColor(ContextCompat.getColor(context, R.color.text_dark_color))
-        }
-    }
-    fun setImage(imageResource: Int)
+        get() = checked
+
+    fun setIcon(imageResource: Int)
     {
         if (imageResource == 0)
-            imageView!!.visibility = View.GONE
+            iconView!!.visibility = View.GONE
 
         else
         {
-            imageView!!.visibility = View.VISIBLE
-            imageView!!.setImageResource(imageResource)
+            iconView!!.visibility = View.VISIBLE
+            iconView!!.setImageResource(imageResource)
         }
     }
-    fun setTint(color: String)
+    fun setIcon(imageDrawable: Drawable?)
     {
-        imageView!!.imageTintList = ColorStateList.valueOf(Color.parseColor(color))
+        if (imageDrawable == null)
+            iconView!!.visibility = View.GONE
+
+        else
+        {
+            iconView!!.visibility = View.VISIBLE
+            iconView!!.setImageDrawable(imageDrawable)
+        }
+    }
+    fun setTitle(text: String)
+    {
+        if (text == "")
+            titleView!!.visibility = View.GONE
+
+        else
+        {
+            titleView!!.visibility = View.VISIBLE
+            titleView!!.text = text
+        }
+    }
+    fun setTitle(textResource: Int)
+    {
+        if (textResource == 0)
+            titleView!!.visibility = View.GONE
+
+        else
+        {
+            titleView!!.visibility = View.VISIBLE
+            titleView!!.setText(textResource)
+        }
     }
     fun setDescription(text: String)
     {
@@ -147,12 +210,22 @@ class CheckButton : LinearLayout
             descriptionView!!.text = text
         }
     }
-    fun setTitle(text: String)
+    fun setDescription(textResource: Int)
     {
-        titleView!!.text = text
+        if (textResource == 0)
+            descriptionView!!.visibility = View.GONE
+
+        else
+        {
+            descriptionView!!.visibility = View.VISIBLE
+            descriptionView!!.setText(textResource)
+        }
     }
-    fun setTitle(textResource: Int)
+    fun setTintMode(on: Boolean)
     {
-        titleView!!.setText(textResource)
+        tintMode = on
+
+        //재로드
+        isChecked = checked
     }
 }

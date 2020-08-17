@@ -6,38 +6,244 @@
     android:id="@+id/lockscreen_base_layout"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#52cc9d"
+    android:clipChildren="false"
+    android:fitsSystemWindows="true">
 
-    <RelativeLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/lockscreen_top_layout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="4">
+        android:layout_weight="4"
+        android:background="#00FFFFFF">
 
-        <include
-            android:id="@+id/lockscreen_top_include"
-            layout="@layout/lockscreen_top_default"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_centerInParent="true"/>
+        <ImageView
+            android:id="@+id/lockscreen_icon_container"
+            android:layout_height="90dp"
+            android:layout_width="90dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:src="@drawable/background_circle_white_translucent"
+            android:elevation="@dimen/focus_elevation"/>
 
-    </RelativeLayout>
+        <ImageView
+            android:id="@+id/lockscreen_icon_indicator"
+            android:layout_height="0dp"
+            android:layout_width="0dp"
+            app:layout_constraintTop_toTopOf="@id/lockscreen_icon_container"
+            app:layout_constraintBottom_toBottomOf="@id/lockscreen_icon_container"
+            app:layout_constraintStart_toStartOf="@id/lockscreen_icon_container"
+            app:layout_constraintEnd_toEndOf="@id/lockscreen_icon_container"
+            android:layout_margin="@dimen/inner_padding"
+            android:src="@drawable/ic_launcher"
+            android:elevation="@dimen/focus_elevation"/>
 
-    <RelativeLayout
+        <ImageView
+            android:id="@+id/lockscreen_fingerprint_indicator"
+            android:layout_height="40dp"
+            android:layout_width="40dp"
+            app:layout_constraintBottom_toBottomOf="@id/lockscreen_icon_container"
+            app:layout_constraintEnd_toEndOf="@id/lockscreen_icon_container"
+            android:src="@drawable/icon_fingerprint"
+            android:elevation="@dimen/focus_elevation"/>
+
+        <TextView
+            android:id="@+id/lockscreen_pin_indicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/lockscreen_icon_container"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="••••••"
+            android:textColor="@color/text_bright_color"
+            android:textSize="30sp"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/lockscreen_bottom_layout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="6">
+        android:layout_weight="6"
+        android:background="#20000000">
 
-        <include
-            android:id="@+id/lockscreen_bottom_include"
-            layout="@layout/lockscreen_bottom_default"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_centerVertical="true"/>
+        <GridLayout
+            android:id="@+id/lockscreen_key_container"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintDimensionRatio="1:1"
+            android:layout_margin="@dimen/activity_padding"
+            android:columnCount="3"
+            android:rowCount="4"
+            android:visibility="visible">
+
+            <Button
+                android:id="@+id/lockscreen_key_1"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_columnWeight="1"
+                android:layout_rowWeight="1"
+                android:text="1"
+                android:textSize="25sp"
+                android:textColor="@color/text_bright_color"/>
+
+            <Button
+                android:id="@+id/lockscreen_key_2"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_columnWeight="1"
+                android:layout_rowWeight="1"
+                android:text="2"
+                android:textSize="25sp"
+                android:textColor="@color/text_bright_color"/>
+
+            <Button
+                android:id="@+id/lockscreen_key_3"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_columnWeight="1"
+                android:layout_rowWeight="1"
+                android:text="3"
+                android:textSize="25sp"
+                android:textColor="@color/text_bright_color"/>
+
+            <Button
+                android:id="@+id/lockscreen_key_4"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_columnWeight="1"
+                android:layout_rowWeight="1"
+                android:text="4"
+                android:textSize="25sp"
+                android:textColor="@color/text_bright_color"/>
+
+            <Button
+                android:id="@+id/lockscreen_key_5"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_columnWeight="1"
+                android:layout_rowWeight="1"
+                android:text="5"
+                android:textSize="25sp"
+                android:textColor="@color/text_bright_color"/>
+
+            <Button
+                android:id="@+id/lockscreen_key_6"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_columnWeight="1"
+                android:layout_rowWeight="1"
+                android:text="6"
+                android:textSize="25sp"
+                android:textColor="@color/text_bright_color"/>
+
+            <Button
+                android:id="@+id/lockscreen_key_7"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_columnWeight="1"
+                android:layout_rowWeight="1"
+                android:text="7"
+                android:textSize="25sp"
+                android:textColor="@color/text_bright_color"/>
+
+            <Button
+                android:id="@+id/lockscreen_key_8"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_columnWeight="1"
+                android:layout_rowWeight="1"
+                android:text="8"
+                android:textSize="25sp"
+                android:textColor="@color/text_bright_color"/>
+
+            <Button
+                android:id="@+id/lockscreen_key_9"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_columnWeight="1"
+                android:layout_rowWeight="1"
+                android:text="9"
+                android:textSize="25sp"
+                android:textColor="@color/text_bright_color"/>
+
+            <Button
+                android:id="@+id/lockscreen_key_ok"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_columnWeight="1"
+                android:layout_rowWeight="1"
+                android:text="V"
+                android:textSize="25sp"
+                android:textColor="@color/text_bright_color"/>
+
+            <Button
+                android:id="@+id/lockscreen_key_0"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_columnWeight="1"
+                android:layout_rowWeight="1"
+                android:text="0"
+                android:textSize="25sp"
+                android:textColor="@color/text_bright_color"/>
+
+            <Button
+                android:id="@+id/lockscreen_key_clear"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_columnWeight="1"
+                android:layout_rowWeight="1"
+                android:text="X"
+                android:textSize="25sp"
+                android:textColor="@color/text_bright_color"/>
+
+        </GridLayout>
+
+        <RelativeLayout
+            android:id="@+id/lockscreen_pattern_container"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1:1"
+            android:layout_margin="@dimen/activity_padding"
+            android:visibility="gone">
+
+            <com.andrognito.patternlockview.PatternLockView
+                android:id="@+id/lockscreen_pattern_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:normalStateColor="@color/text_bright_color"
+                app:correctStateColor="@color/text_bright_color"
+                app:wrongStateColor="@color/text_bright_color"/>
+
+        </RelativeLayout>
 
         <LinearLayout
-            android:id="@+id/lockscreen_watcher_state_layout"
+            android:id="@+id/lockscreen_watcher_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
@@ -91,6 +297,6 @@
 
         </LinearLayout>
 
-    </RelativeLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </LinearLayout>

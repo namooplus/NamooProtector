@@ -1,164 +1,129 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/background_color">
+    android:fitsSystemWindows="true"
+    android:animateLayoutChanges="true"
+    tools:context=".activity.MainActivity">
+
+    <!--내용-->
+
+    <FrameLayout
+        android:id="@+id/main_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <!--타이틀-->
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="110dp"
+        android:paddingStart="@dimen/activity_padding"
+        android:paddingEnd="@dimen/activity_padding"
+        android:background="@drawable/background_border_top"
+        android:clickable="true"
+        android:focusable="true">
+
+        <TextView
+            android:id="@+id/app_indicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/title_indicator"
+            app:layout_constraintVertical_chainStyle="packed"
+            android:text="Namoo Protector"
+            android:textSize="@dimen/text_content_size"
+            android:textColor="@color/text_semi_dark_color"
+            android:transitionName="appIndicator"/>
+
+        <TextView
+            android:id="@+id/title_indicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/app_indicator"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:text="Home"
+            android:textSize="@dimen/text_title_size"
+            android:textStyle="bold"
+            android:textColor="@color/text_dark_color"
+            android:transitionName="titleIndicator"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!--탭-->
 
     <LinearLayout
+        android:id="@+id/main_tab_container"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="80dp"
         android:orientation="horizontal"
-        android:layout_weight="1">
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/background_border_bottom"
+        android:gravity="center"
+        android:clickable="true"
+        android:focusable="true">
 
-        <LinearLayout
-            android:id="@+id/main_menu"
-            android:layout_width="60dp"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:background="@color/card_color"
-            android:fitsSystemWindows="true">
+        <ImageButton
+            android:id="@+id/main_tab_home"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:padding="12dp"
+            android:alpha="0.5"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            app:srcCompat="@drawable/vector_home"
+            android:tint="@color/text_dark_color"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            android:onClick="home"/>
 
-            <ImageView
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                app:srcCompat="@drawable/icon_np"
-                android:padding="@dimen/space_padding"/>
+        <ImageButton
+            android:id="@+id/main_tab_apps"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="@dimen/inner_padding"
+            android:padding="12dp"
+            android:alpha="0.5"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            app:srcCompat="@drawable/vector_apps"
+            android:tint="@color/text_dark_color"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            android:onClick="apps"/>
 
-            <ScrollView
-                android:layout_width="60dp"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:scrollbars="none">
+        <ImageButton
+            android:id="@+id/main_tab_settings"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="@dimen/inner_padding"
+            android:padding="12dp"
+            android:alpha="0.5"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            app:srcCompat="@drawable/vector_settings"
+            android:tint="@color/text_dark_color"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            android:onClick="settings"/>
 
-                <LinearLayout
-                    android:layout_width="60dp"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:gravity="center_horizontal">
-
-                    <ImageButton
-                        android:id="@+id/main_menu_lock_apps"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        tools:alpha="1"
-                        android:background="?android:attr/selectableItemBackgroundBorderless"
-                        app:srcCompat="@drawable/vector_apps"
-                        android:tint="@color/text_dark_color"
-                        android:adjustViewBounds="true"
-                        android:scaleType="fitCenter"
-                        android:padding="12dp"
-                        android:onClick="lockApps"/>
-
-                    <ImageButton
-                        android:id="@+id/main_menu_lock_settings"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        tools:alpha="0.5"
-                        android:background="?android:attr/selectableItemBackgroundBorderless"
-                        app:srcCompat="@drawable/vector_lock"
-                        android:tint="@color/text_dark_color"
-                        android:adjustViewBounds="true"
-                        android:scaleType="fitCenter"
-                        android:padding="11dp"
-                        android:onClick="lockSettings"/>
-
-                    <ImageButton
-                        android:id="@+id/main_menu_settings"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        tools:alpha="0.5"
-                        android:background="?android:attr/selectableItemBackgroundBorderless"
-                        app:srcCompat="@drawable/vector_settings"
-                        android:tint="@color/text_dark_color"
-                        android:adjustViewBounds="true"
-                        android:scaleType="fitCenter"
-                        android:padding="@dimen/space_padding"
-                        android:onClick="settings"/>
-
-                    <ImageButton
-                        android:id="@+id/main_menu_backup"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        tools:alpha="0.5"
-                        android:background="?android:attr/selectableItemBackgroundBorderless"
-                        app:srcCompat="@drawable/vector_backup"
-                        android:tint="@color/text_dark_color"
-                        android:adjustViewBounds="true"
-                        android:scaleType="fitCenter"
-                        android:padding="12dp"
-                        android:onClick="backup"/>
-
-                    <ImageButton
-                        android:id="@+id/main_menu_theme"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        tools:alpha="0.5"
-                        android:background="?android:attr/selectableItemBackgroundBorderless"
-                        app:srcCompat="@drawable/vector_theme"
-                        android:tint="@color/text_dark_color"
-                        android:adjustViewBounds="true"
-                        android:scaleType="fitCenter"
-                        android:padding="@dimen/space_padding"
-                        android:onClick="theme"/>
-
-                    <ImageButton
-                        android:id="@+id/main_menu_support"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        tools:alpha="0.5"
-                        android:background="?android:attr/selectableItemBackgroundBorderless"
-                        app:srcCompat="@drawable/vector_support"
-                        android:tint="@color/text_dark_color"
-                        android:adjustViewBounds="true"
-                        android:scaleType="fitCenter"
-                        android:padding="11dp"
-                        android:onClick="support"/>
-
-                    <ImageButton
-                        android:id="@+id/main_menu_about"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        tools:alpha="0.5"
-                        android:background="?android:attr/selectableItemBackgroundBorderless"
-                        app:srcCompat="@drawable/icon_np_text"
-                        android:tint="@color/text_dark_color"
-                        android:adjustViewBounds="true"
-                        android:scaleType="fitCenter"
-                        android:padding="@dimen/space_padding"
-                        android:onClick="about"/>
-
-                </LinearLayout>
-
-            </ScrollView>
-
-        </LinearLayout>
-
-        <View
-            android:id="@+id/main_line"
-            android:layout_width="0.5dp"
-            android:layout_height="match_parent"
-            android:background="#20000000"
-            android:fitsSystemWindows="true"/>
-
-        <FrameLayout
-            android:id="@+id/main_content"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+        <ImageButton
+            android:id="@+id/main_tab_theme"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="@dimen/inner_padding"
+            android:padding="12dp"
+            android:alpha="0.5"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            app:srcCompat="@drawable/vector_theme"
+            android:tint="@color/text_dark_color"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            android:onClick="theme"/>
 
     </LinearLayout>
 
-    <com.google.android.gms.ads.AdView
-        xmlns:ads="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/main_ad_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        ads:adSize="SMART_BANNER"
-        ads:adUnitId="@string/banner_ad_key"
-        android:visibility="gone"/>
-
-</LinearLayout>
+</RelativeLayout>

@@ -9,7 +9,7 @@ object DataUtil
     const val LOCK = "Lock" //잠금방식
     const val APPS = "Apps" //잠금 앱
     const val SETTING = "Setting" //세부설정
-    const val THEME = "Theme"
+    const val THEME = "Theme" //테마
 
     fun put(name: String, location: String, data: Any)
     {
@@ -20,13 +20,15 @@ object DataUtil
         {
             is String -> editor.putString(name, data)
             is Int -> editor.putInt(name, data)
+            is Float -> editor.putFloat(name, data)
             is Boolean -> editor.putBoolean(name, data)
         }
 
         editor.apply()
     }
-    fun getString(name: String, location: String, defaultValue: String = ""): String = context.getSharedPreferences(location, Context.MODE_PRIVATE).getString(name, defaultValue)
+    fun getString(name: String, location: String, defaultValue: String = ""): String = context.getSharedPreferences(location, Context.MODE_PRIVATE).getString(name, defaultValue) ?: ""
     fun getInt(name: String, location: String, defaultValue: Int = 0): Int = context.getSharedPreferences(location, Context.MODE_PRIVATE).getInt(name, defaultValue)
+    fun getFloat(name: String, location: String, defaultValue: Float = 0f): Float = context.getSharedPreferences(location, Context.MODE_PRIVATE).getFloat(name, defaultValue)
     fun getBoolean(name: String, location: String, defaultValue: Boolean = false): Boolean = context.getSharedPreferences(location, Context.MODE_PRIVATE).getBoolean(name, defaultValue)
 
     fun remove(location: String)

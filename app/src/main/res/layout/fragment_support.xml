@@ -68,11 +68,10 @@
                         android:id="@+id/support_purchase_remove_ad_button"
                         android:layout_width="@dimen/check_button_length"
                         android:layout_height="@dimen/check_button_length"
-                        style="@style/CheckButton"
-                        check_button:checked="false"
-                        check_button:image="0"
-                        check_button:description="@string/error_name_not_found"
-                        check_button:title="@string/name_remove_ad"/>
+                        check_button:check_checked="false"
+                        check_button:check_icon="0"
+                        check_button:check_description="@string/error_name_not_found"
+                        check_button:check_title="@string/name_remove_ad"/>
 
                 </GridLayout>
 
@@ -105,33 +104,30 @@
                         android:id="@+id/support_donate_coke_button"
                         android:layout_width="@dimen/check_button_length"
                         android:layout_height="@dimen/check_button_length"
-                        style="@style/CheckButton"
-                        check_button:checked="false"
-                        check_button:image="0"
-                        check_button:description="@string/error_name_not_found"
-                        check_button:title="@string/name_coke"/>
+                        check_button:check_checked="false"
+                        check_button:check_icon="0"
+                        check_button:check_description="@string/error_name_not_found"
+                        check_button:check_title="@string/name_coke"/>
 
                     <nm.security.namooprotector.widget.CheckButton
                         android:id="@+id/support_donate_meal_button"
                         android:layout_width="@dimen/check_button_length"
                         android:layout_height="@dimen/check_button_length"
                         android:layout_marginStart="@dimen/space_padding"
-                        style="@style/CheckButton"
-                        check_button:checked="false"
-                        check_button:image="0"
-                        check_button:description="@string/error_name_not_found"
-                        check_button:title="@string/name_meal"/>
+                        check_button:check_checked="false"
+                        check_button:check_icon="0"
+                        check_button:check_description="@string/error_name_not_found"
+                        check_button:check_title="@string/name_meal"/>
 
                     <nm.security.namooprotector.widget.CheckButton
                         android:id="@+id/support_donate_eco_bag_button"
                         android:layout_width="@dimen/check_button_length"
                         android:layout_height="@dimen/check_button_length"
                         android:layout_marginTop="@dimen/space_padding"
-                        style="@style/CheckButton"
-                        check_button:checked="false"
-                        check_button:image="0"
-                        check_button:description="@string/error_name_not_found"
-                        check_button:title="@string/name_eco_bag"/>
+                        check_button:check_checked="false"
+                        check_button:check_icon="0"
+                        check_button:check_description="@string/error_name_not_found"
+                        check_button:check_title="@string/name_eco_bag"/>
 
                     <nm.security.namooprotector.widget.CheckButton
                         android:id="@+id/support_donate_collect_for_laptop_button"
@@ -139,11 +135,10 @@
                         android:layout_height="@dimen/check_button_length"
                         android:layout_marginStart="@dimen/space_padding"
                         android:layout_marginTop="@dimen/space_padding"
-                        style="@style/CheckButton"
-                        check_button:checked="false"
-                        check_button:image="0"
-                        check_button:description="@string/error_name_not_found"
-                        check_button:title="@string/name_collect_for_laptop"/>
+                        check_button:check_checked="false"
+                        check_button:check_icon="0"
+                        check_button:check_description="@string/error_name_not_found"
+                        check_button:check_title="@string/name_collect_for_laptop"/>
 
                 </GridLayout>
 

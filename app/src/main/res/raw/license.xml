@@ -8,23 +8,9 @@
     </notice>
 
     <notice>
-        <name>Scalable Layout For Android</name>
-        <url>https://github.com/ssomai/ScalableLayout</url>
-        <copyright>Copyright Youngmann Kim</copyright>
-        <license>Apache Software License 2.0</license>
-    </notice>
-
-    <notice>
-        <name>Android Material Color Picker Dialog</name>
-        <url>https://github.com/Pes8/android-material-color-picker-dialog</url>
-        <copyright>Copyright (c) 2017 Simone Pessotto (http://www.simonepessotto.it)</copyright>
-        <license>MIT License</license>
-    </notice>
-
-    <notice>
-        <name>EasyCrypt</name>
-        <url>https://github.com/pvasa/EasyCrypt</url>
-        <copyright>Copyright 2018 Priyank Vasa</copyright>
+        <name>ColorPickerView</name>
+        <url>https://github.com/skydoves/ColorPickerView</url>
+        <copyright>Copyright 2017 skydoves</copyright>
         <license>Apache Software License 2.0</license>
     </notice>
 
@@ -32,6 +18,13 @@
         <name>Goldfinger</name>
         <url>https://github.com/infinum/Android-Goldfinger</url>
         <copyright>Copyright 2018 Infinum</copyright>
+        <license>Apache Software License 2.0</license>
+    </notice>
+
+    <notice>
+        <name>PatternLockView</name>
+        <url>https://github.com/aritraroy/PatternLockView</url>
+        <copyright>Copyright 2017 aritraroy</copyright>
         <license>Apache Software License 2.0</license>
     </notice>
 

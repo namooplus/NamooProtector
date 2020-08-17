@@ -13,8 +13,14 @@ object ServiceUtil
         {
             if (Build.VERSION.SDK_INT >= 26) context.startForegroundService(Intent(context, ProtectorService::class.java))
             else context.startService(Intent(context, ProtectorService::class.java))
+
+            CheckUtil.isServiceRunning = true
         }
         else
+        {
             context.stopService(Intent(context, ProtectorService::class.java))
+
+            CheckUtil.isServiceRunning = false
+        }
     }
 }

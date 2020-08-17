@@ -8,32 +8,37 @@ import android.graphics.drawable.ColorDrawable
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 import android.view.View
 import android.view.ViewAnimationUtils
+import kotlin.math.max
 
 object AnimationUtil
 {
     const val DEFAULT_DURATION = 450
+    const val SHORT_DURATION = 300
+    const val LONG_DURATION = 600
 
-    fun alpha(view: View, value: Float, duration: Int, delay: Int)
+    fun View.alpha(value: Float, duration: Int, delay: Int = 0): View
     {
-        if (!view.isShown)
-            view.visibility = View.VISIBLE
+        if (!this.isShown)
+            this.visibility = View.VISIBLE
 
-        view.animate()
+        this.animate()
             .alpha(value)
             .setInterpolator(FastOutSlowInInterpolator())
             .setStartDelay(delay.toLong())
             .setDuration(duration.toLong())
             .withLayer()
             .withEndAction{
-                view.alpha = value
+                this.alpha = value
 
                 if (value == 0f)
-                    view.visibility = View.GONE
+                    this.visibility = View.GONE
             }
+
+        return this
     }
-    fun scale(view: View, value: Float, duration: Int, delay: Int)
+    fun View.scale(value: Float, duration: Int, delay: Int = 0): View
     {
-        view.animate()
+        this.animate()
             .scaleX(value)
             .scaleY(value)
             .setInterpolator(FastOutSlowInInterpolator())
@@ -41,49 +46,84 @@ object AnimationUtil
             .setDuration(duration.toLong())
             .withLayer()
             .withEndAction {
-                view.scaleX = value
-                view.scaleY = value
+                this.scaleX = value
+                this.scaleY = value
             }
+
+        return this
     }
-    fun translateX(view: View, valueX: Float, duration: Int, delay: Int) {
-        view.animate()
+    fun View.translateX(valueX: Float, duration: Int, delay: Int = 0): View
+    {
+        this.animate()
             .translationX(valueX)
             .setInterpolator(FastOutSlowInInterpolator())
             .setStartDelay(delay.toLong())
             .setDuration(duration.toLong())
             .withLayer()
             .withEndAction {
-                view.translationX = valueX
+                this.translationX = valueX
             }
+
+        return this
     }
-    fun translateY(view: View, valueY: Float, duration: Int, delay: Int)
+    fun View.translateY(valueY: Float, duration: Int, delay: Int = 0): View
     {
-        view.animate()
+        this.animate()
             .translationY(valueY)
             .setInterpolator(FastOutSlowInInterpolator())
             .setStartDelay(delay.toLong())
             .setDuration(duration.toLong())
             .withLayer()
             .withEndAction {
-                view.translationY = valueY
+                this.translationY = valueY
             }
+
+        return this
     }
-    fun circuralReveal(view: View, duration: Int, delay: Int, reveal: Boolean)
+    fun View.rotateX(valueX: Float, duration: Int, delay: Int = 0): View
+    {
+        this.animate()
+            .rotationX(valueX)
+            .setInterpolator(FastOutSlowInInterpolator())
+            .setStartDelay(delay.toLong())
+            .setDuration(duration.toLong())
+            .withLayer()
+            .withEndAction {
+                this.rotationX = valueX
+            }
+
+        return this
+    }
+    fun View.rotateY(valueY: Float, duration: Int, delay: Int = 0): View
+    {
+        this.animate()
+            .rotationY(valueY)
+            .setInterpolator(FastOutSlowInInterpolator())
+            .setStartDelay(delay.toLong())
+            .setDuration(duration.toLong())
+            .withLayer()
+            .withEndAction {
+                this.rotationY = valueY
+            }
+
+        return this
+    }
+    fun View.circularReveal(reveal: Boolean, duration: Int, delay: Int = 0): View
     {
         val rect = Rect()
-        view.getDrawingRect(rect)
+        this.getDrawingRect(rect)
 
         val centerX = rect.centerX()
         val centerY = rect.centerY()
-        val finalRadius = Math.max(rect.width(), rect.height())
+        val finalRadius = max(rect.width(), rect.height())
 
-        val revealAnimator: Animator = if (reveal) ViewAnimationUtils.createCircularReveal(view, centerX, centerY, 0f, finalRadius.toFloat()) else ViewAnimationUtils.createCircularReveal(view, centerX, centerY, finalRadius.toFloat(), 0f)
+        val revealAnimator: Animator = if (reveal) ViewAnimationUtils.createCircularReveal(this, centerX, centerY, 0f, finalRadius.toFloat()) else ViewAnimationUtils.createCircularReveal(this, centerX, centerY, finalRadius.toFloat(), 0f)
         revealAnimator.interpolator = FastOutSlowInInterpolator()
         revealAnimator.duration = duration.toLong()
         revealAnimator.startDelay = delay.toLong()
 
         if (reveal)
-            view.visibility = View.VISIBLE
+            this.visibility = View.VISIBLE
 
         else
         {
@@ -95,7 +135,7 @@ object AnimationUtil
                 }
                 override fun onAnimationEnd(animator: Animator)
                 {
-                    view.visibility = View.GONE
+                    this@circularReveal.visibility = View.GONE
                 }
                 override fun onAnimationCancel(animator: Animator)
                 {
@@ -109,14 +149,18 @@ object AnimationUtil
         }
 
         revealAnimator.start()
+
+        return this
     }
-    fun changeColor(view: View, value: Int, duration: Int, delay: Int)
+    fun View.changeColor(value: Int, duration: Int, delay: Int = 0): View
     {
-        val colorAnimation = ValueAnimator.ofObject(ArgbEvaluator(), (view.background as ColorDrawable).color, value)
+        val colorAnimation = ValueAnimator.ofObject(ArgbEvaluator(), (this.background as ColorDrawable).color, value)
 
         colorAnimation.duration = duration.toLong()
         colorAnimation.startDelay = delay.toLong()
-        colorAnimation.addUpdateListener { animator -> view.setBackgroundColor(animator.animatedValue as Int) }
+        colorAnimation.addUpdateListener { animator -> this.setBackgroundColor(animator.animatedValue as Int) }
         colorAnimation.start()
+
+        return this
     }
 }
