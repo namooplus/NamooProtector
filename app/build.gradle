@@ -25,16 +25,10 @@ android {
 //            it.buildConfigField 'String', "ProjectAdKey", "NP_PROJECT_AD_KEY"
 //            it.buildConfigField 'String', "BannerAdKey", "NP_BANNER_AD"
 //            it.buildConfigField 'String', "BannerAdTestKey", "NP_BANNER_TEST"
-//            it.buildConfigField 'String', "InterstitialAdKey", "NP_INTERSTITIAL_AD"
-//            it.buildConfigField 'String', "InterstitialAdTestKey", "NP_INTERSTITIAL_TEST"
-//            it.buildConfigField 'String', "BackupPassword", "NP_BACKUP_PASSWORD"
 //
 //            it.resValue 'string', "project_ad_key", "NP_PROJECT_AD_KEY"
 //            it.resValue 'string', "banner_ad_key", "NP_BANNER_AD"
 //            it.resValue 'string', "banner_ad_test_key", "NP_BANNER_TEST"
-//            it.resValue 'string', "interstitial_ad_key", "NP_INTERSTITIAL_AD"
-//            it.resValue 'string', "interstitial_ad_test_key", "NP_INTERSTITIAL_TEST"
-//            it.resValue 'string', "backup_password", "NP_BACKUP_PASSWORD"
         }
     }
 }
@@ -57,9 +51,9 @@ dependencies {
 
     //구글 서포트
     implementation "androidx.core:core-ktx:1.3.1"
-    implementation 'androidx.appcompat:appcompat:1.3.0-alpha01'
+    implementation 'androidx.appcompat:appcompat:1.3.0-alpha02'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.0'
     implementation 'androidx.recyclerview:recyclerview:1.2.0-alpha05'
     implementation 'androidx.cardview:cardview:1.0.0'
 

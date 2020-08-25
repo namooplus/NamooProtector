@@ -18,7 +18,7 @@
         android:clipChildren="false">
 
         <include
-            layout="@layout/lockscreen" />
+            layout="@layout/lockscreen"/>
 
     </RelativeLayout>
 
@@ -27,10 +27,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/activity_top_padding"
+        android:paddingTop="@dimen/micro_padding"
+        android:paddingBottom="@dimen/micro_padding"
+        android:paddingStart="@dimen/inner_padding"
+        android:paddingEnd="@dimen/inner_padding"
         android:layout_centerHorizontal="true"
+        android:background="#40000000"
         tools:text="@string/alert_element_selected"
-        android:textColor="@color/text_dark_color"
-        android:textSize="@dimen/text_content_size"
+        android:textColor="@color/text_bright_color"
+        android:textSize="@dimen/text_semi_content_size"
         android:visibility="gone"/>
 
     <androidx.cardview.widget.CardView

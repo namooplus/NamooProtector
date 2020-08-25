@@ -95,12 +95,14 @@ class ThemeFragment : Fragment()
     }
     private fun initAnimation()
     {
-        lockscreen_base_layout.scale(0.6f, AnimationUtil.DEFAULT_DURATION)
-        lockscreen_top_layout.translateX(80f, AnimationUtil.DEFAULT_DURATION, 300)
-        lockscreen_top_layout.translateY(-80f, AnimationUtil.DEFAULT_DURATION, 300)
-        lockscreen_bottom_layout.translateX(80f, AnimationUtil.DEFAULT_DURATION, 300)
-        lockscreen_bottom_layout.translateY(80f, AnimationUtil.DEFAULT_DURATION, 300)
-        theme_lockscreen_container.rotateY(10f, AnimationUtil.DEFAULT_DURATION, 300)
+        lockscreen_base_layout.scaleX = 0.6f
+        lockscreen_base_layout.scaleY = 0.6f
+
+        lockscreen_top_layout.translateX(80f, AnimationUtil.DEFAULT_DURATION, 0)
+        lockscreen_top_layout.translateY(-80f, AnimationUtil.DEFAULT_DURATION, 0)
+        lockscreen_bottom_layout.translateX(80f, AnimationUtil.DEFAULT_DURATION, 0)
+        lockscreen_bottom_layout.translateY(80f, AnimationUtil.DEFAULT_DURATION, 0)
+        theme_lockscreen_container.rotateY(10f, AnimationUtil.DEFAULT_DURATION, 0)
     }
     private fun initClick()
     {

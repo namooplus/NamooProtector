@@ -17,11 +17,4 @@ class NamooProtector : Application()
         val context : Context
             get() = instance!!.applicationContext
     }
-
-//    override fun onCreate()
-//    {
-//        super.onCreate()
-//
-////        MobileAds.initialize(this, BuildConfig.ProjectAdKey)
-//    }
 }
