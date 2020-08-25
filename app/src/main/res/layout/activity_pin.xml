@@ -51,7 +51,7 @@
                             android:id="@+id/pin_input_1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="새 PIN을 입력하세요"
+                            android:hint="@string/alert_type_new_pin"
                             android:inputType="numberPassword"
                             android:textSize="@dimen/text_content_size"
                             android:textColor="@color/text_dark_color"
@@ -68,7 +68,7 @@
                             android:id="@+id/pin_input_2"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="PIN을 확인합니다"
+                            android:hint="@string/alert_confirm_new_pin"
                             android:inputType="numberPassword"
                             android:textSize="@dimen/text_content_size"
                             android:textColor="@color/text_dark_color"
@@ -86,7 +86,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/activity_padding"
-                android:text="PIN은 4자리 이상 12자리 이하이어야 합니다."
+                android:layout_marginStart="@dimen/activity_padding"
+                android:layout_marginEnd="@dimen/activity_padding"
+                android:gravity="center_horizontal"
+                android:text="@string/alert_pin_guide"
                 android:textSize="@dimen/text_semi_content_size"
                 android:textColor="@color/text_semi_dark_color" />
 
@@ -103,7 +106,7 @@
         android:layout_margin="@dimen/activity_padding"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
-        app:floating_text="확인"
+        app:floating_text="@string/common_ok"
         android:visibility="gone"
         android:onClick="ok"/>
 
@@ -129,7 +132,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toTopOf="@id/title_indicator"
             app:layout_constraintVertical_chainStyle="packed"
-            android:text="Namoo Protector"
+            android:text="@string/app_name"
             android:textSize="@dimen/text_content_size"
             android:textColor="@color/text_semi_dark_color"
             android:transitionName="appIndicator"/>
@@ -142,7 +145,7 @@
             app:layout_constraintTop_toTopOf="@id/title_indicator"
             app:layout_constraintBottom_toBottomOf="@id/title_indicator"
             android:layout_marginEnd="@dimen/space_padding"
-            tools:text="Settings"
+            tools:text="@string/name_settings"
             android:textSize="@dimen/text_title_size"
             android:textStyle="bold"
             android:textColor="@color/text_dark_color"
@@ -165,7 +168,7 @@
             app:layout_constraintTop_toBottomOf="@id/app_indicator"
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginStart="@dimen/space_padding"
-            android:text="Create PIN"
+            android:text="@string/name_generate_pin"
             android:textSize="@dimen/text_title_size"
             android:textStyle="bold"
             android:textColor="@color/text_dark_color"/>

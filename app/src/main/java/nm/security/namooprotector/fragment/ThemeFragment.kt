@@ -24,6 +24,7 @@ import nm.security.namooprotector.util.AnimationUtil.rotateY
 import nm.security.namooprotector.util.AnimationUtil.scale
 import nm.security.namooprotector.util.AnimationUtil.translateX
 import nm.security.namooprotector.util.AnimationUtil.translateY
+import nm.security.namooprotector.util.ResourceUtil
 import nm.security.namooprotector.util.SettingsUtil
 import nm.security.namooprotector.util.ThemeUtil
 import kotlin.reflect.KMutableProperty0
@@ -111,30 +112,30 @@ class ThemeFragment : Fragment()
         theme_menu_color.setOnClickListener {
             when
             {
-                lockscreen_base_layout.isSelected -> showColorPicker("바탕 색상", ThemeUtil::baseLayoutColor)
-                lockscreen_top_layout.isSelected -> showColorPicker("윗 배경 색상", ThemeUtil::topLayoutColor)
-                lockscreen_bottom_layout.isSelected -> showColorPicker("아랫 배경 색상", ThemeUtil::bottomLayoutColor)
-                lockscreen_pin_indicator.isSelected -> showColorPicker("PIN 색상", ThemeUtil::pinIndicatorTextColor)
-                lockscreen_key_container.isSelected -> showColorPicker("키 색상", ThemeUtil::keyTextColor)
-                lockscreen_pattern_container.isSelected -> showColorPicker("패턴 색상", ThemeUtil::patternColor)
-                else -> Toast.makeText(context, "잘못된 접근입니다.", Toast.LENGTH_SHORT).show()
+                lockscreen_base_layout.isSelected -> showColorPicker(ResourceUtil.getString(R.string.name_element_base_layout_color), ThemeUtil::baseLayoutColor)
+                lockscreen_top_layout.isSelected -> showColorPicker(ResourceUtil.getString(R.string.name_element_top_layout_color), ThemeUtil::topLayoutColor)
+                lockscreen_bottom_layout.isSelected -> showColorPicker(ResourceUtil.getString(R.string.name_element_bottom_layout_color), ThemeUtil::bottomLayoutColor)
+                lockscreen_pin_indicator.isSelected -> showColorPicker(ResourceUtil.getString(R.string.name_element_pin_indicator_color), ThemeUtil::pinIndicatorTextColor)
+                lockscreen_key_container.isSelected -> showColorPicker(ResourceUtil.getString(R.string.name_element_key_color), ThemeUtil::keyTextColor)
+                lockscreen_pattern_container.isSelected -> showColorPicker(ResourceUtil.getString(R.string.name_element_pattern_color), ThemeUtil::patternColor)
+                else -> Toast.makeText(context, ResourceUtil.getString(R.string.error_invalid_access), Toast.LENGTH_SHORT).show()
             }
         }
         theme_menu_size.setOnClickListener {
             when
             {
-                lockscreen_icon_container.isSelected -> showSizePicker("아이콘 크기", ThemeUtil::iconContainerSize, 120, 60)
-                lockscreen_pin_indicator.isSelected -> showSizePicker("PIN 크기", ThemeUtil::pinIndicatorTextSize, 45, 15)
-                lockscreen_key_container.isSelected -> showSizePicker("키 크기", ThemeUtil::keyTextSize, 40, 10)
-                else -> Toast.makeText(context, "잘못된 접근입니다.", Toast.LENGTH_SHORT).show()
+                lockscreen_icon_container.isSelected -> showSizePicker(ResourceUtil.getString(R.string.name_element_icon_size), ThemeUtil::iconContainerSize, 120, 60)
+                lockscreen_pin_indicator.isSelected -> showSizePicker(ResourceUtil.getString(R.string.name_element_pin_indicator_size), ThemeUtil::pinIndicatorTextSize, 45, 15)
+                lockscreen_key_container.isSelected -> showSizePicker(ResourceUtil.getString(R.string.name_element_key_size), ThemeUtil::keyTextSize, 40, 10)
+                else -> Toast.makeText(context, ResourceUtil.getString(R.string.error_invalid_access), Toast.LENGTH_SHORT).show()
             }
         }
         theme_menu_visibility.setOnClickListener {
             when
             {
-                lockscreen_icon_container.isSelected -> showStatePicker("아이콘 배경 표시 여부", ThemeUtil::iconContainerVisibility)
-                lockscreen_pin_indicator.isSelected -> showStatePicker("PIN 표시 여부", ThemeUtil::pinIndicatorVisibility)
-                else -> Toast.makeText(context, "잘못된 접근입니다.", Toast.LENGTH_SHORT).show()
+                lockscreen_icon_container.isSelected -> showStatePicker(ResourceUtil.getString(R.string.name_element_icon_background_visibility), ThemeUtil::iconContainerVisibility)
+                lockscreen_pin_indicator.isSelected -> showStatePicker(ResourceUtil.getString(R.string.name_element_pin_indicator_visibility), ThemeUtil::pinIndicatorVisibility)
+                else -> Toast.makeText(context, ResourceUtil.getString(R.string.error_invalid_access), Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -155,14 +156,14 @@ class ThemeFragment : Fragment()
             theme_element_indicator.visibility = View.VISIBLE
             theme_element_indicator.text = when (selectedView)
             {
-                lockscreen_base_layout -> "바탕이 선택되었습니다."
-                lockscreen_top_layout -> "윗 배경이 선택되었습니다."
-                lockscreen_bottom_layout -> "아랫 배경이 선택되었습니다."
-                lockscreen_icon_container -> "아이콘이 선택되었습니다."
-                lockscreen_pin_indicator -> "PIN이 선택되었습니다."
-                lockscreen_key_container -> "키가 선택되었습니다."
-                lockscreen_pattern_container -> "패턴이 선택되었습니다."
-                else -> "잘못된 접근입니다."
+                lockscreen_base_layout ->  String.format(ResourceUtil.getString(R.string.alert_element_selected), ResourceUtil.getString(R.string.name_element_base_layout))
+                lockscreen_top_layout -> String.format(ResourceUtil.getString(R.string.alert_element_selected), ResourceUtil.getString(R.string.name_element_top_layout))
+                lockscreen_bottom_layout -> String.format(ResourceUtil.getString(R.string.alert_element_selected), ResourceUtil.getString(R.string.name_element_bottom_layout))
+                lockscreen_icon_container -> String.format(ResourceUtil.getString(R.string.alert_element_selected), ResourceUtil.getString(R.string.name_element_icon))
+                lockscreen_pin_indicator -> String.format(ResourceUtil.getString(R.string.alert_element_selected), ResourceUtil.getString(R.string.name_element_pin_indicator))
+                lockscreen_key_container -> String.format(ResourceUtil.getString(R.string.alert_element_selected), ResourceUtil.getString(R.string.name_element_key))
+                lockscreen_pattern_container -> String.format(ResourceUtil.getString(R.string.alert_element_selected), ResourceUtil.getString(R.string.name_element_pattern))
+                else -> ResourceUtil.getString(R.string.error_invalid_access)
             }
         }
         else theme_element_indicator.visibility = View.GONE
@@ -210,15 +211,15 @@ class ThemeFragment : Fragment()
         with(ColorPickerDialog.Builder(context))
         {
             setTitle(title)
-            setPositiveButton("선택", ColorEnvelopeListener { colorEnvelope: ColorEnvelope, _ ->
+            setPositiveButton(ResourceUtil.getString(R.string.common_choose), ColorEnvelopeListener { colorEnvelope: ColorEnvelope, _ ->
                 property.set("#" + colorEnvelope.hexCode)
                 initUI()
             })
-            setNeutralButton("기본값") { _, _ ->
+            setNeutralButton(ResourceUtil.getString(R.string.common_default)) { _, _ ->
                 property.set("")
                 initUI()
             }
-            setNegativeButton("취소", null)
+            setNegativeButton(ResourceUtil.getString(R.string.common_cancel), null)
             attachAlphaSlideBar(true)
             attachBrightnessSlideBar(true)
             show()
@@ -249,15 +250,15 @@ class ThemeFragment : Fragment()
 
         dialog.setTitle(title)
         dialog.setView(view)
-        dialog.setPositiveButton("선택") { _, _ ->
+        dialog.setPositiveButton(ResourceUtil.getString(R.string.common_choose)) { _, _ ->
             property.set((view.view_size_picker_seek_bar.progress + minValue).toFloat())
             initUI()
         }
-        dialog.setNeutralButton("기본값") { _, _ ->
+        dialog.setNeutralButton(ResourceUtil.getString(R.string.common_default)) { _, _ ->
             property.set(0f)
             initUI()
         }
-        dialog.setNegativeButton("취소", null)
+        dialog.setNegativeButton(ResourceUtil.getString(R.string.common_cancel), null)
         dialog.show()
     }
     private fun showStatePicker(title: String, property: KMutableProperty0<Boolean>)
@@ -267,18 +268,18 @@ class ThemeFragment : Fragment()
         with (AlertDialog. Builder(context))
         {
             setTitle(title)
-            setSingleChoiceItems(arrayOf("보이기", "숨기기"), if (currentState) 0 else 1){ _, index: Int ->
+            setSingleChoiceItems(arrayOf(ResourceUtil.getString(R.string.common_show), ResourceUtil.getString(R.string.common_hide)), if (currentState) 0 else 1){ _, index: Int ->
                 when (index)
                 {
                     0 -> currentState = true
                     1 -> currentState = false
                 }
             }
-            setPositiveButton("확인") { _, _ ->
+            setPositiveButton(ResourceUtil.getString(R.string.common_ok)) { _, _ ->
                 property.set(currentState)
                 initUI()
             }
-            setNegativeButton("취소", null)
+            setNegativeButton(ResourceUtil.getString(R.string.common_cancel), null)
             show()
         }
     }

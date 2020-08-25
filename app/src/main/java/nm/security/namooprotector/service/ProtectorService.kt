@@ -18,6 +18,7 @@ import nm.security.namooprotector.R
 import nm.security.namooprotector.activity.LockScreen
 import nm.security.namooprotector.util.CheckUtil
 import nm.security.namooprotector.util.DataUtil
+import nm.security.namooprotector.util.ResourceUtil
 import nm.security.namooprotector.util.SettingsUtil
 
 class ProtectorService : Service()
@@ -56,16 +57,16 @@ class ProtectorService : Service()
             //포그라운드 설정
             val notification = NotificationCompat.Builder(this, "namooprotector")
                 .setSmallIcon(R.drawable.icon_np)
-                .setContentTitle(getString(R.string.notification_service_title))
-                .setContentText(getString(R.string.notification_service_message))
+                .setContentTitle(ResourceUtil.getString(R.string.app_name))
+                .setContentText(ResourceUtil.getString(R.string.alert_service_on))
                 .setColor(ContextCompat.getColor(this, R.color.color_accent))
                 .setOngoing(true)
                 .setPriority(NotificationCompat.PRIORITY_MIN)
 
             if (Build.VERSION.SDK_INT >= 26)
             {
-                val channel = NotificationChannel("namooprotector", getString(R.string.notification_service_title), NotificationManager.IMPORTANCE_MIN)
-                channel.description = getString(R.string.notification_service_description)
+                val channel = NotificationChannel("namooprotector", ResourceUtil.getString(R.string.app_name), NotificationManager.IMPORTANCE_MIN)
+                channel.description = ResourceUtil.getString(R.string.notification_service_description)
 
                 (getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager).createNotificationChannel(channel)
             }
@@ -105,7 +106,7 @@ class ProtectorService : Service()
     }
 
     //메소드
-    private fun onAppChanged(invoker: ((packageName: String) -> Unit))
+    private fun onAppChanged(invoker: ((currentApp: String) -> Unit))
     {
         //검색
         var previousEventApp = ""

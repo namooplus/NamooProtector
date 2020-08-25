@@ -57,7 +57,7 @@
                 android:paddingStart="@dimen/inner_padding"
                 android:paddingEnd="@dimen/inner_padding"
                 android:background="@android:color/transparent"
-                android:hint="앱을 검색합니다"
+                android:hint="@string/name_search_apps"
                 android:textColor="@color/text_dark_color"
                 android:textColorHint="@color/text_semi_dark_color"
                 android:textSize="@dimen/text_content_size"/>
@@ -75,7 +75,7 @@
         android:layout_marginBottom="@dimen/activity_bottom_padding"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
-        app:floating_text="모두 선택/선택 해제"
+        app:floating_text="@string/name_unselect_all_apps"
         android:visibility="gone"/>
 
     <!--로딩-->

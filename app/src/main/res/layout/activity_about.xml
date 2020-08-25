@@ -8,7 +8,7 @@
     android:orientation="vertical"
     android:background="@color/background_color"
     android:fitsSystemWindows="true"
-    tools:context=".activity.DeveloperActivity">
+    tools:context=".activity.AboutActivity">
 
     <!--내용-->
 
@@ -24,7 +24,7 @@
             android:clipToPadding="false"
             android:gravity="center_horizontal">
 
-            <!--소개-->
+            <!--개발자-->
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -35,7 +35,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/activity_padding"
-                    android:text="누가 만들었을까요?"
+                    android:text="@string/name_developer"
                     android:textSize="@dimen/text_content_size"
                     android:textColor="@color/text_dark_color"/>
 
@@ -67,7 +67,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:layout_marginTop="@dimen/micro_padding"
-                            android:text="나무"
+                            android:text="@string/app_developer"
                             android:textColor="@color/text_dark_color"
                             android:textSize="40sp"/>
 
@@ -76,7 +76,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:layout_marginTop="@dimen/micro_padding"
-                            android:text="1인 대학생 개발자의 힘든 앱 개발기"
+                            android:text="@string/developer_message"
                             android:textColor="@color/text_dark_color"
                             android:textSize="@dimen/text_content_size"/>
 
@@ -86,7 +86,7 @@
 
             </LinearLayout>
 
-            <!--알아보기-->
+            <!--개발자 알아보기-->
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -97,7 +97,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/activity_padding"
-                    android:text="알아보기"
+                    android:text="@string/name_learn_developer"
                     android:textSize="@dimen/text_content_size"
                     android:textColor="@color/text_dark_color"/>
 
@@ -120,7 +120,7 @@
                             android:layout_width="@dimen/check_button_length"
                             android:layout_height="@dimen/check_button_length"
                             app:check_icon="@drawable/vector_github"
-                            app:check_title="깃허브"
+                            app:check_title="@string/name_github"
                             app:check_description=""
                             app:check_checked="false"
                             android:onClick="github"/>
@@ -130,10 +130,55 @@
                             android:layout_height="@dimen/check_button_length"
                             android:layout_marginStart="@dimen/space_padding"
                             app:check_icon="@drawable/icon_tistory"
-                            app:check_title="티스토리"
+                            app:check_title="@string/name_tistory"
                             app:check_description=""
                             app:check_checked="false"
                             android:onClick="tistory"/>
+
+                    </LinearLayout>
+
+                </HorizontalScrollView>
+
+            </LinearLayout>
+
+            <!--더보기-->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/activity_padding"
+                    android:text="@string/name_more"
+                    android:textSize="@dimen/text_content_size"
+                    android:textColor="@color/text_dark_color"/>
+
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scrollbars="none">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:paddingStart="@dimen/activity_padding"
+                        android:paddingEnd="@dimen/activity_padding"
+                        android:paddingTop="@dimen/inner_padding"
+                        android:paddingBottom="@dimen/activity_padding"
+                        android:clipToPadding="false">
+
+                        <nm.security.namooprotector.widget.CheckButton
+                            android:layout_width="@dimen/check_button_length"
+                            android:layout_height="@dimen/check_button_length"
+                            app:check_icon="@drawable/vector_license"
+                            app:check_title="@string/name_license"
+                            app:check_description=""
+                            app:check_checked="false"
+                            android:onClick="license"/>
 
                     </LinearLayout>
 
@@ -167,7 +212,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toTopOf="@id/title_indicator"
             app:layout_constraintVertical_chainStyle="packed"
-            android:text="Namoo Protector"
+            android:text="@string/app_name"
             android:textSize="@dimen/text_content_size"
             android:textColor="@color/text_semi_dark_color"
             android:transitionName="appIndicator"/>
@@ -180,7 +225,7 @@
             app:layout_constraintTop_toTopOf="@id/title_indicator"
             app:layout_constraintBottom_toBottomOf="@id/title_indicator"
             android:layout_marginEnd="@dimen/space_padding"
-            tools:text="Home"
+            tools:text="@string/name_home"
             android:textSize="@dimen/text_title_size"
             android:textStyle="bold"
             android:textColor="@color/text_dark_color"
@@ -203,7 +248,7 @@
             app:layout_constraintTop_toBottomOf="@id/app_indicator"
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginStart="@dimen/space_padding"
-            android:text="Developer"
+            android:text="@string/name_about"
             android:textSize="@dimen/text_title_size"
             android:textStyle="bold"
             android:textColor="@color/text_dark_color"/>

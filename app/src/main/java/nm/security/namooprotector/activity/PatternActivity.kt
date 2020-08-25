@@ -41,9 +41,9 @@ class PatternActivity: AppCompatActivity()
 
                 pattern_state_indicator.text = when (stage)
                 {
-                    1 -> "새 패턴을 그려주세요."
-                    2 -> "패턴을 확인합니다."
-                    else -> "잘못된 접근입니다."
+                    1 -> ResourceUtil.getString(R.string.alert_draw_new_pattern)
+                    2 -> ResourceUtil.getString(R.string.alert_confirm_new_pattern)
+                    else -> ResourceUtil.getString(R.string.error_invalid_access)
                 }
             }
             override fun onCleared()
@@ -66,16 +66,16 @@ class PatternActivity: AppCompatActivity()
                         {
                             savedPattern = result
 
-                            pattern_ok_button.setText("다음")
+                            pattern_ok_button.setText(ResourceUtil.getString(R.string.common_next))
                             pattern_ok_button.visibility = View.VISIBLE
                         }
-                        else pattern_state_indicator.text = "잘못된 패턴입니다. 다시 그려주세요."
+                        else pattern_state_indicator.text = ResourceUtil.getString(R.string.error_pattern_invalid)
                     }
                     2 ->
                     {
                         if (result == savedPattern)
                         {
-                            pattern_ok_button.setText("확인")
+                            pattern_ok_button.setText(ResourceUtil.getString(R.string.common_ok))
                             pattern_ok_button.visibility = View.VISIBLE
                         }
                         else
@@ -83,7 +83,7 @@ class PatternActivity: AppCompatActivity()
                             stage = 1
                             savedPattern = ""
 
-                            pattern_state_indicator.text = "패턴이 일치하지 않습니다. 다시 새로운 패턴을 그려주세요."
+                            pattern_state_indicator.text = ResourceUtil.getString(R.string.error_pattern_incorrect)
                         }
                     }
                 }
@@ -101,7 +101,7 @@ class PatternActivity: AppCompatActivity()
             {
                 stage = 2
 
-                pattern_state_indicator.text = "패턴을 확인합니다."
+                pattern_state_indicator.text = ResourceUtil.getString(R.string.alert_confirm_new_pattern)
                 pattern_pattern_view.clearPattern()
                 pattern_ok_button.visibility = View.GONE
             }

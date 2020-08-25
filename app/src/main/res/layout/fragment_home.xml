@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<GridLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:orientation="horizontal"
+    android:columnCount="2"
+    android:rowCount="2"
     android:paddingTop="@dimen/activity_top_padding"
     android:paddingBottom="@dimen/activity_bottom_padding"
+    android:paddingStart="@dimen/activity_padding"
+    android:paddingEnd="@dimen/activity_padding"
     android:clipToPadding="false"
     android:animateLayoutChanges="true">
 
@@ -17,9 +21,8 @@
         android:id="@+id/home_activator_background"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:layout_marginStart="@dimen/activity_padding"
-        android:layout_marginEnd="@dimen/activity_padding"
+        android:layout_rowWeight="1"
+        android:layout_columnSpan="2"
         android:layout_marginBottom="@dimen/inner_padding"
         android:foreground="?selectableItemBackground"
         app:cardCornerRadius="0dp"
@@ -53,7 +56,7 @@
                 android:paddingStart="@dimen/activity_padding"
                 android:paddingEnd="@dimen/activity_padding"
                 android:background="#30000000"
-                android:text="나무프로텍터가\n쉬고 있어요.."
+                android:text="@string/alert_service_off"
                 android:textColor="@color/text_bright_color"
                 android:textSize="17sp"/>
 
@@ -63,63 +66,81 @@
 
     <!--더보기-->
 
-    <HorizontalScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:scrollbars="none">
+    <androidx.cardview.widget.CardView
+        android:id="@+id/home_more_info"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_columnWeight="1"
+        android:foreground="?selectableItemBackground"
+        app:cardCornerRadius="0dp"
+        app:cardElevation="@dimen/card_elevation"
+        app:cardBackgroundColor="@color/card_color"
+        android:clickable="true"
+        android:focusable="true">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"
-            android:paddingStart="@dimen/activity_padding"
-            android:paddingEnd="@dimen/activity_padding"
-            android:paddingTop="@dimen/inner_padding"
-            android:paddingBottom="@dimen/activity_padding"
-            android:clipToPadding="false">
+            android:gravity="center_vertical"
+            android:paddingStart="@dimen/inner_padding"
+            android:paddingEnd="@dimen/inner_padding">
 
-            <nm.security.namooprotector.widget.CheckButton
-                android:id="@+id/home_more_developer"
-                android:layout_width="@dimen/check_button_length"
-                android:layout_height="@dimen/check_button_length"
-                app:check_icon="@drawable/vector_developer"
-                app:check_title="개발자 정보"
-                app:check_description=""
-                app:check_checked="false"/>
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                app:srcCompat="@drawable/vector_info"
+                android:tint="@color/text_dark_color" />
 
-            <nm.security.namooprotector.widget.CheckButton
-                android:id="@+id/home_more_support"
-                android:layout_width="@dimen/check_button_length"
-                android:layout_height="@dimen/check_button_length"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/space_padding"
-                app:check_icon="@drawable/vector_support"
-                app:check_title="후원하기"
-                app:check_description=""
-                app:check_checked="false"/>
-
-            <nm.security.namooprotector.widget.CheckButton
-                android:id="@+id/home_more_license"
-                android:layout_width="@dimen/check_button_length"
-                android:layout_height="@dimen/check_button_length"
-                android:layout_marginStart="@dimen/space_padding"
-                app:check_icon="@drawable/vector_license"
-                app:check_title="오픈소스 라이센스"
-                app:check_description=""
-                app:check_checked="false"/>
+                android:text="@string/name_about"
+                android:textColor="@color/text_dark_color"
+                android:textSize="@dimen/text_content_size"/>
 
         </LinearLayout>
 
-    </HorizontalScrollView>
+    </androidx.cardview.widget.CardView>
 
-    <!--안내-->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/home_more_support"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_columnWeight="1"
+        android:layout_marginStart="@dimen/inner_padding"
+        android:foreground="?selectableItemBackground"
+        app:cardCornerRadius="0dp"
+        app:cardElevation="@dimen/card_elevation"
+        app:cardBackgroundColor="@color/card_color"
+        android:clickable="true"
+        android:focusable="true">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:gravity="center_horizontal"
-        android:text="아래 메뉴를 통해 나무프로텍터를 설정하세요!"
-        android:textColor="@color/text_dark_color"
-        android:textSize="@dimen/text_content_size"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingStart="@dimen/inner_padding"
+            android:paddingEnd="@dimen/inner_padding">
 
-</LinearLayout>
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                app:srcCompat="@drawable/vector_support"
+                android:tint="@color/text_dark_color" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space_padding"
+                android:text="@string/name_support"
+                android:textColor="@color/text_dark_color"
+                android:textSize="@dimen/text_content_size"/>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</GridLayout>

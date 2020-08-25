@@ -35,7 +35,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/activity_padding"
-                    android:text="안내"
+                    android:text="@string/name_guide"
                     android:textSize="@dimen/text_content_size"
                     android:textColor="@color/text_dark_color"/>
 
@@ -81,7 +81,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/activity_padding"
-                    android:text="프리미엄"
+                    android:text="@string/name_premium"
                     android:textSize="@dimen/text_content_size"
                     android:textColor="@color/text_dark_color"/>
 
@@ -105,8 +105,8 @@
                             android:layout_width="@dimen/check_button_length"
                             android:layout_height="@dimen/check_button_length"
                             app:check_icon="@drawable/vector_remove_ad"
-                            app:check_title="광고 제거"
-                            app:check_description="알 수 없음"
+                            app:check_title="@string/name_remove_ads"
+                            app:check_description="@string/error_unknown"
                             app:check_checked="false"
                             android:onClick="purchase"
                             android:tag="namooprotector_premium_ad_free_0107"/>
@@ -128,7 +128,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/activity_padding"
-                    android:text="기부"
+                    android:text="@string/name_donate"
                     android:textSize="@dimen/text_content_size"
                     android:textColor="@color/text_dark_color"/>
 
@@ -152,8 +152,8 @@
                             android:layout_width="@dimen/check_button_length"
                             android:layout_height="@dimen/check_button_length"
                             app:check_icon="0"
-                            app:check_title="콜라"
-                            app:check_description="알 수 없음"
+                            app:check_title="@string/name_coke"
+                            app:check_description="@string/error_unknown"
                             app:check_checked="false"
                             android:onClick="purchase"
                             android:tag="namooprotector_donate_coke"/>
@@ -164,8 +164,8 @@
                             android:layout_height="@dimen/check_button_length"
                             android:layout_marginStart="@dimen/space_padding"
                             app:check_icon="0"
-                            app:check_title="식사"
-                            app:check_description="알 수 없음"
+                            app:check_title="@string/name_meal"
+                            app:check_description="@string/error_unknown"
                             app:check_checked="false"
                             android:onClick="purchase"
                             android:tag="namooprotector_donate_meal"/>
@@ -176,8 +176,8 @@
                             android:layout_height="@dimen/check_button_length"
                             android:layout_marginStart="@dimen/space_padding"
                             app:check_icon="0"
-                            app:check_title="에코백"
-                            app:check_description="알 수 없음"
+                            app:check_title="@string/name_eco_bag"
+                            app:check_description="@string/error_unknown"
                             app:check_checked="false"
                             android:onClick="purchase"
                             android:tag="namooprotector_donate_eco_bag"/>
@@ -188,8 +188,8 @@
                             android:layout_height="@dimen/check_button_length"
                             android:layout_marginStart="@dimen/space_padding"
                             app:check_icon="0"
-                            app:check_title="노트북 보태기"
-                            app:check_description="알 수 없음"
+                            app:check_title="@string/name_collect_for_laptop"
+                            app:check_description="@string/error_unknown"
                             app:check_checked="false"
                             android:onClick="purchase"
                             android:tag="namooprotector_donate_collect_for_laptop"/>
@@ -226,7 +226,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toTopOf="@id/title_indicator"
             app:layout_constraintVertical_chainStyle="packed"
-            android:text="Namoo Protector"
+            android:text="@string/app_name"
             android:textSize="@dimen/text_content_size"
             android:textColor="@color/text_semi_dark_color"
             android:transitionName="appIndicator"/>
@@ -239,7 +239,7 @@
             app:layout_constraintTop_toTopOf="@id/title_indicator"
             app:layout_constraintBottom_toBottomOf="@id/title_indicator"
             android:layout_marginEnd="@dimen/space_padding"
-            tools:text="Home"
+            tools:text="@string/name_home"
             android:textSize="@dimen/text_title_size"
             android:textStyle="bold"
             android:textColor="@color/text_dark_color"
@@ -262,7 +262,7 @@
             app:layout_constraintTop_toBottomOf="@id/app_indicator"
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginStart="@dimen/space_padding"
-            android:text="Support"
+            android:text="@string/name_support"
             android:textSize="@dimen/text_title_size"
             android:textStyle="bold"
             android:textColor="@color/text_dark_color"/>

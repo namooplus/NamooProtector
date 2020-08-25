@@ -28,6 +28,7 @@ class LockScreen: AppCompatActivity()
     private val vibrateManager by lazy { getSystemService(Context.VIBRATOR_SERVICE) as Vibrator }
     private var cameraManager: CameraManager? = null
 
+    private var lockedApp = ""
     private var inputPin = ""
     private var failCount = 0
 
@@ -49,8 +50,7 @@ class LockScreen: AppCompatActivity()
     {
         super.onResume()
 
-        failCount = 0
-
+        resetVariables()
         initUI()
         initClick()
         initTheme()
@@ -79,10 +79,19 @@ class LockScreen: AppCompatActivity()
     }
 
     //설정
+    private fun resetVariables()
+    {
+        lockedApp = intent.getStringExtra("packageName") ?: packageName
+        failCount = 0
+
+        lockscreen_pin_indicator.text = ""
+        inputPin = ""
+        lockscreen_pattern_view.clearPattern()
+    }
     private fun initUI()
     {
         //기본 정보
-        lockscreen_icon_indicator.setImageDrawable(ConvertUtil.packageNameToAppIcon(intent.getStringExtra("packageName") ?: packageName))
+        lockscreen_icon_indicator.setImageDrawable(ConvertUtil.packageNameToAppIcon(lockedApp))
 
         //잠금 방식
         when (SettingsUtil.lockType)
@@ -107,7 +116,7 @@ class LockScreen: AppCompatActivity()
             }
             else ->
             {
-                Toast.makeText(this, getString(R.string.error_lockscreen_no_password), Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, ResourceUtil.getString(R.string.error_lockscreen_no_password), Toast.LENGTH_SHORT).show()
 
                 finish()
             }
@@ -214,10 +223,10 @@ class LockScreen: AppCompatActivity()
             lockscreen_fingerprint_indicator.visibility = View.VISIBLE
 
             val params: PromptParams = PromptParams.Builder(this)
-                .title("나무프로텍터")
-                .subtitle(ConvertUtil.packageNameToAppName(intent.getStringExtra("packageName") ?: packageName))
-                .description("지문인식으로 앱 잠금을 해제합니다.")
-                .negativeButtonText("취소")
+                .title(ResourceUtil.getString(R.string.app_name))
+                .subtitle(ConvertUtil.packageNameToAppName(lockedApp))
+                .description(ResourceUtil.getString(R.string.alert_unlock_using_fingerprint))
+                .negativeButtonText(ResourceUtil.getString(R.string.common_cancel))
                 .build()
 
             fingerprintManager.authenticate(params, object: Goldfinger.Callback {
@@ -301,7 +310,7 @@ class LockScreen: AppCompatActivity()
     private fun successUnlock()
     {
         //잠금 해제
-        ProtectorServiceHelper.addAuthorizedApp(intent.getStringExtra("packageName") ?: packageName, SettingsUtil.lockDelay.toLong())
+        ProtectorServiceHelper.addAuthorizedApp(lockedApp, if (lockedApp == packageName) 0 else SettingsUtil.lockDelay.toLong())
         finish()
     }
     private fun failUnlock()
@@ -347,7 +356,7 @@ class LockScreen: AppCompatActivity()
         }
         catch (e: CameraAccessException)
         {
-            Toast.makeText(this, getString(R.string.error_camera_not_accessed), Toast.LENGTH_LONG).show()
+            Toast.makeText(this, ResourceUtil.getString(R.string.error_flash_unavailable), Toast.LENGTH_LONG).show()
         }
         finally
         {

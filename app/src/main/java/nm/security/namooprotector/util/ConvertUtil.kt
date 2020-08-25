@@ -17,7 +17,7 @@ object ConvertUtil
         }
         catch (e: PackageManager.NameNotFoundException)
         {
-            context.getString(R.string.error_name_not_found)
+            ResourceUtil.getString(R.string.error_unknown)
         }
     }
     fun packageNameToAppIcon(packageName: String): Drawable

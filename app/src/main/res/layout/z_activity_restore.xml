@@ -9,7 +9,7 @@
     android:background="@color/background_color"
     android:fitsSystemWindows="true"
     android:animateLayoutChanges="true"
-    tools:context=".activity.BackupActivity">
+    tools:context=".activity.ZBackupActivity">
 
     <!--내용-->
 

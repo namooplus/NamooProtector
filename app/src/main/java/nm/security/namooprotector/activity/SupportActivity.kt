@@ -49,12 +49,12 @@ class SupportActivity: AppCompatActivity(), PurchasesUpdatedListener
         {
             override fun onBillingServiceDisconnected()
             {
-                Toast.makeText(this@SupportActivity, getString(R.string.error_standard), Toast.LENGTH_LONG).show()
+                Toast.makeText(this@SupportActivity, getString(R.string.error_billing_get_item), Toast.LENGTH_LONG).show()
             }
             override fun onBillingSetupFinished(result: BillingResult)
             {
                 if (result.responseCode ==  BillingClient.BillingResponseCode.OK) job = CoroutineScope(Dispatchers.Main).launch { loadSku() }
-                else Toast.makeText(this@SupportActivity, getString(R.string.error_standard), Toast.LENGTH_LONG).show()
+                else Toast.makeText(this@SupportActivity, getString(R.string.error_billing_get_item), Toast.LENGTH_LONG).show()
             }
         })
     }
@@ -109,7 +109,7 @@ class SupportActivity: AppCompatActivity(), PurchasesUpdatedListener
 
                     //적용
                     CheckUtil.isAdRemoved = true
-                    Toast.makeText(this@SupportActivity, getString(R.string.success_remove_ad), Toast.LENGTH_LONG).show()
+                    Toast.makeText(this@SupportActivity, getString(R.string.success_remove_ads), Toast.LENGTH_LONG).show()
 
                     initState()
                 }

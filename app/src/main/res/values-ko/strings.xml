@@ -2,202 +2,185 @@
 
     <string name="app_name">나무프로텍터</string>
     <string name="app_developer">나무</string>
+    <string name="developer_message">한 대학생 개발자의 힘든 앱 개발기</string>
 
     <!--common-->
 
     <string name="common_ok">확인</string>
+    <string name="common_next">다음</string>
+    <string name="common_release">해제</string>
     <string name="common_cancel">취소</string>
+    <string name="common_none">없음</string>
+    <string name="common_grant">권한 부여</string>
+    <string name="common_choose">선택</string>
+    <string name="common_default">기본값</string>
+    <string name="common_show">보이기</string>
+    <string name="common_hide">숨기기</string>
+    <string name="common_seconds">초</string>
 
     <!--error-->
 
-    <string name="error_standard">오류가 발생했습니다.</string>
-    <string name="error_name_not_found">알 수 없음</string>
-    <string name="error_permission_denied">권한이 거절되어 접근할 수 없습니다.</string>
-    <string name="error_network_disconnected">먼저 네트워크에 연결해주세요.</string>
+    <string name="error_unknown">알 수 없음</string>
+    <string name="error_invalid_access">잘못된 접근</string>
+    <string name="error_standard">오류가 발생하였습니다.</string>
 
-    <string name="error_lockscreen_no_password">비밀번호가 설정되지 않아 잠금화면을 열 수 없습니다. 먼저 비밀번호를 설정해주세요.</string>
-    <string name="error_flash_not_supported">플래시를 지원하지 않는 기기입니다.</string>
-    <string name="error_camera_not_accessed">카메라에 접근할 수 없어 플래시를 설정할 수 없습니다.\n\n아래의 경우에 해당하는 지 확인해주세요.\n- 다른 앱에서 카메라를 사용하고 있습니다.\n- 플래시 권한이 없습니다.</string>
+    <string name="error_billing_get_item">플레이스토어에서 상품을 불러올 수 없습니다.</string>
+    <string name="error_billing_user_canceled">구매 취소됨.</string>
+    <string name="error_billing_already_purchased">이미 구입한 상품입니다!</string>
 
-    <string name="error_pattern_invalid">올바르지 않은 패턴입니다</string>
-    <string name="error_pattern_incorrect">첫 번째로 그린 패턴과 일치하지 않습니다\n새로운 패턴을 다시 그려주세요</string>
+    <string name="error_fingerprint_no_hardware">이 기기는 지문인식을 지원하지 않습니다.</string>
+    <string name="error_fingerprint_not_enrolled">등록된 지문이 없습니다.</string>
+    <string name="error_fingerprint_no_password">비밀번호를 먼저 설정해야 합니다.</string>
 
-    <string name="error_fingerprint_no_hardware">지문인식을 지원하지 않는 기기입니다.</string>
-    <string name="error_fingerprint_not_enrolled">사용 가능한 지문이 등록되지 않았습니다.</string>
-    <string name="error_fingerprint_no_password">먼저 비밀번호를 설정해주세요.</string>
+    <string name="error_pattern_invalid">잘못된 형식의 패턴</string>
+    <string name="error_pattern_incorrect">처음 그렸던 패턴과 일치하지 않습니다. 패턴을 다시 처음부터 그려주세요.</string>
 
-    <string name="error_backup">백업에 실패하였습니다.</string>
-    <string name="error_backup_range_not_set">백업 범위가 설정되지 않았습니다.</string>
-    <string name="error_backup_same_name">같은 이름의 백업이 이미 존재합니다.</string>
-    <string name="error_restore">복원에 실패하였습니다.</string>
+    <string name="error_flash_not_supported">이 기기는 플래시라이트를 지원하지 않습니다.</string>
+    <string name="error_flash_unavailable">플래시라이트에 접근할 수 없습니다.</string>
 
-    <string name="error_billing_get_item">플레이스토어에서 상품 목록을 불러올 수 없습니다.</string>
-    <string name="error_billing_user_canceled">구매가 취소되었습니다.</string>
-    <string name="error_billing_already_purchased">이미 구매한 상품입니다.</string>
+    <string name="error_lockscreen_no_password">잠금화면을 시작할 수 없습니다. 비밀번호를 먼저 설정해주세요!</string>
 
     <!--success-->
 
-    <string name="success_remove_ad">성공적으로 구매되었습니다! 이제 광고 없는 나무프로텍터를 사용하세요!</string>
+    <string name="success_remove_ads">성공적으로 결제되었습니다! 이제 광고 없는 나프를 이용해보세요!</string>
     <string name="success_donate">성공적으로 기부되었습니다! 감사합니다 :)</string>
-    <string name="success_add_app">%1$s(이)가 잠금 앱으로 추가되었습니다.</string>
 
-    <string name="success_backup">성공적으로 백업되었습니다.</string>
-    <string name="success_restore">성공적으로 복원되었습니다!</string>
-
-    <string name="success_deactivation">프로텍터 서비스가 임시로 비활성화되었습니다. 나무프로텍터를 다시 열거나 디바이스를 재부팅할 경우 다시 활성화됩니다.</string>
+    <string name="success_add_app">이제 %1$s(이)가 나무프로텍터에 의해 잠겨집니다!</string>
 
     <!--alert-->
 
-    <string name="alert_wait">잠시만 기다려 주세요</string>
+    <string name="alert_wizard_description">나무프로텍터를 시작하기 전에 먼저 아래의 필수 설정이 필요합니다.</string>
+    <string name="alert_select_password_type">잠금 방식 선택</string>
+    <string name="alert_usage_stats_permission">나무프로텍터를 찾고 앱 사용 기록 권한을 허용해주세요!</string>
+    <string name="alert_overlay_permission">나무프로텍터를 찾고 오버레이 권한을 허용해주세요!</string>
 
-    <string name="alert_watch">감시</string>
+    <string name="alert_service_on">나무프로텍터가\n앱을 보호하고 있어요!</string>
+    <string name="alert_service_off">나무프로텍터가\n쉬고 있어요…</string>
+
+    <string name="alert_check_purchased">나무프로텍터를 재설치했거나 이미 구입한 항목(광고 제거)이 복원되지 않았다면 해당 항목을 다시 눌러주세요!</string>
+
+    <string name="alert_loading_app">앱 목록 불러오는 중…</string>
+    <string name="alert_unselect_all_apps">정말 모든 앱을 선택 해제하시겠습니까?</string>
+
+    <string name="alert_release_admin">디바이스 관리자 권한을 해제하면 나무프로텍터가 쉽게 제거될 수 있습니다.\n정말 해제하시겠습니끼?</string>
+    <string name="alert_security_features">틀림 감지란?\n비밀번호를 5회 이상을 틀릴 시 플래시가 4초 동안 켜집니다.\n\n커버란?\n잠금화면 시작 시 커버가 덮여져 앱을 이중으로 보호합니다. 커버를 풀기 위해선 커버를 길게 눌러주세요.</string>
+    <string name="alert_convenience_features">잠금 딜레이란?\n잠금을 해제한 앱에 대해서 앱을 나갔다 들어오더라도 특정 시간동안 잠금 해제된 상태를 유지합니다.</string>
+
+    <string name="alert_type_new_pin">새 PIN을 입력하세요</string>
+    <string name="alert_confirm_new_pin">새 PIN을 다시 입력해주세요</string>
+    <string name="alert_pin_guide">PIN은 4자리 이상 12자리 이하이어야 합니다.</string>
+
+    <string name="alert_draw_new_pattern">새 패턴을 그려주세요</string>
+    <string name="alert_confirm_new_pattern">새 패턴을 다시 그려주세요</string>
+
+    <string name="alert_element_selected">%1$s(이)가 선택됨</string>
+
+    <string name="alert_watch_failure">너무 많이 틀렸어요!</string>
     <string name="alert_uncover">커버를 풀고 잠금해제</string>
 
-    <string name="alert_wizard_description">나무프로텍터가 앱을 잠그기 위해 다음 설정이 필요합니다.</string>
-
-    <string name="alert_loading_app">앱 목록을 불러오는 중…</string>
-    <string name="alert_unselect_all_title">모든 앱 선택 해제</string>
-    <string name="alert_unselect_all_message">모든 잠금 앱을 선택 해제합니다.</string>
-
-    <string name="alert_pin_new_password">새 비밀번호를 입력하세요</string>
-    <string name="alert_pin_confirm_password">새 비밀번호를 다시 입력해주세요</string>
-    <string name="alert_pin_restrictions">PIN은 4자리 이상 12자리 이하이여야 합니다.</string>
-
-    <string name="alert_pattern_new_draw">새 패턴을 그려주세요</string>
-    <string name="alert_pattern_confirm_draw">새 패턴을 다시 그려주세요</string>
-
-    <string name="alert_fingerprint_error_title">지문인식을 사용할 수 없습니다</string>
-
-    <string name="alert_readme">이 기능을 사용하기 전 아래의 도움말을 꼭 읽어주세요!</string>
-
-    <string name="alert_watch_fail_help_title">틀림 감지 도움말</string>
-    <string name="alert_watch_fail_help_message">비밀번호를 5회 이상을 틀릴 시 플래시가 4초 동안 켜집니다. (플래시가 없는 기기에서는 지원하지 않습니다.)</string>
-    <string name="alert_watch_fail_help_positive">알겠습니다!</string>
-
-    <string name="alert_cover_help_title">커버 도움말</string>
-    <string name="alert_cover_help_message">잠금화면 시작 시 커버가 덮여져 앱을 이중으로 보호합니다. 커버를 풀기 위해선 커버를 길게 눌러주세요.</string>
-    <string name="alert_cover_help_positive">알겠습니다!</string>
-
-    <string name="alert_release_admin_message">장치 관리자를 해제하면 나무프로텍터가 쉽게 삭제될 수 있습니다.\n정말로 해제하시겠습니까?</string>
-    <string name="alert_release_admin_positive">해제</string>
-
-    <string name="alert_reset_theme_title">테마 초기화</string>
-    <string name="alert_reset_theme_message">모든 테마 요소를 초기화합니다.</string>
-
-    <string name="alert_check_purchased">앱을 재설치했거나 이미 구매한 상품이 복원되지 않았을 경우 구매한 상품을 다시 클릭해주세요.</string>
-
-    <string name="alert_deactivation_title">임시로 프로텍터 서비스 비활성화</string>
-    <string name="alert_deactivation_message">정말로 프로텍터 서비스를 비활성화하시겠습니까? 비활성화 시 더 이상 잠금 앱은 보호되지 않습니다.</string>
-    <string name="alert_deactivation_positive">비활성화</string>
+    <string name="alert_unlock_using_fingerprint">지문인식을 이용해 잠금을 해제합니다.</string>
 
     <!--permission-->
 
-    <string name="permission_storage_title">저장소 권한이 필요해요!</string>
-    <string name="permission_storage_message">- 디바이스 저장소에 접근할 수 있는 권한을 부여합니다.\n- 설정 백업/복원 시에 사용됩니다.</string>
-
-    <string name="permission_camera_title">카메라 권한이 필요해요!</string>
-    <string name="permission_camera_message">- 카메라에 접근할 수 있는 권한을 부여합니다.\n- \'틀림 감지\' 기능의 플래시 밝히기에 사용됩니다.\n- 나무프로텍터는 플래시 외 전후면 카메라를 사용하지 않습니다.</string>
-
-    <string name="permission_device_admin_title">장치 관리자 권한이 필요해요!</string>
+    <string name="permission_device_admin_title">디바이스 관리자 권한이 필요합니다!</string>
     <string name="permission_device_admin_message">- 장치 정책을 강제하는 권한을 부여합니다.\n- 나무프로텍터가 삭제되는 것을 방지합니다.\n- 나무프로텍터는 삭제 방지 외 다른 시스템 정책을 강제하지 않습니다.</string>
-
-    <string name="permission_denied_message">[설정] > [권한]에서 권한을 허용할 수 있습니다.</string>
-    <string name="permission_grant">허용</string>
 
     <!--notification-->
 
-    <string name="notification_service_title">나무프로텍터</string>
-    <string name="notification_service_message">앱이 안전하게 보호되고 있습니다.</string>
-    <string name="notification_service_description">나무프로텍터가 앱을 보호하고 있음을 나타내는 알림입니다.</string>
+    <string name="notification_service_description">나무프로텍터 서비스가 실행중일때 나타나는 알림입니다.</string>
 
     <string name="notification_protection_title">나무프로텍터 보호 알림</string>
     <string name="notification_protection_message">나무프로텍터가 %1$s(을)를 보호할까요?</string>
     <string name="notification_protection_description">새 앱이 설치되었을 때 나무프로텍터가 잠금을 권유하는 알림입니다.</string>
 
-    <!--etc-->
-
-    <string name="etc_motto">한 학생 개발자의 힘든 앱 개발기</string>
-    <string name="etc_rate">별점 5점 주실거죠? &gt;&lt;</string>
-
     <!--name-->
 
     <string name="name_wizard">초기 설정</string>
-    <string name="name_permission">권한</string>
-    <string name="name_usage_stats_permission">앱 사용 기록 권한</string>
-
-    <string name="name_lock_apps">잠금 앱</string>
-    <string name="name_default_playstore">플레이스토어</string>
-    <string name="name_default_settings">설정</string>
-    <string name="name_default_prevent_apps_uninstalled">앱 삭제 방지</string>
-
-    <string name="name_lock_settings">잠금 설정</string>
-    <string name="name_lock_type">잠금 방식</string>
-    <string name="name_pin">PIN</string>
-    <string name="name_pattern">패턴</string>
-    <string name="name_fingerprint">지문인식</string>
-    <string name="name_pin_settings">PIN 설정</string>
-    <string name="name_click_haptic">클릭 시 진동</string>
-    <string name="name_hide_click">클릭 숨기기</string>
-    <string name="name_quick_unlock">빠른 해제</string>
-    <string name="name_rearrange_key">키 재배열</string>
-    <string name="name_light_key">연한 키</string>
-    <string name="name_pattern_settings">패턴 설정</string>
-    <string name="name_draw_haptic">그릴 시 진동</string>
-    <string name="name_hide_draw">그리기 숨기기</string>
-    <string name="name_light_dot">연한 점</string>
-
-    <string name="name_change_pin">PIN 바꾸기</string>
-    <string name="name_change_pattern">패턴 바꾸기</string>
-
+    <string name="name_home">홈</string>
+    <string name="name_apps">잠금 앱</string>
     <string name="name_settings">설정</string>
-    <string name="name_security">보안</string>
-    <string name="name_prevent_uninstall">나무프로텍터 삭제 방지</string>
-    <string name="name_dark_lockscreen">어두운 잠금화면</string>
-    <string name="name_watch_failure">틀림 감지</string>
-    <string name="name_cover">커버</string>
-    <string name="name_notification">알림</string>
-    <string name="name_protection_notification">앱 설치 시 보호 알림</string>
-    <string name="name_help">도움말</string>
-    <string name="name_help_for_watch_failure">틀림 감지 도움말</string>
-    <string name="name_help_for_cover">커버 도움말</string>
-
-    <string name="name_backup">백업</string>
-    <string name="name_restore">복원</string>
-    <string name="name_backup_label">백업 이름</string>
-    <string name="name_backup_range_app">잠금 앱</string>
-    <string name="name_backup_range_password">비밀번호</string>
-    <string name="name_backup_range_settings">설정</string>
-
     <string name="name_theme">테마</string>
-    <string name="name_color">색상</string>
-    <string name="name_base_layout">바탕 레이아웃</string>
-    <string name="name_bottom_layout">하단 레이아웃</string>
-    <string name="name_pin_indicator">PIN 뷰어</string>
-    <string name="name_key_or_pattern">키/패턴</string>
-    <string name="name_size">크기</string>
-    <string name="name_size_big">크게</string>
-    <string name="name_size_normal">보통</string>
-    <string name="name_size_small">작게</string>
-    <string name="name_hide_element">요소 숨기기</string>
-    <string name="name_top_layout">상단 레이아웃</string>
-    <string name="name_preview">미리보기</string>
-    <string name="name_reset">초기화</string>
+
+
+    <string name="name_set_password">비밀번호 설정</string>
+    <string name="name_usage_stats_permission">앱 사용 권한 부여</string>
+    <string name="name_overlay_permission">오버레이 권한 부여</string>
+    <string name="name_start_np">나무프로텍터 시작</string>
+
+
+    <string name="name_about">앱 정보</string>
+    <string name="name_developer">누가 만들었을까요?</string>
+    <string name="name_learn_developer">개발자 알아보기</string>
+    <string name="name_github">깃허브</string>
+    <string name="name_tistory">티스토리</string>
+    <string name="name_more">더보기</string>
+    <string name="name_license">오픈소스 라이센스</string>
 
     <string name="name_support">후원</string>
-    <string name="name_purchase">구매</string>
-    <string name="name_remove_ad">광고 제거</string>
+    <string name="name_guide">안내</string>
+    <string name="name_premium">프리미엄</string>
+    <string name="name_remove_ads">광고 제거</string>
     <string name="name_donate">기부</string>
     <string name="name_coke">콜라 사주기</string>
     <string name="name_meal">밥 사주기</string>
     <string name="name_eco_bag">에코백 사주기</string>
     <string name="name_collect_for_laptop">노트북 보태기</string>
 
-    <string name="name_about">정보</string>
-    <string name="name_app">앱</string>
-    <string name="name_developer">개발자</string>
-    <string name="name_more">더보기</string>
-    <string name="name_license">오픈소스 라이센스</string>
-    <string name="name_review">리뷰 남기기</string>
-    <string name="name_deactivate">비활성화</string>
+
+    <string name="name_search_apps">앱을 검색합니다</string>
+    <string name="name_default_play_store">플레이스토어</string>
+    <string name="name_default_settings">설정</string>
+    <string name="name_default_prevent_apps_uninstalled">앱 삭제 방지</string>
+    <string name="name_unselect_all_apps">모든 앱 선택 해제</string>
+
+
+    <string name="name_lock_type">잠금 방식</string>
+    <string name="name_pin">PIN</string>
+    <string name="name_pattern">패턴</string>
+    <string name="name_fingerprint">지문</string>
+    <string name="name_pin_additional_settings">PIN 추가 설정</string>
+    <string name="name_click_haptic">클릭 시 진동</string>
+    <string name="name_hide_click">클릭 숨기기</string>
+    <string name="name_quick_unlock">빠른 해제</string>
+    <string name="name_rearrange_key">키 재배열</string>
+    <string name="name_light_key">연한 키</string>
+    <string name="name_pattern_additional_settings">패턴 추가 설정</string>
+    <string name="name_draw_haptic">그릴 시 진동</string>
+    <string name="name_hide_draw">그리기 숨기기</string>
+    <string name="name_light_dot">연한 점</string>
+    <string name="name_security">보안</string>
+    <string name="name_prevent_uninstall">나무프로텍터 삭제 방지</string>
+    <string name="name_dark_lockscreen">어두운 잠금화면</string>
+    <string name="name_watch_fail">틀림 감지</string>
+    <string name="name_cover">커버</string>
+    <string name="name_convenience">편의 기능</string>
+    <string name="name_protection_notification">새 앱 설치 시 잠금 알림</string>
+    <string name="name_lock_delay">잠금 딜레이</string>
+
+    <string name="name_generate_pin">새 PIN 생성</string>
+    <string name="name_generate_pattern">새 패턴 생성</string>
+
+
+    <string name="name_element_base_layout">바탕 레이아웃</string>
+    <string name="name_element_top_layout">상단 레이아웃</string>
+    <string name="name_element_bottom_layout">하단 레이아웃</string>
+    <string name="name_element_icon">아이콘</string>
+    <string name="name_element_pin_indicator">PIN 인디케이터</string>
+    <string name="name_element_key">키</string>
+    <string name="name_element_pattern">패턴</string>
+
+    <string name="name_element_base_layout_color">바탕 레이아웃 색상</string>
+    <string name="name_element_top_layout_color">상단 레이아웃 색상</string>
+    <string name="name_element_bottom_layout_color">하단 레이아웃 색상</string>
+    <string name="name_element_pin_indicator_color">PIN 인디케이터 색상</string>
+    <string name="name_element_key_color">키 색상</string>
+    <string name="name_element_pattern_color">패턴 색상</string>
+
+    <string name="name_element_icon_size">아이콘 크기</string>
+    <string name="name_element_pin_indicator_size">PIN 인디케이터 크기</string>
+    <string name="name_element_key_size">키 크기</string>
+
+    <string name="name_element_icon_background_visibility">아이콘 배경 표시 여부</string>
+    <string name="name_element_pin_indicator_visibility">PIN 인디케이터 표시 여부</string>
 
 </resources>

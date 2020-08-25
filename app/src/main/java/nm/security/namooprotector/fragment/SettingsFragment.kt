@@ -23,6 +23,7 @@ import nm.security.namooprotector.activity.*
 import nm.security.namooprotector.service.ProtectorServiceHelper
 import nm.security.namooprotector.util.ActivityUtil
 import nm.security.namooprotector.util.CheckUtil
+import nm.security.namooprotector.util.ResourceUtil
 import nm.security.namooprotector.util.SettingsUtil
 import kotlin.reflect.KMutableProperty0
 
@@ -125,12 +126,12 @@ class SettingsFragment : Fragment()
         if (SettingsUtil.lockDelay == 0)
         {
             settings_convenience_lock_delay_button.isChecked = false
-            settings_convenience_lock_delay_button.setDescription("없음")
+            settings_convenience_lock_delay_button.setDescription(ResourceUtil.getString(R.string.common_none))
         }
         else
         {
             settings_convenience_lock_delay_button.isChecked = true
-            settings_convenience_lock_delay_button.setDescription(SettingsUtil.lockDelay.toString() + "초")
+            settings_convenience_lock_delay_button.setDescription(SettingsUtil.lockDelay.toString() + ResourceUtil.getString(R.string.common_seconds))
         }
     }
 
@@ -168,8 +169,8 @@ class SettingsFragment : Fragment()
         {
             with(AlertDialog.Builder(context))
             {
-                setMessage(getString(R.string.alert_release_admin_message))
-                setPositiveButton(getString(R.string.alert_release_admin_positive))
+                setMessage(getString(R.string.alert_release_admin))
+                setPositiveButton(getString(R.string.common_release))
                 { _, _ ->
                     policyManager.removeActiveAdmin(deviceAdmin)
                     settings_security_prevent_uninstall_button.isChecked = false
@@ -184,7 +185,7 @@ class SettingsFragment : Fragment()
             {
                 setTitle(getString(R.string.permission_device_admin_title))
                 setMessage(getString(R.string.permission_device_admin_message))
-                setPositiveButton(getString(R.string.permission_grant))
+                setPositiveButton(getString(R.string.common_grant))
                 { _, _ ->
                     val intent = Intent(DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN)
                     intent.putExtra(DevicePolicyManager.EXTRA_DEVICE_ADMIN, deviceAdmin)
@@ -210,24 +211,24 @@ class SettingsFragment : Fragment()
                 SettingsUtil.watchFail = true
                 initState()
             }
-            else Toast.makeText(activity, "플래시를 지원하지 않는 기기입니다!", Toast.LENGTH_SHORT).show()
+            else Toast.makeText(activity, ResourceUtil.getString(R.string.error_flash_not_supported), Toast.LENGTH_SHORT).show()
         }
     }
     private fun toggleStateLockDelay(view: View)
     {
         with(PopupMenu(context!!, view))
         {
-            menu.add("없음")
-            menu.add("5초")
-            menu.add("10초")
-            menu.add("30초")
-            menu.add("60초")
+            menu.add(ResourceUtil.getString(R.string.common_none))
+            menu.add("5" + ResourceUtil.getString(R.string.common_seconds))
+            menu.add("10" + ResourceUtil.getString(R.string.common_seconds))
+            menu.add("30" + ResourceUtil.getString(R.string.common_seconds))
+            menu.add("60" + ResourceUtil.getString(R.string.common_seconds))
 
             setOnMenuItemClickListener {
                 when (it.title.toString())
                 {
-                    "없음" -> SettingsUtil.lockDelay = 0
-                    else -> SettingsUtil.lockDelay = it.title.toString().replace("초", "").toInt()
+                    ResourceUtil.getString(R.string.common_none) -> SettingsUtil.lockDelay = 0
+                    else -> SettingsUtil.lockDelay = it.title.toString().replace(ResourceUtil.getString(R.string.common_seconds), "").toInt()
                 }
 
                 initState()

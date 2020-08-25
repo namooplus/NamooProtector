@@ -1,203 +1,186 @@
 <resources>
 
-    <string name="app_name">NamooProtector</string>
-    <string name="app_developer">Namoo</string>
+    <string name="app_name">Namoo Protector</string>
+    <string name="app_developer">namoo</string>
+    <string name="developer_message">A college student\'s harsh development story</string>
 
     <!--common-->
 
     <string name="common_ok">OK</string>
+    <string name="common_next">Next</string>
+    <string name="common_release">Release</string>
     <string name="common_cancel">Cancel</string>
+    <string name="common_none">None</string>
+    <string name="common_grant">Grant</string>
+    <string name="common_choose">Choose</string>
+    <string name="common_default">Default</string>
+    <string name="common_show">Show</string>
+    <string name="common_hide">Hide</string>
+    <string name="common_seconds">secs</string>
 
     <!--error-->
 
+    <string name="error_unknown">Unknown</string>
+    <string name="error_invalid_access">Invalid access</string>
     <string name="error_standard">An error occurred.</string>
-    <string name="error_name_not_found">Unknown</string>
-    <string name="error_permission_denied">Can\'t access it because related permission is rejected.</string>
-    <string name="error_network_disconnected">Connect to network first.</string>
 
-    <string name="error_lockscreen_no_password">Can\'t open lockscreen because password isn\'t set. Set a password first.</string>
-    <string name="error_flash_not_supported">This device doesn\'t support flashlight.</string>
-    <string name="error_camera_not_accessed">Can\'t control flashlight because NP can\'t access Camera.\n\nCheck if the followings are your case please.\n- Another application is using camera.\n- No flashlight permission.</string>
-
-    <string name="error_pattern_invalid">Invalid pattern</string>
-    <string name="error_pattern_incorrect">It\'s incorrect with the pattern you have drawn first\nPlease draw a new pattern again</string>
+    <string name="error_billing_get_item">Can\'t get item list from Play store.</string>
+    <string name="error_billing_user_canceled">Purchasing canceled.</string>
+    <string name="error_billing_already_purchased">You\'ve already purchased this item.</string>
 
     <string name="error_fingerprint_no_hardware">This device doesn\'t support fingerprint authentication.</string>
     <string name="error_fingerprint_not_enrolled">No fingerprint is enrolled.</string>
     <string name="error_fingerprint_no_password">You should set a password first.</string>
 
-    <string name="error_backup">Failed to backup.</string>
-    <string name="error_backup_range_not_set">Backup range is not set!</string>
-    <string name="error_backup_same_name">You have already a backup file which have a same name.</string>
-    <string name="error_restore">Failed to restore.</string>
+    <string name="error_pattern_invalid">Invalid pattern</string>
+    <string name="error_pattern_incorrect">It\'s incorrect with the pattern you have drawn first.\nPlease draw a new pattern again.</string>
 
-    <string name="error_billing_get_item">Can\'t get item list from Play store.</string>
-    <string name="error_billing_user_canceled">Canceled purchasing.</string>
-    <string name="error_billing_already_purchased">You\'ve already purchased this item.</string>
+    <string name="error_flash_not_supported">This device doesn\'t support flashlight.</string>
+    <string name="error_flash_unavailable">Can\'t access flashlight.</string>
+
+    <string name="error_lockscreen_no_password">Can\'t open a lockscreen. Set a password first.</string>
 
     <!--success-->
 
-    <string name="success_remove_ad">Successfully purchased! You can use Ad-free NP now!</string>
+    <string name="success_remove_ads">Successfully purchased! You can use Ad-free NP now!</string>
     <string name="success_donate">Successfully donated! Thank you :)</string>
+
     <string name="success_add_app">From now on, %1$s will be locked.</string>
-
-    <string name="success_backup">Successfully backed up!</string>
-    <string name="success_restore">Successfully restored!</string>
-
-    <string name="success_deactivation">NP service is temporarily deactivated. It will do nothing unless you reopen this application or reboot this device.</string>
 
     <!--alert-->
 
-    <string name="alert_wait">Wait a second</string>
+    <string name="alert_wizard_description">To start NP service, the following settings are needed.</string>
+    <string name="alert_select_password_type">Select a password type</string>
+    <string name="alert_usage_stats_permission">Please find Namoo Protector and grant an app usage stats permission.</string>
+    <string name="alert_overlay_permission">Please find Namoo Protector and grant an overlay permission.</string>
 
-    <string name="alert_watch">Watch</string>
-    <string name="alert_uncover">Uncover and unlock</string>
-
-    <string name="alert_wizard_description">To protect locked apps, the following settings are needed.</string>
-
-    <string name="alert_loading_app">Loading app list…</string>
-    <string name="alert_unselect_all_title">Unselect all apps</string>
-    <string name="alert_unselect_all_message">Do you really want to unselect all apps?</string>
-
-    <string name="alert_pin_new_password">Type a new password</string>
-    <string name="alert_pin_confirm_password">Confirm your new password</string>
-    <string name="alert_pin_restrictions">A length of PIN should be in 4..12</string>
-
-    <string name="alert_pattern_new_draw">Draw a new pattern</string>
-    <string name="alert_pattern_confirm_draw">Confirm your new pattern</string>
-
-    <string name="alert_fingerprint_error_title">Can\'t use fingerprint.</string>
-
-    <string name="alert_readme">Please read HELP before using this feature.</string>
-
-    <string name="alert_watch_fail_help_title">Help for Watch failure</string>
-    <string name="alert_watch_fail_help_message">Flash will be turned on for 4 seconds when someone fails to unlock more than 5 times. (It won\'t be supported if your device doesn\'t have a hardware for flashlight.)</string>
-    <string name="alert_watch_fail_help_positive">I Got it!</string>
-
-    <string name="alert_cover_help_title">Help for Cover</string>
-    <string name="alert_cover_help_message">When lockscreen starts, a cover will be covered and make other people difficult to unlock it. You can uncover it by long-pressing it.</string>
-    <string name="alert_cover_help_positive">I Got it!</string>
-
-    <string name="alert_release_admin_message">NP can be deleted easily if you release device admin.\nDo you really want to release it?</string>
-    <string name="alert_release_admin_positive">Release</string>
-
-    <string name="alert_reset_theme_title">Reset Theme</string>
-    <string name="alert_reset_theme_message">Do you really want to reset all theme elements?</string>
+    <string name="alert_service_on">Namoo Protector is\nprotecting your apps!</string>
+    <string name="alert_service_off">Namoo Protector is\nsleeping…</string>
 
     <string name="alert_check_purchased">If you reinstalled this app or your purchases are not restored, click the item you\'ve already purchased again.</string>
 
-    <string name="alert_deactivation_title">Deactivate protector service temporarily</string>
-    <string name="alert_deactivation_message">Do you really want to deactivate protector service? Locked apps will NOT be protected anymore.</string>
-    <string name="alert_deactivation_positive">Deactivate</string>
+    <string name="alert_loading_app">Loading apps list…</string>
+    <string name="alert_unselect_all_apps">Do you really want to unselect all apps?</string>
+
+    <string name="alert_release_admin">NP can be deleted easily if you release device admin.\nDo you really want to release it?</string>
+    <string name="alert_security_features">What is Watch Failure?\nFlashlight will be turned on for 4 seconds when a user fails to unlock a lockscreen 5 times.\n\nWhat is Cover?\nA lockscreen is covered with a translucent cover to confuse the intruder. To uncover it, long-press the cover.</string>
+    <string name="alert_convenience_features">What is Lock Delay?\nNP keeps the lock state of the unlocked apps for specific times even if an user exits the apps.</string>
+
+    <string name="alert_type_new_pin">Type a new PIN</string>
+    <string name="alert_confirm_new_pin">Confirm your new PIN</string>
+    <string name="alert_pin_guide">A PIN number should be not less than 4 but not more than 12 digits.</string>
+
+    <string name="alert_draw_new_pattern">Draw a new pattern</string>
+    <string name="alert_confirm_new_pattern">Confirm your new pattern</string>
+
+    <string name="alert_element_selected">%1$s is selected.</string>
+
+    <string name="alert_watch_failure">Too many failures!</string>
+    <string name="alert_uncover">Uncover and unlock</string>
+
+    <string name="alert_unlock_using_fingerprint">Unlock the app using fingerprint.</string>
 
     <!--permission-->
 
-    <string name="permission_storage_title">A storage permission is needed!</string>
-    <string name="permission_storage_message">- It grants a permission to access phone storage.\n- It is used when you backup or restore settings.</string>
-
-    <string name="permission_camera_title">A camera permission is needed!</string>
-    <string name="permission_camera_message">- It grants a permission to access camera.\n- It is used to control flashlight for \'watch failure\' feature.\n- NP doesn\'t use front or rear camera except for flashlight.</string>
-
     <string name="permission_device_admin_title">A device admin permission is needed!</string>
-    <string name="permission_device_admin_message">- It grants a permission to force a device policy.\n- It is used to prevent NP from being deleted by other people.\n- NP doesn\'t control other device settings.</string>
-
-    <string name="permission_denied_message">You can grant the permission in [Settings] > [Permission]</string>
-    <string name="permission_grant">Grant</string>
+    <string name="permission_device_admin_message">- It grants a permission to force a device policy.\n- It is used to prevent NP from being deleted by other users.\n- NP doesn\'t control other device settings.</string>
 
     <!--notification-->
 
-    <string name="notification_service_title">Namoo Protector</string>
-    <string name="notification_service_message">Your apps are locked securely.</string>
-    <string name="notification_service_description">It shows that NP is protecting your apps.</string>
+    <string name="notification_service_description">It shows that NP service is running.</string>
 
     <string name="notification_protection_title">NP protection notification</string>
     <string name="notification_protection_message">Will NP lock %1$s?</string>
-    <string name="notification_protection_description">It is shown when new application is installed.</string>
-
-    <!--etc-->
-
-    <string name="etc_motto">Developed by a korean student</string>
-    <string name="etc_rate">Would you rate 5 stars? &gt;&lt;</string>
+    <string name="notification_protection_description">It is shown when a new application is installed.</string>
 
     <!--name-->
 
-    <string name="name_wizard">Initial Setting</string>
-    <string name="name_permission">Permission</string>
-    <string name="name_usage_stats_permission">Usage stats Permission</string>
-
-    <string name="name_lock_apps">Lock Apps</string>
-    <string name="name_default_playstore">Play Store</string>
-    <string name="name_default_settings">Settings</string>
-    <string name="name_default_prevent_apps_uninstalled">Prevent apps from being uninstalled</string>
-
-    <string name="name_lock_settings">Lock Settings</string>
-    <string name="name_lock_type">Lock Type</string>
-    <string name="name_pin">PIN</string>
-    <string name="name_pattern">Pattern</string>
-    <string name="name_fingerprint">Fingerprint</string>
-    <string name="name_pin_settings">Pin Settings</string>
-    <string name="name_click_haptic">Click Haptic</string>
-    <string name="name_hide_click">Hide Click</string>
-    <string name="name_quick_unlock">Quick Unlock</string>
-    <string name="name_rearrange_key">Rearrange Key</string>
-    <string name="name_light_key">Light Key</string>
-    <string name="name_pattern_settings">Pattern Settings</string>
-    <string name="name_draw_haptic">Drawing Haptic</string>
-    <string name="name_hide_draw">Hide Drawing</string>
-    <string name="name_light_dot">Light Dot</string>
-
-    <string name="name_change_pin">Change PIN</string>
-    <string name="name_change_pattern">Change Pattern</string>
-
+    <string name="name_wizard">Initial Settings</string>
+    <string name="name_home">Home</string>
+    <string name="name_apps">Apps to lock</string>
     <string name="name_settings">Settings</string>
-    <string name="name_security">Security</string>
-    <string name="name_prevent_uninstall">Prevent Uninstall</string>
-    <string name="name_dark_lockscreen">Dark Lockscreen</string>
-    <string name="name_watch_failure">Watch Failure</string>
-    <string name="name_cover">Cover</string>
-    <string name="name_notification">Notification</string>
-    <string name="name_protection_notification">Protection Notification</string>
-    <string name="name_help">Help</string>
-    <string name="name_help_for_watch_failure">Help for Watch failure</string>
-    <string name="name_help_for_cover">Help for Cover</string>
-
-    <string name="name_backup">Backup</string>
-    <string name="name_restore">Restore</string>
-    <string name="name_backup_label">Backup label</string>
-    <string name="name_backup_range_app">Locked Apps</string>
-    <string name="name_backup_range_password">Password</string>
-    <string name="name_backup_range_settings">Settings</string>
-
     <string name="name_theme">Theme</string>
-    <string name="name_color">Color</string>
-    <string name="name_base_layout">Base Layout</string>
-    <string name="name_bottom_layout">Bottom Layout</string>
-    <string name="name_pin_indicator">Pin Indicator</string>
-    <string name="name_key_or_pattern">Keys/Pattern</string>
-    <string name="name_size">Size</string>
-    <string name="name_size_big">Big</string>
-    <string name="name_size_normal">Normal</string>
-    <string name="name_size_small">Small</string>
-    <string name="name_hide_element">Hide Elements</string>
-    <string name="name_top_layout">Top Layout</string>
-    <string name="name_preview">Preview</string>
-    <string name="name_reset">Reset</string>
+
+
+    <string name="name_set_password">Set password</string>
+    <string name="name_usage_stats_permission">Usage stats permission</string>
+    <string name="name_overlay_permission">Overlay permission</string>
+    <string name="name_start_np">Start Namoo Protector</string>
+
+
+    <string name="name_about">About</string>
+    <string name="name_developer">Who made it?</string>
+    <string name="name_learn_developer">Learn more about namoo</string>
+    <string name="name_github">Github</string>
+    <string name="name_tistory">Tistory</string>
+    <string name="name_more">More</string>
+    <string name="name_license">Open-source license</string>
 
     <string name="name_support">Support</string>
-    <string name="name_purchase">Purchase</string>
-    <string name="name_remove_ad">Remove Ads</string>
+    <string name="name_guide">Guide</string>
+    <string name="name_premium">Premium</string>
+    <string name="name_remove_ads">Remove Ads</string>
     <string name="name_donate">Donate</string>
     <string name="name_coke">Coke</string>
     <string name="name_meal">Meal</string>
     <string name="name_eco_bag">Eco Bag</string>
     <string name="name_collect_for_laptop">Collect for Laptop</string>
 
-    <string name="name_about">About</string>
-    <string name="name_app">App</string>
-    <string name="name_developer">Developer</string>
-    <string name="name_more">More</string>
-    <string name="name_license">Opensource License</string>
-    <string name="name_review">Post a review</string>
-    <string name="name_deactivate">Deactivate</string>
+
+    <string name="name_search_apps">Search apps</string>
+    <string name="name_default_play_store">Play Store</string>
+    <string name="name_default_settings">Settings</string>
+    <string name="name_default_prevent_apps_uninstalled">Prevent apps from being uninstalled</string>
+    <string name="name_unselect_all_apps">Unselect all apps</string>
+
+
+    <string name="name_lock_type">Lock Type</string>
+    <string name="name_pin">PIN</string>
+    <string name="name_pattern">Pattern</string>
+    <string name="name_fingerprint">Fingerprint</string>
+    <string name="name_pin_additional_settings">PIN additional settings</string>
+    <string name="name_click_haptic">Click Haptic</string>
+    <string name="name_hide_click">Hide Click</string>
+    <string name="name_quick_unlock">Quick Unlock</string>
+    <string name="name_rearrange_key">Rearrange Keys</string>
+    <string name="name_light_key">Light Keys</string>
+    <string name="name_pattern_additional_settings">Pattern additional settings</string>
+    <string name="name_draw_haptic">Drawing Haptic</string>
+    <string name="name_hide_draw">Hide Drawing</string>
+    <string name="name_light_dot">Light Dots</string>
+    <string name="name_security">Security</string>
+    <string name="name_prevent_uninstall">Prevent NP Uninstalled</string>
+    <string name="name_dark_lockscreen">Dark Lockscreen</string>
+    <string name="name_watch_fail">Watch Failure</string>
+    <string name="name_cover">Cover</string>
+    <string name="name_convenience">Convenience</string>
+    <string name="name_protection_notification">Notify to lock new apps</string>
+    <string name="name_lock_delay">Lock Delay</string>
+
+    <string name="name_generate_pin">Generate a new PIN</string>
+    <string name="name_generate_pattern">Generate a new pattern</string>
+
+
+    <string name="name_element_base_layout">Base Layout</string>
+    <string name="name_element_top_layout">Top Layout</string>
+    <string name="name_element_bottom_layout">Bottom Layout</string>
+    <string name="name_element_icon">Icon</string>
+    <string name="name_element_pin_indicator">PIN Indicator</string>
+    <string name="name_element_key">Key</string>
+    <string name="name_element_pattern">Pattern</string>
+
+    <string name="name_element_base_layout_color">Base Layout Color</string>
+    <string name="name_element_top_layout_color">Top Layout Color</string>
+    <string name="name_element_bottom_layout_color">Bottom Layout Color</string>
+    <string name="name_element_pin_indicator_color">PIN Indicator Color</string>
+    <string name="name_element_key_color">Key Color</string>
+    <string name="name_element_pattern_color">Pattern Color</string>
+
+    <string name="name_element_icon_size">Icon Size</string>
+    <string name="name_element_pin_indicator_size">PIN Indicator Size</string>
+    <string name="name_element_key_size">Key Size</string>
+
+    <string name="name_element_icon_background_visibility">Icon Background Visibility</string>
+    <string name="name_element_pin_indicator_visibility">PIN Indicator Visibility</string>
 
 </resources>

@@ -33,7 +33,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/activity_padding"
-                    android:text="나무프로텍터를 시작하기 전 아래 과정이 필요해요"
+                    android:text="@string/alert_wizard_description"
                     android:textSize="@dimen/text_content_size"
                     android:textColor="@color/text_dark_color"/>
 
@@ -54,7 +54,7 @@
                         android:layout_width="@dimen/check_button_length"
                         android:layout_height="@dimen/check_button_length"
                         app:check_icon="@drawable/vector_pin"
-                        app:check_title="비밀번호 설정"
+                        app:check_title="@string/name_set_password"
                         app:check_description=""
                         app:check_checked="false"/>
 
@@ -64,7 +64,7 @@
                         android:layout_height="@dimen/check_button_length"
                         android:layout_marginStart="@dimen/space_padding"
                         app:check_icon="@drawable/vector_search"
-                        app:check_title="앱 사용정보 접근 허용"
+                        app:check_title="@string/name_usage_stats_permission"
                         app:check_description=""
                         app:check_checked="false"/>
 
@@ -74,7 +74,7 @@
                         android:layout_height="@dimen/check_button_length"
                         android:layout_marginTop="@dimen/space_padding"
                         app:check_icon="@drawable/vector_theme"
-                        app:check_title="오버레이 권한 허용"
+                        app:check_title="@string/name_overlay_permission"
                         app:check_description=""
                         app:check_checked="false"/>
 
@@ -95,8 +95,7 @@
         android:layout_margin="@dimen/activity_padding"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
-        app:floating_text="나무프로텍터 시작하기"
-        android:visibility="gone"
-        android:onClick="start"/>
+        app:floating_text="@string/name_start_np"
+        android:visibility="gone"/>
 
 </RelativeLayout>

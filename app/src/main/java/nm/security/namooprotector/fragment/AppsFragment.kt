@@ -59,8 +59,7 @@ class AppsFragment : Fragment()
 
             with(dialog)
             {
-                setTitle(getString(R.string.alert_unselect_all_title))
-                setMessage(getString(R.string.alert_unselect_all_message))
+                setMessage(getString(R.string.alert_unselect_all_apps))
                 setPositiveButton(getString(R.string.common_ok)) { _, _ ->
                     DataUtil.remove(DataUtil.APPS)
                     loadApps()
@@ -122,7 +121,7 @@ class AppsFragment : Fragment()
 
                     //기본 앱 추가
                     appList.add(0, AppBundle(ResourcesCompat.getDrawable(resources, R.drawable.vector_recommend, null)!!, getString(R.string.name_default_prevent_apps_uninstalled), "com.android.packageinstaller", DataUtil.getBoolean("com.android.packageinstaller", DataUtil.APPS)))
-                    appList.add(0, AppBundle(ResourcesCompat.getDrawable(resources, R.drawable.vector_recommend, null)!!, getString(R.string.name_default_playstore), "com.android.vending", DataUtil.getBoolean("com.android.vending", DataUtil.APPS)))
+                    appList.add(0, AppBundle(ResourcesCompat.getDrawable(resources, R.drawable.vector_recommend, null)!!, getString(R.string.name_default_play_store), "com.android.vending", DataUtil.getBoolean("com.android.vending", DataUtil.APPS)))
                     appList.add(0, AppBundle(ResourcesCompat.getDrawable(resources, R.drawable.vector_recommend, null)!!, getString(R.string.name_default_settings), "com.android.settings", DataUtil.getBoolean("com.android.settings", DataUtil.APPS)))
                 }
 

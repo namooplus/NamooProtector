@@ -45,7 +45,7 @@
         </activity>
 
         <activity
-            android:name=".activity.DeveloperActivity"
+            android:name=".activity.AboutActivity"
             android:theme="@style/SharedTheme"/>
 
         <activity
@@ -66,11 +66,11 @@
             android:excludeFromRecents="true"/>
 
         <activity
-            android:name=".activity.BackupActivity"
+            android:name=".activity.ZBackupActivity"
             android:theme="@style/SharedTheme"/>
 
         <activity
-            android:name=".activity.RestoreActivity"
+            android:name=".activity.ZRestoreActivity"
             android:theme="@style/SharedTheme"/>
 
         <!--서비스-->

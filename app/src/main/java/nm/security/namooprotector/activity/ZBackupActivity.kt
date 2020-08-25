@@ -2,36 +2,27 @@ package nm.security.namooprotector.activity
 
 import android.content.Context
 import android.os.Bundle
-import android.os.Environment
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
 import nm.security.namooprotector.util.*
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
-import kotlinx.android.synthetic.main.activity_main.*
-import nm.security.namooprotector.fragment.*
 import nm.security.namooprotector.R
-import com.google.android.gms.ads.*
-import kotlinx.android.synthetic.main.activity_backup.*
-import kotlinx.android.synthetic.main.activity_backup.backup_loading_layout
-import kotlinx.android.synthetic.main.activity_pin.*
+import kotlinx.android.synthetic.main.z_activity_backup.*
+import kotlinx.android.synthetic.main.z_activity_backup.backup_loading_layout
 import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.Default
-import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
-import nm.security.namooprotector.BuildConfig
 import java.io.File
 
-class BackupActivity: AppCompatActivity()
+class ZBackupActivity: AppCompatActivity()
 {
     //라이프사이클
     override fun onCreate(savedInstanceState: Bundle?)
     {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_backup)
+        setContentView(R.layout.z_activity_backup)
 
         ActivityUtil.initFlag(this, true)
         ActivityUtil.initPreviousTitle(this)
@@ -105,7 +96,7 @@ class BackupActivity: AppCompatActivity()
             if (file.exists())
             {
                 withContext(Main) {
-                    Toast.makeText(this@BackupActivity, "같은 이름의 백업 파일이 존재합니다. 이름을 다시 입력해주세요.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@ZBackupActivity, "같은 이름의 백업 파일이 존재합니다. 이름을 다시 입력해주세요.", Toast.LENGTH_SHORT).show()
 
                     backup_loading_layout.visibility = View.GONE
                 }
@@ -116,7 +107,7 @@ class BackupActivity: AppCompatActivity()
             file.writeText(content)
 
             withContext(Main) {
-                Toast.makeText(this@BackupActivity, "백업에 성공했습니다. ${filesDir.absolutePath}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@ZBackupActivity, "백업에 성공했습니다. ${filesDir.absolutePath}", Toast.LENGTH_SHORT).show()
                 finishAfterTransition()
             }
         }

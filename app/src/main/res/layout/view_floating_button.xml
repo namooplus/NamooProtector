@@ -13,7 +13,7 @@
         android:id="@+id/view_floating_button_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="확인"
+        tools:text="@string/common_ok"
         android:textColor="@color/text_bright_color"
         android:textSize="@dimen/text_content_size"/>
 

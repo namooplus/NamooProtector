@@ -45,7 +45,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="새 패턴을 그려주세요."
+                    android:text="@string/alert_draw_new_pattern"
                     android:textSize="@dimen/text_content_size"
                     android:textColor="@color/text_semi_dark_color" />
 
@@ -75,7 +75,7 @@
         android:layout_margin="@dimen/activity_padding"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
-        app:floating_text="다음"
+        app:floating_text="@string/common_next"
         android:visibility="gone"
         android:onClick="ok"/>
 
@@ -101,7 +101,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toTopOf="@id/title_indicator"
             app:layout_constraintVertical_chainStyle="packed"
-            android:text="Namoo Protector"
+            android:text="@string/app_name"
             android:textSize="@dimen/text_content_size"
             android:textColor="@color/text_semi_dark_color"
             android:transitionName="appIndicator"/>
@@ -114,7 +114,7 @@
             app:layout_constraintTop_toTopOf="@id/title_indicator"
             app:layout_constraintBottom_toBottomOf="@id/title_indicator"
             android:layout_marginEnd="@dimen/space_padding"
-            tools:text="Settings"
+            tools:text="@string/name_settings"
             android:textSize="@dimen/text_title_size"
             android:textStyle="bold"
             android:textColor="@color/text_dark_color"
@@ -137,7 +137,7 @@
             app:layout_constraintTop_toBottomOf="@id/app_indicator"
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginStart="@dimen/space_padding"
-            android:text="Create Pattern"
+            android:text="@string/name_generate_pattern"
             android:textSize="@dimen/text_title_size"
             android:textStyle="bold"
             android:textColor="@color/text_dark_color"/>

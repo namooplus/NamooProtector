@@ -31,7 +31,7 @@
             android:id="@+id/view_app_bundle_label"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            tools:text="나무프로텍터"
+            tools:text="@string/app_name"
             android:textSize="@dimen/text_content_size"
             android:textColor="@color/text_dark_color"/>
 

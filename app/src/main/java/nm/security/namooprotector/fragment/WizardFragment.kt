@@ -18,6 +18,7 @@ import nm.security.namooprotector.activity.PatternActivity
 import nm.security.namooprotector.activity.PinActivity
 import nm.security.namooprotector.util.ActivityUtil
 import nm.security.namooprotector.util.CheckUtil
+import nm.security.namooprotector.util.ResourceUtil
 
 class WizardFragment : Fragment()
 {
@@ -43,8 +44,8 @@ class WizardFragment : Fragment()
         wizard_essential_password_button.setOnClickListener {
             with(AlertDialog.Builder(context))
             {
-                setTitle("잠금 방식 선택")
-                setItems(arrayOf("PIN", "패턴")){ _, index: Int ->
+                setTitle(ResourceUtil.getString(R.string.alert_select_password_type))
+                setItems(arrayOf(ResourceUtil.getString(R.string.name_pin), ResourceUtil.getString(R.string.name_pattern))){ _, index: Int ->
                     when (index)
                     {
                         0 -> ActivityUtil.startActivityWithAnimation(activity!!, PinActivity::class.java)
@@ -61,7 +62,7 @@ class WizardFragment : Fragment()
             }
             catch (e: ActivityNotFoundException)
             {
-                Toast.makeText(context, "나무프로텍터를 찾아 앱 사용정보 권한을 활성화해주세요.", Toast.LENGTH_LONG).show()
+                Toast.makeText(context, ResourceUtil.getString(R.string.alert_usage_stats_permission), Toast.LENGTH_LONG).show()
                 startActivity(Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS))
             }
         }
@@ -72,7 +73,7 @@ class WizardFragment : Fragment()
             }
             catch (e: ActivityNotFoundException)
             {
-                Toast.makeText(context, "나무프로텍터를 찾아 오버레이 권한을 활성화해주세요.", Toast.LENGTH_LONG).show()
+                Toast.makeText(context, ResourceUtil.getString(R.string.alert_overlay_permission), Toast.LENGTH_LONG).show()
                 startActivity(Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION))
             }
         }

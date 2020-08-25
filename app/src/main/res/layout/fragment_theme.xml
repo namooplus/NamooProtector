@@ -28,7 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/activity_top_padding"
         android:layout_centerHorizontal="true"
-        tools:text="가 선택되었습니다."
+        tools:text="@string/alert_element_selected"
         android:textColor="@color/text_dark_color"
         android:textSize="@dimen/text_content_size"
         android:visibility="gone"/>

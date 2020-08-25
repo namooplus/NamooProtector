@@ -263,7 +263,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_padding"
-                android:text="@string/alert_watch"
+                android:text="@string/alert_watch_failure"
                 android:textSize="@dimen/text_title_size"
                 android:textColor="@color/text_bright_color"/>
 
