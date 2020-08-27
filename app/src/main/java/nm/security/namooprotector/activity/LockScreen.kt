@@ -7,6 +7,7 @@ import android.hardware.camera2.CameraAccessException
 import android.hardware.camera2.CameraManager
 import android.media.AudioAttributes
 import android.os.*
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.Toast
@@ -49,6 +50,8 @@ class LockScreen: AppCompatActivity()
     override fun onResume()
     {
         super.onResume()
+
+        Log.e("Lockscreen", "open")
 
         resetVariables()
         initUI()

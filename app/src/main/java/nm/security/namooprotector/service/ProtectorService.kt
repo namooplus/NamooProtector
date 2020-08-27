@@ -11,9 +11,11 @@ import android.app.usage.UsageStatsManager
 import android.content.Context
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
 import kotlinx.coroutines.*
+import nm.security.namooprotector.NamooProtector.Companion.context
 import nm.security.namooprotector.R
 import nm.security.namooprotector.activity.LockScreen
 import nm.security.namooprotector.util.CheckUtil
@@ -92,6 +94,8 @@ class ProtectorService : Service()
 
         //앱 변화 감지
         onAppChanged {
+            Log.e("ProtectorService", it)
+
             //나무프로텍터 잠금 방지
             if (it == packageName) return@onAppChanged
 
@@ -157,6 +161,9 @@ class ProtectorService : Service()
         val lockScreen = Intent(this, LockScreen::class.java)
         lockScreen.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         lockScreen.putExtra("packageName", packageName)
+
+        Log.e("Lockscreen", "before open")
+
         startActivity(lockScreen)
     }
 }
