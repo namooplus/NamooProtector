@@ -10,7 +10,7 @@ android {
         minSdkVersion 23
         targetSdkVersion 29
         versionCode 62
-        versionName "4.0 beta 1"
+        versionName "4.0 beta 2"
         vectorDrawables.useSupportLibrary = true
     }
     kotlinOptions {

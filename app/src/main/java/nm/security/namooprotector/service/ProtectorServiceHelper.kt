@@ -5,12 +5,17 @@ object ProtectorServiceHelper
     //잠금 해제가 인증된 앱
     private val authorizedApps = mutableListOf<AuthorizeBundle>()
 
+    fun addTemporaryAuthorizedApp(packageName: String)
+    {
+        authorizedApps.add(AuthorizeBundle(packageName, 0L))
+    }
     fun addAuthorizedApp(packageName: String, authorizedTime: Long)
     {
-        if (authorizedTime == 0L) authorizedApps.add(AuthorizeBundle(packageName, 0L))
-        else authorizedApps.add(AuthorizeBundle(packageName, System.currentTimeMillis() + authorizedTime * 1000))
+        if (packageName == "nm.security.namooprotector") return
+
+        authorizedApps.add(AuthorizeBundle(packageName, System.currentTimeMillis() + authorizedTime * 1000))
     }
-    fun cleanTemporaryAuthorizedApps()
+    fun clearTemporaryAuthorizedApp()
     {
         authorizedApps.removeAll { it.authorizedTime == 0L }
     }

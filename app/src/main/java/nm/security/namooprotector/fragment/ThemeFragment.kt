@@ -238,7 +238,7 @@ class ThemeFragment : Fragment()
         view.view_size_picker_seek_bar.setOnSeekBarChangeListener(object: OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean)
             {
-
+                view.view_size_picker_seek_indicator.text = (seekBar.progress + minValue).toString()
             }
             override fun onStartTrackingTouch(seekBar: SeekBar)
             {
@@ -246,7 +246,7 @@ class ThemeFragment : Fragment()
             }
             override fun onStopTrackingTouch(seekBar: SeekBar)
             {
-                view.view_size_picker_seek_indicator.text = (seekBar.progress + minValue).toString()
+
             }
         })
 

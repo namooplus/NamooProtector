@@ -48,9 +48,9 @@ class MainActivity: AppCompatActivity()
     }
     override fun onDestroy()
     {
-        ProtectorServiceHelper.cleanTemporaryAuthorizedApps()
-
         main_ad_view.destroy()
+
+        ProtectorServiceHelper.clearTemporaryAuthorizedApp()
 
         super.onDestroy()
     }

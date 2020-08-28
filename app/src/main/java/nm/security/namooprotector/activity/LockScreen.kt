@@ -51,8 +51,6 @@ class LockScreen: AppCompatActivity()
     {
         super.onResume()
 
-        Log.e("Lockscreen", "open")
-
         resetVariables()
         initUI()
         initClick()
@@ -313,7 +311,7 @@ class LockScreen: AppCompatActivity()
     private fun successUnlock()
     {
         //잠금 해제
-        ProtectorServiceHelper.addAuthorizedApp(lockedApp, if (lockedApp == packageName) 0 else SettingsUtil.lockDelay.toLong())
+        ProtectorServiceHelper.addTemporaryAuthorizedApp(lockedApp)
         finish()
     }
     private fun failUnlock()

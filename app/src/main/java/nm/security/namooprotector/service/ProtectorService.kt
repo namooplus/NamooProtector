@@ -9,9 +9,6 @@ import android.os.Build
 import android.app.usage.UsageEvents
 import android.app.usage.UsageStatsManager
 import android.content.Context
-import android.os.Handler
-import android.os.Looper
-import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
 import kotlinx.coroutines.*
@@ -92,30 +89,12 @@ class ProtectorService : Service()
         if (searchTask != null)
             return
 
-        //앱 변화 감지
-        onAppChanged {
-            Log.e("ProtectorService", it)
-
-            //나무프로텍터 잠금 방지
-            if (it == packageName) return@onAppChanged
-
-            //잠금
-            if (DataUtil.getBoolean(it, DataUtil.APPS) && !ProtectorServiceHelper.isAuthorized(it)) lock(it)
-            //갱신
-            else if (ProtectorServiceHelper.isAuthorized(it)) ProtectorServiceHelper.addAuthorizedApp(it, SettingsUtil.lockDelay.toLong())
-
-            //임시 잠금해제 인증앱 초기화
-            ProtectorServiceHelper.cleanTemporaryAuthorizedApps()
-        }
-    }
-
-    //메소드
-    private fun onAppChanged(invoker: ((currentApp: String) -> Unit))
-    {
         //검색
         var previousEventApp = ""
         var recentEventApp = ""
-        var recentEventTime: Long = 0
+        var recentEventTime = 0L
+        var tempRecentEventApp = ""
+        var tempRecentEventTime = 0L
 
         searchTask = Thread(Runnable {
             while (search)
@@ -136,18 +115,40 @@ class ProtectorService : Service()
 
                     if (scannedEventType == UsageEvents.Event.ACTIVITY_RESUMED && scannedEventTime > recentEventTime)
                     {
-                        recentEventApp = scannedEventApp
-                        recentEventTime = scannedEventTime
+                        tempRecentEventApp = scannedEventApp
+                        tempRecentEventTime = scannedEventTime
                     }
                 }
 
-                //잠금 해제 인증앱 업데이트
-                ProtectorServiceHelper.updateAuthorizedApps()
+                if (tempRecentEventTime > recentEventTime)
+                {
+                    //짧은 중복 인식 -> 앱 변화로 간주
+                    if (tempRecentEventApp == recentEventApp) previousEventApp = packageName
+
+                    recentEventApp = tempRecentEventApp
+                    recentEventTime = tempRecentEventTime
+                }
 
                 //앱 변화 감지
-                if (previousEventApp != recentEventApp)
+                if (recentEventApp != previousEventApp)
                 {
-                    Handler(Looper.getMainLooper()).post(Runnable { invoker.invoke(recentEventApp) })
+                    //잠금 해제 인증앱 업데이트
+                    ProtectorServiceHelper.updateAuthorizedApps()
+
+                    //잠금 딜레이
+                    if (ProtectorServiceHelper.isAuthorized(previousEventApp))
+                    {
+                        ProtectorServiceHelper.clearTemporaryAuthorizedApp()
+                        ProtectorServiceHelper.addAuthorizedApp(previousEventApp, SettingsUtil.lockDelay.toLong())
+                    }
+
+                    //잠금
+                    if (ProtectorServiceHelper.isAuthorized(recentEventApp))
+                        ProtectorServiceHelper.addTemporaryAuthorizedApp(recentEventApp)
+
+                    if (DataUtil.getBoolean(recentEventApp, DataUtil.APPS) && !ProtectorServiceHelper.isAuthorized(recentEventApp) && recentEventApp != packageName)
+                        lock(recentEventApp)
+
 
                     previousEventApp = recentEventApp
                 }
@@ -156,14 +157,12 @@ class ProtectorService : Service()
         searchTask!!.start()
     }
 
+    //메소드
     private fun lock(packageName: String)
     {
-        val lockScreen = Intent(this, LockScreen::class.java)
-        lockScreen.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        val lockScreen = Intent(context, LockScreen::class.java)
+        lockScreen.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT)
         lockScreen.putExtra("packageName", packageName)
-
-        Log.e("Lockscreen", "before open")
-
-        startActivity(lockScreen)
+        context.startActivity(lockScreen)
     }
 }
