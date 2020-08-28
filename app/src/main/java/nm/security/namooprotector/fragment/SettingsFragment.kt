@@ -29,9 +29,9 @@ import kotlin.reflect.KMutableProperty0
 
 class SettingsFragment : Fragment()
 {
-    private val fingerprintManager by lazy { Goldfinger.Builder(context!!).build() }
-    private val policyManager by lazy { context!!.getSystemService(Context.DEVICE_POLICY_SERVICE) as DevicePolicyManager }
-    private val deviceAdmin by lazy { ComponentName(context!!, DeviceAdminHelper::class.java) }
+    private val fingerprintManager by lazy { Goldfinger.Builder(requireContext()).build() }
+    private val policyManager by lazy { requireContext().getSystemService(Context.DEVICE_POLICY_SERVICE) as DevicePolicyManager }
+    private val deviceAdmin by lazy { ComponentName(requireContext(), DeviceAdminHelper::class.java) }
 
     //라이프사이클
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View?
@@ -53,8 +53,8 @@ class SettingsFragment : Fragment()
     private fun initClick()
     {
         //잠금 방식
-        settings_lock_type_pin.setOnClickListener { ActivityUtil.startActivityWithAnimation(activity!!, PinActivity::class.java) }
-        settings_lock_type_pattern.setOnClickListener { ActivityUtil.startActivityWithAnimation(activity!!, PatternActivity::class.java) }
+        settings_lock_type_pin.setOnClickListener { ActivityUtil.startActivityWithAnimation(requireActivity(), PinActivity::class.java) }
+        settings_lock_type_pattern.setOnClickListener { ActivityUtil.startActivityWithAnimation(requireActivity(), PatternActivity::class.java) }
         settings_lock_type_fingerprint.setOnClickListener { toggleStateFingerprint() }
 
         //PIN 추가 설정
@@ -216,7 +216,7 @@ class SettingsFragment : Fragment()
     }
     private fun toggleStateLockDelay(view: View)
     {
-        with(PopupMenu(context!!, view))
+        with(PopupMenu(context, view))
         {
             menu.add(ResourceUtil.getString(R.string.common_none))
             menu.add("5" + ResourceUtil.getString(R.string.common_seconds))

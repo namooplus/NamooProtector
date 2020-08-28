@@ -112,21 +112,25 @@ class AppsFragment : Fragment()
                 withContext(Dispatchers.Default)
                 {
                     //설치된 앱 불러오기
-                    val installedAppList = context!!.packageManager.getInstalledApplications(PackageManager.GET_META_DATA)
-                        .filterNot { context!!.packageManager.getLaunchIntentForPackage(it.packageName!!) == null || it.packageName == "nm.security.namooprotector" || it.packageName == "com.android.vending" || it.packageName == "com.android.settings" }
-                        .sortedBy { it.loadLabel(context!!.packageManager).toString() }
+                    val installedAppList = requireContext().packageManager.getInstalledApplications(PackageManager.GET_META_DATA)
+                        .filterNot { requireContext().packageManager.getLaunchIntentForPackage(it.packageName!!) == null
+                                || it.packageName == "nm.security.namooprotector"
+                                || it.packageName == "com.android.vending"
+                                || it.packageName == "com.android.settings"
+                                || it.packageName == "com.google.android.packageinstaller"}
+                        .sortedBy { it.loadLabel(requireContext().packageManager).toString() }
 
                     //추가
-                    installedAppList.forEach { appList.add(AppBundle(it.loadIcon(context!!.packageManager), it.loadLabel(context!!.packageManager).toString(), it.packageName, DataUtil.getBoolean(it.packageName, DataUtil.APPS))) }
+                    installedAppList.forEach { appList.add(AppBundle(it.loadIcon(requireContext().packageManager), it.loadLabel(requireContext().packageManager).toString(), it.packageName, DataUtil.getBoolean(it.packageName, DataUtil.APPS))) }
 
                     //기본 앱 추가
-                    appList.add(0, AppBundle(ResourcesCompat.getDrawable(resources, R.drawable.vector_recommend, null)!!, getString(R.string.name_default_prevent_apps_uninstalled), "com.android.packageinstaller", DataUtil.getBoolean("com.android.packageinstaller", DataUtil.APPS)))
+                    appList.add(0, AppBundle(ResourcesCompat.getDrawable(resources, R.drawable.vector_recommend, null)!!, getString(R.string.name_default_prevent_apps_uninstalled), "com.google.android.packageinstaller", DataUtil.getBoolean("com.google.android.packageinstaller", DataUtil.APPS)))
                     appList.add(0, AppBundle(ResourcesCompat.getDrawable(resources, R.drawable.vector_recommend, null)!!, getString(R.string.name_default_play_store), "com.android.vending", DataUtil.getBoolean("com.android.vending", DataUtil.APPS)))
                     appList.add(0, AppBundle(ResourcesCompat.getDrawable(resources, R.drawable.vector_recommend, null)!!, getString(R.string.name_default_settings), "com.android.settings", DataUtil.getBoolean("com.android.settings", DataUtil.APPS)))
                 }
 
                 //적용
-                apps_list.adapter = AppsAdapter(context!!, appList)
+                apps_list.adapter = AppsAdapter(requireContext(), appList)
                 {
                     it.state = !it.state
 

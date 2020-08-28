@@ -149,7 +149,7 @@
 
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-8836936338107765~2258517133"/>
+            android:value="@string/admob_project_key"/>
 
     </application>
 

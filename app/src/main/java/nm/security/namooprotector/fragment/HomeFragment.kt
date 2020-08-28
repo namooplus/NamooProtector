@@ -43,8 +43,8 @@ class HomeFragment : Fragment()
         }
 
         //더보기
-        home_more_info.setOnClickListener { ActivityUtil.startActivityWithAnimation(activity!!, AboutActivity::class.java) }
-        home_more_support.setOnClickListener { ActivityUtil.startActivityWithAnimation(activity!!, SupportActivity::class.java) }
+        home_more_info.setOnClickListener { ActivityUtil.startActivityWithAnimation(requireActivity(), AboutActivity::class.java) }
+        home_more_support.setOnClickListener { ActivityUtil.startActivityWithAnimation(requireActivity(), SupportActivity::class.java) }
     }
     private fun initState()
     {

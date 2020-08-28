@@ -48,8 +48,8 @@ class WizardFragment : Fragment()
                 setItems(arrayOf(ResourceUtil.getString(R.string.name_pin), ResourceUtil.getString(R.string.name_pattern))){ _, index: Int ->
                     when (index)
                     {
-                        0 -> ActivityUtil.startActivityWithAnimation(activity!!, PinActivity::class.java)
-                        1 -> ActivityUtil.startActivityWithAnimation(activity!!, PatternActivity::class.java)
+                        0 -> ActivityUtil.startActivityWithAnimation(requireActivity(), PinActivity::class.java)
+                        1 -> ActivityUtil.startActivityWithAnimation(requireActivity(), PatternActivity::class.java)
                     }
                 }
                 show()
@@ -58,7 +58,7 @@ class WizardFragment : Fragment()
         wizard_essential_usage_stats_permission_button.setOnClickListener {
             try
             {
-                startActivity(Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS, Uri.parse("package:" + activity!!.packageName)))
+                startActivity(Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS, Uri.parse("package:" + requireActivity().packageName)))
             }
             catch (e: ActivityNotFoundException)
             {
@@ -69,7 +69,7 @@ class WizardFragment : Fragment()
         wizard_essential_overlay_permission_button.setOnClickListener {
             try
             {
-                startActivity(Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,  Uri.parse("package:" + activity!!.packageName)))
+                startActivity(Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,  Uri.parse("package:" + requireActivity().packageName)))
             }
             catch (e: ActivityNotFoundException)
             {
@@ -79,7 +79,7 @@ class WizardFragment : Fragment()
         }
 
         wizard_start_button.setOnClickListener {
-            (activity as MainActivity).home(view!!)
+            (activity as MainActivity).home(it)
         }
     }
 
