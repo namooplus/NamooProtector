@@ -141,7 +141,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         ads:adSize="BANNER"
-        ads:adUnitId="@string/admob_test_key"
+        ads:adUnitId="@string/admob_banner_key"
         android:visibility="gone"/>
 
 </LinearLayout>

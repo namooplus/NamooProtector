@@ -37,6 +37,8 @@ class SupportActivity: AppCompatActivity(), PurchasesUpdatedListener
     }
     override fun onDestroy()
     {
+        billingClient.endConnection()
+
         super.onDestroy()
 
         job?.cancel()

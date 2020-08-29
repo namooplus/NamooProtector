@@ -1,13 +1,18 @@
 package nm.security.namooprotector.activity
 
 import android.content.Intent
+import android.content.pm.PackageInfo
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
-import nm.security.namooprotector.util.*
 import androidx.appcompat.app.AppCompatActivity
 import de.psdev.licensesdialog.LicensesDialog
+import kotlinx.android.synthetic.main.activity_about.*
 import nm.security.namooprotector.R
+import nm.security.namooprotector.util.ActivityUtil
+import nm.security.namooprotector.util.ResourceUtil
+
 
 class AboutActivity: AppCompatActivity()
 {
@@ -19,9 +24,15 @@ class AboutActivity: AppCompatActivity()
 
         ActivityUtil.initFlag(this, true)
         ActivityUtil.initPreviousTitle(this)
+
+        initUI()
     }
 
     //설정
+    private fun initUI()
+    {
+        about_app_version_indicator.text =  packageManager.getPackageInfo(packageName, 0).versionName ?: ResourceUtil.getString(R.string.error_unknown)
+    }
 
     //클릭 이벤트
     fun github(view: View)

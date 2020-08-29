@@ -109,6 +109,7 @@
 
 
     <string name="name_about">About</string>
+    <string name="name_about_app">About app</string>
     <string name="name_developer">Who made it?</string>
     <string name="name_learn_developer">Learn more about namoo</string>
     <string name="name_github">Github</string>

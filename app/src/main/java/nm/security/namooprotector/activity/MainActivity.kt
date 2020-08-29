@@ -5,9 +5,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.google.android.gms.ads.AdListener
-import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.MobileAds
+import com.google.android.gms.ads.*
 import kotlinx.android.synthetic.main.activity_main.*
 import nm.security.namooprotector.R
 import nm.security.namooprotector.fragment.*
@@ -48,6 +46,7 @@ class MainActivity: AppCompatActivity()
     }
     override fun onDestroy()
     {
+        main_ad_view.adListener = null
         main_ad_view.destroy()
 
         ProtectorServiceHelper.clearTemporaryAuthorizedApp()

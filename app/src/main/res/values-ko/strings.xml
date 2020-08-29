@@ -109,6 +109,7 @@
 
 
     <string name="name_about">앱 정보</string>
+    <string name="name_about_app">앱 정보</string>
     <string name="name_developer">누가 만들었을까요?</string>
     <string name="name_learn_developer">개발자 알아보기</string>
     <string name="name_github">깃허브</string>
