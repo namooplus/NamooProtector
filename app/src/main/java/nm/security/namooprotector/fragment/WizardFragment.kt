@@ -19,6 +19,7 @@ import nm.security.namooprotector.activity.PinActivity
 import nm.security.namooprotector.util.ActivityUtil
 import nm.security.namooprotector.util.CheckUtil
 import nm.security.namooprotector.util.ResourceUtil
+import nm.security.namooprotector.util.ServiceUtil
 
 class WizardFragment : Fragment()
 {
@@ -79,6 +80,7 @@ class WizardFragment : Fragment()
         }
 
         wizard_start_button.setOnClickListener {
+            ServiceUtil.runService(true)
             (activity as MainActivity).home(it)
         }
     }
