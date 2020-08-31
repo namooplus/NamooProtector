@@ -58,7 +58,7 @@
     <string name="alert_service_off">나무프로텍터가\n쉬고 있어요…</string>
     <string name="alert_service_guide">활성화 상태여도 나무프로텍터 서비스가 실행 중이지 않다면 비활성화 후 다시 활성화해주세요.</string>
 
-    <string name="alert_check_purchased">나무프로텍터를 재설치했거나 이미 구입한 항목(광고 제거)이 복원되지 않았다면 해당 항목을 다시 눌러주세요!</string>
+    <string name="alert_check_purchased">나무프로텍터를 재설치했거나 이미 구입한 항목(광고 제거)이 복원되지 않았다면 해당 항목을 다시 눌러주세요! 재결제되지 않습니다.</string>
 
     <string name="alert_loading_app">앱 목록 불러오는 중…</string>
     <string name="alert_unselect_all_apps">정말 모든 앱을 선택 해제하시겠습니까?</string>
@@ -80,6 +80,8 @@
     <string name="alert_uncover">커버를 풀고 잠금해제</string>
 
     <string name="alert_unlock_using_fingerprint">지문인식을 이용해 잠금을 해제합니다.</string>
+
+    <string name="alert_np_updated">나무프로텍터가 업데이트되었습니다.</string>
 
     <!--permission-->
 

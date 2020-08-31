@@ -58,7 +58,7 @@
     <string name="alert_service_off">Namoo Protector is\nsleeping…</string>
     <string name="alert_service_guide">If NP service is not running even if you\'ve already activated it, please deactivate and activate it again.</string>
 
-    <string name="alert_check_purchased">If you reinstalled this app or your purchases are not restored, click the item you\'ve already purchased again.</string>
+    <string name="alert_check_purchased">If you reinstalled this app or your purchases(Remove ads) are not restored, click the item you\'ve already purchased again. It will not be re-paid.</string>
 
     <string name="alert_loading_app">Loading apps list…</string>
     <string name="alert_unselect_all_apps">Do you really want to unselect all apps?</string>
@@ -80,6 +80,8 @@
     <string name="alert_uncover">Uncover and unlock</string>
 
     <string name="alert_unlock_using_fingerprint">Unlock the app using fingerprint.</string>
+
+    <string name="alert_np_updated">Namoo Protector have just updated.</string>
 
     <!--permission-->
 
